@@ -993,13 +993,13 @@ GO
 
 INSERT INTO ClassRegistrations (ScheduleID, CustomerID)
 SELECT ScheduleID, CustomerID FROM (
-    SELECT s.ScheduleID, c.ID AS CustomerID, s.Max_slots, ROW_NUMBER() OVER(PARTITION BY s.ScheduleID ORDER BY NEWID()) as NumerOsoby,
+    SELECT s.StartTime,s.ScheduleID, c.ID AS CustomerID, s.Max_slots, ROW_NUMBER() OVER(PARTITION BY s.ScheduleID ORDER BY NEWID()) as NumerOsoby,
 	ABS(CHECKSUM(NEWID())) % 5 as PusteMiejsca
     FROM ClassSchedule s
-    CROSS JOIN Customers c 
-    WHERE c.ID >= 13 AND s.StartTime < '2026-03-01'
-) x
-WHERE NumerOsoby <= (Max_slots - PusteMiejsca);
+    CROSS JOIN Customers c
+    WHERE c.ID >= 13 AND s.StartTime < '2026-03-01') x
+
+WHERE NumerOsoby <= (Max_slots - PusteMiejsca) AND dbo.CheckAccessPermission(CustomerID,CAST(x.StartTime as DATE)) = 1
 GO
 UPDATE S
 SET Registered = (

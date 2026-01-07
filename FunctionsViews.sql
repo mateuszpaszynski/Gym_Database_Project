@@ -1,6 +1,6 @@
 --CheatSheet for HR 
 IF OBJECT_ID('dbo.GetMonthlyPayouts') is not null
-DROP FUNCTION GetMonthlyPayouts
+DROP FUNCTION dbo.GetMonthlyPayouts
 GO
 CREATE FUNCTION dbo.GetMonthlyPayouts(@Month INT)
 RETURNS TABLE
@@ -11,8 +11,28 @@ Select S1.ID,S1.Name,S1.Surname,S1.[Month],CAST(S1.[Hours] * E.HourlySalary as M
 ( SELECT P.ID,month(StartTime)[miesiac],SUM(W.durationTime) [Godziny] FROM Person P Right JOIN Workshifts W on P.ID = W.EmployeeID
 GROUP BY P.ID,Month(StartTime)) S on S.ID = P.ID) S1 on S1.ID = E.ID
 WHERE @Month = S1.[Month];
+GO
 
+--Check if Customers has Access to facility at given time 
+IF OBJECT_ID('dbo.CheckAccessPermission') is not null
+DROP FUNCTION dbo.CheckAccessPermission
+GO
+CREATE FUNCTION dbo.CheckAccessPermission (@CustomerID INT, @Date DATE)
+RETURNS BIT
+AS
+BEGIN
+    -- Sprawdzamy czy istnieje karnet
+    IF EXISTS (SELECT 1 FROM Memberships WHERE CustomerID = @CustomerID AND @Date BETWEEN StartDate AND EndDate)
+        RETURN 1;
 
+    -- Jeœli nie, sprawdzamy czy istnieje wejœcie jednorazowe
+    IF EXISTS (SELECT 1 FROM SingleEntries WHERE CustomerID = @CustomerID AND CAST(EntryDate AS DATE) = @Date)
+        RETURN 1;
+
+    -- Jeœli nic nie znalaz³
+    RETURN 0;
+END;
+GO
 -- HOW MUCH MONEY EACH Customer Spent 
 IF OBJECT_ID('CustomersSpending') is not null
 DROP VIEW CustomersSpending
@@ -23,5 +43,4 @@ SELECT P.ID,P.Name,P.Surname,COALESCE(S.[Money Spent],0)[Money Spent] FROM PERSO
 GROUP BY ClientID ) S on S.ClientID = P.ID
 where P.ID in ( SELECT * FROM CUSTOMERS)
 GO
-SELECT * FROM CustomersSpending
-ORDER BY [Money Spent] DESC
+
