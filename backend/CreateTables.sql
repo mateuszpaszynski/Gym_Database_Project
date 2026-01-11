@@ -11,7 +11,7 @@ Go
 -- Przelaczenie na nowa baze bez tego nie dziala 
 USE Silownia
 GO
--- Tabela nadrzêdna
+-- Tabela nadrzÃªdna
 CREATE TABLE Person (
 ID int IDENTITY(1,1) not Null,
 Name nvarchar(256) not null,
@@ -93,11 +93,8 @@ CONSTRAINT FK_ReservationsRoom FOREIGN KEY(RoomID) REFERENCES Rooms(ID),
 CREATE TABLE EntriesBacklog(
 EntryID  INT IDENTITY(1,1) not null PRIMARY KEY,
 PersonID int not null,
-RoomID int not null,
-InorOut nvarchar(3) not null,
 Data datetime not null,
 CONSTRAINT FK_EntriesBacklogID FOREIGN KEY(PersonID) REFERENCES Person(ID),
-CONSTRAINT FK_EntriesBaclogRoom FOREIGN KEY (RoomID) REFERENCES Rooms(ID),
 )
 CREATE TABLE ClassTypes (
 ClassID int IDENTITY(1,1) not null,
