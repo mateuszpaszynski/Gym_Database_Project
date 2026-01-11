@@ -1,4 +1,5 @@
 import React,{useEffect,useState} from 'react';
+import uniwersalStyles, {drawCalendar} from "./styles";
 function Classes()
 {
     const [dane,setDane] = useState([]);
@@ -14,32 +15,20 @@ function Classes()
         }
 };
     useEffect(() => {getData() },[]);
-    console.log(dane);
+    const [month,setMonth] = useState(3);
+    const days =[];
+    const dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
     return (
-        <div style={{display:'flex',flexDirection:' column',alignItems: 'center',justifyContent:'flexStart',width:'100%',zIndex: 4,color :'white'}}>
-            <h2 style ={styles.Header}>OUR OFFER</h2>
-            <table border="1" style ={{width:'70%',zIndex: 7,border:'transparent',backgroundColor: 'rgba(30, 7, 0, 0.7)'}}>
-                <thead>
-                <tr>
-                    <th>Class</th>
-                    <th>capacity</th>
-                    <th>With</th>
-                    <th>At</th>
-                    <th>for</th>
-                </tr>
-                </thead>
-                <tbody >{
-                    dane.map((u) => (<tr key = {u.ScheduleID}>
-                        <td>{u.ClassName}</td>
-                        <td>{u.Registered}/{u.Max_slots}</td>
-                        <td>{u.Name} {u.Surname}</td>
-                        <td>{u.StartTime}</td>
-                        <td>{u.durationTime} minutes</td>
+        <div style = {{border :'2px solid green',width:'100%',height:'100%',display:'flex',flexDirection:'column',justifyContent: 'center',itemsAlign:'center'}}>
+            <div style = {uniwersalStyles.calendarMenu}>
 
-                    </tr>))
+            </div>
+            <div style = {uniwersalStyles.gridContainer}>
+                {
+                    drawCalendar(0)
                 }
-                </tbody>
-            </table>
+            </div>
+
         </div>
     );
 }

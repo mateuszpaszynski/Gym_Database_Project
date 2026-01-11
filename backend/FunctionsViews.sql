@@ -60,3 +60,4 @@ RETURN (SELECT CS.ScheduleID,T.ClassName ,CS.Registered,CS.Max_slots,P.Name,P.Su
 GO
 
 SELECT * FROM dbo.GetClassSchedule(1)
+
