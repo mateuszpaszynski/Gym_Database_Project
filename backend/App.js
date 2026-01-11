@@ -19,6 +19,17 @@ app.get('/api/PopularClasses', async (req, res) => {
         res.status(500).send(err.message);
     }
 });
+app.get('/api/Classes',async(req,res) =>{
+    try{
+        let pool = await sql.connect(config);
+        let result = await pool.request().query('SELECT * FROM dbo.GetClassSchedule(1) ORDER BY StartTime');
+        res.json(result.recordset);
+    }catch(err)
+    {
+        res.status(500).send(err.message);
+    }
+
+});
 app.get('/api/Services',async (req,res) =>{
     try{
     let pool = await sql.connect(config);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Home from './Home.js'
+import Classes from './Classes.js'
 import Customers from './Customers.js'
 import Shifts from './Shifts.js'
 import Employees from "./Employees.js";
@@ -23,16 +24,17 @@ function App() {
                         style = {widok === 'Offer' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>OFFER</button>
 
                     <button
-                        onClick={()=>setWidok('Customers')}
-                        style = {widok === 'Customers' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>CUSTOMERS</button>
+                        onClick={()=>setWidok('Classes')}
+                        style = {widok === 'Classes' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Classes</button>
 
-                    <button
+                    {/*  <button
                         onClick={()=>setWidok('Employees')}
                         style = {widok === 'Employees' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Employees</button>
 
                     <button
                         onClick={()=>setWidok('Shifts')}
                         style = {widok === 'Shifts' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Shifts</button>
+                    */}
                 </nav>
                 <main style={{
                     position :'absolute',
@@ -45,9 +47,8 @@ function App() {
                 }}>
                 {widok === 'Home'      &&  <Home/>}
                 {widok === 'Offer'     &&  <Offer/>}
-                {widok === 'Customers' &&  <Customers/>}
-                {widok === 'Employees' &&  <Employees/>}
-                {widok === 'Shifts'    &&  <Shifts/>   }
+                {widok === 'Classes' &&  <Classes/>}
+
 
             </main>
 

@@ -8,10 +8,13 @@ export const uniwersalStyles ={
             zIndex: 1,},
         desktopBackground :{position: 'relative',fontFamily:'Arial',left :'0%',top :'0%',zIndex: 2},
         menuContainer:{
-            display: 'flex',padding: '20px' ,backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            boxSizing: 'border-box',
+            display: 'flex',padding: '1% 2%' ,backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            justifyContent:'space-between',
             direction :'column',
-            position:'absolute',left : '0%',top: '0%',width: '100%',height :'7.5%',gap : '4.5%',zIndex : 4},
+            position:'absolute',left : '0%',top: '0%',width: '100%',height :'11%',zIndex : 4},
         menuButton :{
+            width:'auto',
             backgroundColor: 'transparent',
             backdropFilter: 'no blur',
             color :'white',
@@ -23,6 +26,7 @@ export const uniwersalStyles ={
             cursor :'pointer',
         },
         activeButton:{
+            width:'auto',
             backgroundColor: 'rgba(0, 0, 0, 0.4)', // Bardzo ciemny, ale 80% przezroczystości
             backdropFilter: 'blur(5px)', // Rozmycie tła pod przyciskiem (efekt mrożonego szkła)
             //border: '2px solid white',
