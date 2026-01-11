@@ -14,6 +14,13 @@ GROUP BY P.ID,Month(StartTime)) S on S.ID = P.ID) S1 on S1.ID = E.ID
 WHERE @Month = S1.[Month];
 GO
 
+IF OBJECT_ID('PopularClasses') is not null
+DROP VIEW PopularClasses
+GO
+CREATE VIEW PopularCLasses as
+SELECT T.ClassName,SUM(C.Registered)[Total Registrations] FROM ClassSchedule C LEFT JOIN ClassTypes T on C.ClassID = T.ClassID
+GROUP BY T.ClassName
+GO
 --Check if Customers has Access to facility at given time 
 IF OBJECT_ID('dbo.CheckAccessPermission') is not null
 DROP FUNCTION dbo.CheckAccessPermission

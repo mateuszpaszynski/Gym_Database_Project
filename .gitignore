@@ -1,0 +1,17 @@
+# Biblioteki (najważniejsze - tego nie wysyłamy!)
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+.env
+backend/.env
+frontend/.env
+
+
+.idea/
+.vscode/
+
+Thumbs.db
+.DS_Store
+build/
+dist/

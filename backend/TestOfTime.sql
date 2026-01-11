@@ -1,0 +1,14 @@
+SELECT * FROM Payments P  LEFT JOIN [SERVICES] S on P.ServiceID = S.ServiceID
+WHERE CLIENTID = 33
+
+UPDATE [SERVICES] SET Price = 100 WHERE ServiceID = 4
+
+SELECT * FROM Payments P  LEFT JOIN [SERVICES] S on P.ServiceID = S.ServiceID
+WHERE CLIENTID = 33
+
+
+INSERT INTO SingleEntries(CustomerID,EntryDate) VALUES (33,'2026-03-06');
+
+
+SELECT * FROM Payments P  LEFT JOIN [SERVICES] S on P.ServiceID = S.ServiceID
+WHERE CLIENTID = 33
