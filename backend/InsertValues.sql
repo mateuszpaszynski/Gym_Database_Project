@@ -4,9 +4,9 @@ SET NOCOUNT ON;
 -- 1. SALE 
 INSERT INTO Rooms (Name, SurfaceArea) VALUES
 (N'Reception', 45.00),
-(N'Main room (Open Space)', 350.50), -- Du¿a
-(N'Medium room', 80.00),            -- Mniejsza (30 osób)
-(N'Small room', 35.00);          -- Ma³a (15 osób)
+(N'Main room (Open Space)', 350.50), -- Duï¿½a
+(N'Medium room', 80.00),            -- Mniejsza (30 osï¿½b)
+(N'Small room', 35.00);          -- Maï¿½a (15 osï¿½b)
 
 -- 2. OFERTY (Memberships)
 INSERT INTO [Services] (ServiceName, Price) VALUES
@@ -35,73 +35,73 @@ INSERT INTO Person (Name, Surname, Pesel, Email) VALUES
 -- ID 1: TY (SZEF)
 ('Jan', 'Kowalski', '80010112345', 'szef@silownia.com'),
 
--- ID 2-5: PRACOWNICY (Recepcja - m³odzi, maj¹ maile)
+-- ID 2-5: PRACOWNICY (Recepcja - mï¿½odzi, majï¿½ maile)
 ('Anna', 'Nowak', '02220311111', 'anna.nowak@silownia.com'),
-('Katarzyna', 'Wójcik', '01271222222', 'katarzyna.wojcik@silownia.com'),
-('Micha³', 'Lewandowski', '00231533333', 'michal.lewandowski@silownia.com'),
+('Katarzyna', 'Wï¿½jcik', '01271222222', 'katarzyna.wojcik@silownia.com'),
+('Michaï¿½', 'Lewandowski', '00231533333', 'michal.lewandowski@silownia.com'),
 ('Agnieszka', 'Mazur', '99112044444', 'agnieszka.mazur@silownia.com'),
 
--- ID 6-12: PRACOWNICY (Trenerzy i Sprz¹tanie)
-('Tomasz', 'Zieliñski', '90050555555', 'tomasz.zielinski@silownia.com'),
-('Pawe³', 'Szymañski', '88090966666', 'pawel.szymanski@silownia.com'),
-('Magdalena', 'D¹browska', '92121277777', 'magdalena.dabrowska@silownia.com'),
-('Marcin', 'Koz³owski', '91010188888', 'marcin.kozlowski@silownia.com'),
+-- ID 6-12: PRACOWNICY (Trenerzy i Sprzï¿½tanie)
+('Tomasz', 'Zieliï¿½ski', '90050555555', 'tomasz.zielinski@silownia.com'),
+('Paweï¿½', 'Szymaï¿½ski', '88090966666', 'pawel.szymanski@silownia.com'),
+('Magdalena', 'Dï¿½browska', '92121277777', 'magdalena.dabrowska@silownia.com'),
+('Marcin', 'Kozï¿½owski', '91010188888', 'marcin.kozlowski@silownia.com'),
 ('Monika', 'Jankowska', '93063099999', 'monika.jankowska@silownia.com'),
--- Pan Józef konserwator (starszy, bez maila)
-('Józef', 'Krawczyk', '62081500001', NULL), 
-('Piotr', 'Kamiñski', '94040400002', 'piotr.kaminski@silownia.com'),
+-- Pan Jï¿½zef konserwator (starszy, bez maila)
+('Jï¿½zef', 'Krawczyk', '62081500001', NULL), 
+('Piotr', 'Kamiï¿½ski', '94040400002', 'piotr.kaminski@silownia.com'),
 
--- ID 13-82: KLIENCI STANDARDOWI (Studenci, Doroœli - roczniki 80-00)
+-- ID 13-82: KLIENCI STANDARDOWI (Studenci, Doroï¿½li - roczniki 80-00)
 ('Julia', 'Kowalczyk', '01210100101', 'julia.k@gmail.com'),
-('Antoni', 'Zaj¹c', '99010200102', 'antoni.z@wp.pl'),
-('Zuzanna', 'Król', '02210300103', 'zuzanna.krol@onet.pl'),
+('Antoni', 'Zajï¿½c', '99010200102', 'antoni.z@wp.pl'),
+('Zuzanna', 'Krï¿½l', '02210300103', 'zuzanna.krol@onet.pl'),
 ('Jan', 'Wieczorek', '95010400104', 'jan.w@gmail.com'),
-('Lena', 'Wróbel', '00210500105', 'lena.wrobel@gmail.com'),
+('Lena', 'Wrï¿½bel', '00210500105', 'lena.wrobel@gmail.com'),
 ('Aleksander', 'Pawlak', '98010600106', 'aleksander.p@wp.pl'),
 ('Maja', 'Nowakowska', '01210700107', 'maja.n@gmail.com'),
 ('Franciszek', 'Walczak', '97010800108', 'franek.w@onet.pl'),
-('Oliwia', 'Stêpieñ', '03210900109', 'oliwia.s@gmail.com'),
-('Miko³aj', 'Adamczyk', '96011000110', 'mikolaj.a@wp.pl'),
+('Oliwia', 'Stï¿½pieï¿½', '03210900109', 'oliwia.s@gmail.com'),
+('Mikoï¿½aj', 'Adamczyk', '96011000110', 'mikolaj.a@wp.pl'),
 ('Alicja', 'Dudek', '02211100111', 'alicja.d@gmail.com'),
 ('Wojciech', 'Sikora', '94011200112', 'wojciech.s@onet.pl'),
 ('Hanna', 'Baran', '01211300113', 'hanna.b@gmail.com'),
 ('Kacper', 'Pietrzak', '99011400114', 'kacper.p@wp.pl'),
 ('Maria', 'Marciniak', '00211500115', 'maria.m@gmail.com'),
-('Filip', 'W³odarczyk', '98011600116', 'filip.w@onet.pl'),
+('Filip', 'Wï¿½odarczyk', '98011600116', 'filip.w@onet.pl'),
 ('Wiktoria', 'Borkowska', '03211700117', 'wiktoria.b@gmail.com'),
 ('Szymon', 'Sawicki', '97011800118', 'szymon.s@wp.pl'),
 ('Natalia', 'Lis', '02211900119', 'natalia.l@gmail.com'),
-('Stanis³aw', 'Czarnecki', '85012000120', 'stanislaw.c@onet.pl'),
-('Zofia', 'Urbañska', '01212100121', 'zofia.u@gmail.com'),
+('Stanisï¿½aw', 'Czarnecki', '85012000120', 'stanislaw.c@onet.pl'),
+('Zofia', 'Urbaï¿½ska', '01212100121', 'zofia.u@gmail.com'),
 ('Ignacy', 'Kubiak', '96012200122', 'ignacy.k@wp.pl'),
 ('Emilia', 'Maciejewska', '00212300123', 'emilia.m@gmail.com'),
 ('Tymon', 'Wysocki', '99012400124', 'tymon.w@onet.pl'),
-('Laura', 'Ko³odziej', '03212500125', 'laura.k@gmail.com'),
-('Marcel', 'KaŸmierczak', '98012600126', 'marcel.k@wp.pl'),
+('Laura', 'Koï¿½odziej', '03212500125', 'laura.k@gmail.com'),
+('Marcel', 'Kaï¿½mierczak', '98012600126', 'marcel.k@wp.pl'),
 ('Antonina', 'Wilk', '02212700127', 'antonina.w@gmail.com'),
 ('Leon', 'Sobczak', '94012800128', 'leon.s@onet.pl'),
 ('Pola', 'Konieczna', '01212900129', 'pola.k@gmail.com'),
-('Nikodem', 'G³owacki', '97013000130', 'nikodem.g@wp.pl'),
+('Nikodem', 'Gï¿½owacki', '97013000130', 'nikodem.g@wp.pl'),
 ('Iga', 'Wasilewska', '00213100131', 'iga.w@gmail.com'),
 ('Maksymilian', 'Zakrzewski', '95013200132', 'maks.z@onet.pl'),
 ('Marcelina', 'Laskowska', '03213300133', 'marcelina.l@gmail.com'),
 ('Wiktor', 'Krupa', '96013400134', 'wiktor.k@wp.pl'),
-('Klara', 'Mróz', '02213500135', 'klara.m@gmail.com'),
+('Klara', 'Mrï¿½z', '02213500135', 'klara.m@gmail.com'),
 ('Tymoteusz', 'Kaczmarczyk', '99013600136', 'tymek.k@onet.pl'),
-('Liliana', 'Œwi¹tek', '01213700137', 'liliana.s@gmail.com'),
-('Adam', 'Szczepañski', '88013800138', 'adam.s@wp.pl'),
+('Liliana', 'ï¿½wiï¿½tek', '01213700137', 'liliana.s@gmail.com'),
+('Adam', 'Szczepaï¿½ski', '88013800138', 'adam.s@wp.pl'),
 ('Michalina', 'Kucharska', '00213900139', 'michalina.k@gmail.com'),
-('Oliwier', 'Wróblewski', '94014000140', 'oliwier.w@onet.pl'),
+('Oliwier', 'Wrï¿½blewski', '94014000140', 'oliwier.w@onet.pl'),
 ('Gabriela', 'Gajewska', '03214100141', 'gabriela.g@gmail.com'),
 ('Alan', 'Mazurek', '97014200142', 'alan.m@wp.pl'),
-('Kornelia', 'B³aszczyk', '02214300143', 'kornelia.b@gmail.com'),
+('Kornelia', 'Bï¿½aszczyk', '02214300143', 'kornelia.b@gmail.com'),
 ('Dawid', 'Malinowski', '85014400144', 'dawid.m@onet.pl'),
-('£ucja', 'Zaremba', '01214500145', 'lucja.z@gmail.com'),
+('ï¿½ucja', 'Zaremba', '01214500145', 'lucja.z@gmail.com'),
 ('Mateusz', 'Pawlik', '96014600146', 'mateusz.p@wp.pl'),
 ('Nadia', 'Kurek', '00214700147', 'nadia.k@gmail.com'),
 ('Ksawery', 'Rutkowski', '99014800148', 'ksawery.r@onet.pl'),
 ('Martyna', 'Michalska', '03214900149', 'martyna.m@gmail.com'),
-('Hubert', 'Soko³owski', '98015000150', 'hubert.s@wp.pl'),
+('Hubert', 'Sokoï¿½owski', '98015000150', 'hubert.s@wp.pl'),
 ('Jagoda', 'Jaworska', '02215100151', 'jagoda.j@gmail.com'),
 ('Patryk', 'Pniewski', '94015200152', 'patryk.p@onet.pl'),
 ('Barbara', 'Majewska', '81215300153', 'basia.m@gmail.com'),
@@ -109,37 +109,37 @@ INSERT INTO Person (Name, Surname, Pesel, Email) VALUES
 ('Weronika', 'Jasinska', '00215500155', 'weronika.j@gmail.com'),
 ('Bartosz', 'Chmielewski', '95015600156', 'bartek.c@onet.pl'),
 ('Kamila', 'Witkowska', '03215700157', 'kamila.w@gmail.com'),
-('Kamil', 'Cieœlak', '96015800158', 'kamil.c@wp.pl'),
-('Karolina', 'Górecka', '02215900159', 'karolina.g@gmail.com'),
+('Kamil', 'Cieï¿½lak', '96015800158', 'kamil.c@wp.pl'),
+('Karolina', 'Gï¿½recka', '02215900159', 'karolina.g@gmail.com'),
 ('Sebastian', 'Nawrocki', '99016000160', 'sebastian.n@onet.pl'),
 ('Agata', 'Szulc', '01216100161', 'agata.s@gmail.com'),
-('Adrian', 'Woliñski', '98016200162', 'adrian.w@wp.pl'),
+('Adrian', 'Woliï¿½ski', '98016200162', 'adrian.w@wp.pl'),
 ('Patrycja', 'Jakubowska', '00216300163', 'patrycja.j@gmail.com'),
 ('Oskar', 'Szewczyk', '94016400164', 'oskar.s@onet.pl'),
 ('Kinga', 'Stasiak', '03216500165', 'kinga.s@gmail.com'),
-('Mi³osz', 'Kalinowski', '97016600166', 'milosz.k@wp.pl'),
+('Miï¿½osz', 'Kalinowski', '97016600166', 'milosz.k@wp.pl'),
 ('Nina', 'Sadowska', '02216700167', 'nina.s@gmail.com'),
 ('Igor', 'Mucha', '95016800168', 'igor.m@onet.pl'),
 ('Joanna', 'Janik', '01216900169', 'joanna.j@gmail.com'),
 ('Damian', 'Lipinski', '96017000170', 'damian.l@wp.pl'),
 
 -- ID 83-92: SENIORZY (Roczniki 40-50, brak maili, typowe starsze imiona)
-('Stanis³aw', 'Kowalski', '48051200123', NULL),
+('Stanisï¿½aw', 'Kowalski', '48051200123', NULL),
 ('Janina', 'Nowak', '52021500456', NULL),
-('Tadeusz', 'Wiœniewski', '45110200789', NULL),
-('Krystyna', 'Wójcik', '55072200321', 'krysia55@wp.pl'), -- Nowoczesna babcia ma maila
-('Henryk', 'Kamiñski', '49090900654', NULL),
+('Tadeusz', 'Wiï¿½niewski', '45110200789', NULL),
+('Krystyna', 'Wï¿½jcik', '55072200321', 'krysia55@wp.pl'), -- Nowoczesna babcia ma maila
+('Henryk', 'Kamiï¿½ski', '49090900654', NULL),
 ('Barbara', 'Lewandowska', '51030300987', NULL),
-('Kazimierz', 'Zieliñski', '47121200111', NULL),
-('Genowefa', 'Szymañska', '50060600222', NULL),
-('Jerzy', 'WoŸniak', '46080800333', NULL),
-('Halina', 'D¹browska', '53040400444', NULL),
+('Kazimierz', 'Zieliï¿½ski', '47121200111', NULL),
+('Genowefa', 'Szymaï¿½ska', '50060600222', NULL),
+('Jerzy', 'Woï¿½niak', '46080800333', NULL),
+('Halina', 'Dï¿½browska', '53040400444', NULL),
 ('Marcin','Cwiakala','00000000001',NULL),
 ('Hanna','Montana','95120790851','hannamontanamontanamontanayeahyeah@yt.com');
 
 INSERT INTO Employees (ID, JobTitle, HireDate, HourlySalary) VALUES
 -- ID 1: Ty (Szef) - stawka NULL
-(1, 'W³aœciciel', '2020-01-01', NULL),
+(1, 'Wï¿½aï¿½ciciel', '2020-01-01', NULL),
 
 -- ID 2-5: Recepcja (Studenci)
 (2, 'Recepcja', '2022-05-10', 25.00),
@@ -153,7 +153,7 @@ INSERT INTO Employees (ID, JobTitle, HireDate, HourlySalary) VALUES
 (8, 'Trener', '2023-02-28', 40.00),
 (9, 'Trener', '2020-09-15', 50.00),
 (10, 'Trener', '2022-12-05', 42.00),
--- Pan Józef (Konserwator)
+-- Pan Jï¿½zef (Konserwator)
 (11, 'Konserwator', '2021-04-10', 30.00),
 (12, 'Trener', '2021-06-30', 45.00);
 
@@ -166,19 +166,19 @@ set @i = @i+1;
 END
 
 INSERT INTO EmployeesHolidays (EmployeeID, StartDate, EndDate, HolidayType) VALUES
--- 1. L4 Tygodniowe (7 dni) - Tomasz Zieliñski (Trener)
+-- 1. L4 Tygodniowe (7 dni) - Tomasz Zieliï¿½ski (Trener)
 (6, '2026-01-12', '2026-01-18', 'L4 - Chorobowe'),
 
 -- 2. L4 3-dniowe - Agnieszka Mazur (Recepcja)
 (4, '2026-02-04', '2026-02-06', 'L4 - Chorobowe'),
 
--- 3. L4 Jednodniowe - Pawe³ Szymañski (Trener)
+-- 3. L4 Jednodniowe - Paweï¿½ Szymaï¿½ski (Trener)
 (7, '2026-01-05', '2026-01-05', 'L4 - Chorobowe'),
 
--- 4. L4 Jednodniowe - Katarzyna Wójcik (Recepcja)
+-- 4. L4 Jednodniowe - Katarzyna Wï¿½jcik (Recepcja)
 (3, '2026-01-26', '2026-01-26', 'L4 - Chorobowe'),
 
--- 5. L4 Jednodniowe - Piotr Kamiñski (Trener)
+-- 5. L4 Jednodniowe - Piotr Kamiï¿½ski (Trener)
 (12, '2026-02-20', '2026-02-20', 'L4 - Chorobowe'),
 
 -- 6. Urlop Wypoczynkowy (5 dni) - Monika Jankowska (Trener) - Ferie zimowe
@@ -188,30 +188,30 @@ INSERT INTO EmployeesHolidays (EmployeeID, StartDate, EndDate, HolidayType) VALU
 (2, '2026-02-09', '2026-02-13', 'Urlop wypoczynkowy');
 
 INSERT INTO Reservations (ClientID, RoomID, Data, Duration) VALUES
--- --- STYCZEÑ 2026 ---
+-- --- STYCZEï¿½ 2026 ---
 
--- 1. Du¿e wydarzenie weekendowe (Sobota) - np. Szkolenie Trenerów
+-- 1. Duï¿½e wydarzenie weekendowe (Sobota) - np. Szkolenie Trenerï¿½w
 (15, 2, '2026-01-10 09:00:00', 6.0),
 
--- 2. Wieczorne warsztaty tañca (zewnêtrzne) - Sala Fitness
+-- 2. Wieczorne warsztaty taï¿½ca (zewnï¿½trzne) - Sala Fitness
 (22, 3, '2026-01-09 18:30:00', 2.0),
 
 -- 3. Indywidualny trening grupy kolarskiej - Sala Rowerowa
 (30, 4, '2026-01-12 20:00:00', 1.5),
 
--- 4. Wynajem du¿ej sali na nagrywanie materia³ów promo (œrodek dnia)
+-- 4. Wynajem duï¿½ej sali na nagrywanie materiaï¿½ï¿½w promo (ï¿½rodek dnia)
 (45, 2, '2026-01-14 11:00:00', 3.0),
 
--- 5. Warsztaty "Zdrowe plecy" (zewnêtrzny fizjoterapeuta)
+-- 5. Warsztaty "Zdrowe plecy" (zewnï¿½trzny fizjoterapeuta)
 (55, 3, '2026-01-17 10:00:00', 2.5),
 
--- 6. Krótki wynajem pod trening personalny (w³asny trener z zewn¹trz)
+-- 6. Krï¿½tki wynajem pod trening personalny (wï¿½asny trener z zewnï¿½trz)
 (18, 4, '2026-01-20 17:00:00', 1.0),
 
--- 7. Kolejna edycja warsztatów tañca (cyklicznie co 2 tyg)
+-- 7. Kolejna edycja warsztatï¿½w taï¿½ca (cyklicznie co 2 tyg)
 (22, 3, '2026-01-23 18:30:00', 2.0),
 
--- 8. Maraton Zumby (Du¿a sala) - Niedziela
+-- 8. Maraton Zumby (Duï¿½a sala) - Niedziela
 (60, 2, '2026-01-25 12:00:00', 4.0),
 
 -- 9. Wynajem sali rowerowej dla grupy triathlonowej
@@ -220,16 +220,16 @@ INSERT INTO Reservations (ClientID, RoomID, Data, Duration) VALUES
 -- 10. Warsztaty jogi (Sala Fitness)
 (70, 3, '2026-01-31 09:00:00', 3.0),
 -- --- LUTY 2026 ---
--- 11. Przygotowania do zawodów (Du¿a sala)
+-- 11. Przygotowania do zawodï¿½w (Duï¿½a sala)
 (15, 2, '2026-02-02 08:00:00', 2.5),
 
--- 12. Warsztaty tañca (kontynuacja)
+-- 12. Warsztaty taï¿½ca (kontynuacja)
 (22, 3, '2026-02-06 18:30:00', 2.0),
 
 -- 13. Szybka sesja foto na sali rowerowej
 (33, 4, '2026-02-10 12:00:00', 1.0),
 
--- 14. "Aktywne Walentynki dla par" - Du¿a impreza (Sobota)
+-- 14. "Aktywne Walentynki dla par" - Duï¿½a impreza (Sobota)
 (80, 2, '2026-02-14 16:00:00', 5.0),
 
 -- 15. Wynajem sali fitness na urodziny sportowe
@@ -238,57 +238,57 @@ INSERT INTO Reservations (ClientID, RoomID, Data, Duration) VALUES
 -- 16. Trening grupy kolarskiej
 (30, 4, '2026-02-17 19:30:00', 1.5),
 
--- 17. Warsztaty tañca (ostatnie w karnecie)
+-- 17. Warsztaty taï¿½ca (ostatnie w karnecie)
 (22, 3, '2026-02-20 18:30:00', 2.0),
 
--- 18. Wynajem du¿ej sali na turniej lokalny
+-- 18. Wynajem duï¿½ej sali na turniej lokalny
 (15, 2, '2026-02-21 10:00:00', 6.0),
 
--- 19. Joga o œwicie (nietypowa godzina)
+-- 19. Joga o ï¿½wicie (nietypowa godzina)
 (70, 3, '2026-02-24 06:30:00', 1.5),
 
--- 20. Ostatni wynajem w miesi¹cu - Sala Rowerowa
+-- 20. Ostatni wynajem w miesiï¿½cu - Sala Rowerowa
 (40, 4, '2026-02-27 20:00:00', 1.0);
 
 INSERT INTO PersonalTrainingSessions (CustomerID, EmployeeID, RoomID, startTime, duration) VALUES
--- --- STYCZEÑ 2026 (Noworoczne postanowienia) ---
+-- --- STYCZEï¿½ 2026 (Noworoczne postanowienia) ---
 
--- 1. Pi¹tek po Sylwestrze (Ostre wejœcie)
+-- 1. Piï¿½tek po Sylwestrze (Ostre wejï¿½cie)
 (13, 6, 2, '2026-01-02 18:00:00', 1.0), -- Julia K. startuje ostro
 (14, 7, 2, '2026-01-02 19:00:00', 1.0),
 
--- 2. Pierwszy poniedzia³ek stycznia (Szczyt)
+-- 2. Pierwszy poniedziaï¿½ek stycznia (Szczyt)
 (15, 8, 2, '2026-01-05 07:00:00', 1.0), -- Ranny ptaszek (Staly klient)
 (20, 9, 3, '2026-01-05 17:30:00', 1.0),
-(25, 10, 2, '2026-01-05 18:00:00', 2.0), -- D³ugi trening
+(25, 10, 2, '2026-01-05 18:00:00', 2.0), -- Dï¿½ugi trening
 (30, 12, 2, '2026-01-05 19:30:00', 1.0),
 
--- 3. Wtorek - Treningi si³owe
+-- 3. Wtorek - Treningi siï¿½owe
 (33, 6, 2, '2026-01-06 08:00:00', 1.0),
 (35, 7, 2, '2026-01-06 17:00:00', 1.0),
 (40, 8, 3, '2026-01-06 18:00:00', 1.0),
 
--- 4. Œroda
-(15, 8, 2, '2026-01-07 07:00:00', 1.0), -- Powrót rannego ptaszka
+-- 4. ï¿½roda
+(15, 8, 2, '2026-01-07 07:00:00', 1.0), -- Powrï¿½t rannego ptaszka
 (42, 9, 2, '2026-01-07 16:30:00', 1.0),
 
 -- 5. Czwartek
 (50, 10, 2, '2026-01-08 18:00:00', 0.5),
 (55, 12, 3, '2026-01-08 19:00:00', 0.5),
 
--- 6. Pi¹tek (Tomasz ID 6 jeszcze pracuje przed L4)
+-- 6. Piï¿½tek (Tomasz ID 6 jeszcze pracuje przed L4)
 (13, 6, 2, '2026-01-09 18:00:00', 1.0), 
 (60, 7, 2, '2026-01-09 17:00:00', 1.0),
 
--- 7. Drugi tydzieñ (Tomasz chory, Monika pracuje)
+-- 7. Drugi tydzieï¿½ (Tomasz chory, Monika pracuje)
 (15, 8, 2, '2026-01-12 07:00:00', 1.0),
 (65, 9, 3, '2026-01-12 16:00:00', 1.0),
-(33, 7, 2, '2026-01-13 08:00:00', 1.0), -- Zastêpstwo za Tomasza
+(33, 7, 2, '2026-01-13 08:00:00', 1.0), -- Zastï¿½pstwo za Tomasza
 (70, 10, 2, '2026-01-14 18:30:00', 1.0),
 (75, 12, 2, '2026-01-15 19:00:00', 1.0),
 (18, 8, 2, '2026-01-16 17:00:00', 1.5),
 
--- 8. Trzeci tydzieñ (Monika na urlopie, Tomasz wraca)
+-- 8. Trzeci tydzieï¿½ (Monika na urlopie, Tomasz wraca)
 (15, 8, 2, '2026-01-19 07:00:00', 1.0),
 (80, 6, 2, '2026-01-19 18:00:00', 1.0), -- Tomasz wraca po L4
 (33, 6, 2, '2026-01-20 08:00:00', 1.0),
@@ -296,7 +296,7 @@ INSERT INTO PersonalTrainingSessions (CustomerID, EmployeeID, RoomID, startTime,
 (45, 12, 2, '2026-01-22 18:30:00', 1.0),
 (13, 6, 2, '2026-01-23 18:00:00', 1.0),
 
--- 9. Koñcówka stycznia
+-- 9. Koï¿½cï¿½wka stycznia
 (15, 8, 2, '2026-01-26 07:00:00', 1.0),
 (33, 6, 2, '2026-01-27 08:00:00', 0.5),
 (20, 9, 3, '2026-01-28 17:30:00', 1.5), -- Monika wraca z ferii
@@ -306,7 +306,7 @@ INSERT INTO PersonalTrainingSessions (CustomerID, EmployeeID, RoomID, startTime,
 
 -- --- LUTY 2026 (Stabilizacja i Walentynki) ---
 
--- 1. Pierwszy tydzieñ lutego
+-- 1. Pierwszy tydzieï¿½ lutego
 (15, 8, 2, '2026-02-02 07:00:00', 1.0),
 (14, 7, 2, '2026-02-02 19:00:00', 1.0),
 (33, 6, 2, '2026-02-03 08:00:00', 1.0),
@@ -314,7 +314,7 @@ INSERT INTO PersonalTrainingSessions (CustomerID, EmployeeID, RoomID, startTime,
 (30, 12, 2, '2026-02-05 19:30:00', 1.0),
 (13, 6, 2, '2026-02-06 18:00:00', 1.0),
 
--- 2. Drugi tydzieñ
+-- 2. Drugi tydzieï¿½
 (15, 8, 2, '2026-02-09 07:00:00', 1.0),
 (42, 9, 2, '2026-02-09 16:30:00', 1.0),
 (35, 7, 2, '2026-02-10 17:00:00', 1.0),
@@ -322,33 +322,33 @@ INSERT INTO PersonalTrainingSessions (CustomerID, EmployeeID, RoomID, startTime,
 (55, 12, 3, '2026-02-12 19:00:00', 1.0),
 (18, 8, 2, '2026-02-13 17:00:00', 1.5),
 
--- 3. Walentynkowy tydzieñ (Sporo par przychodzi na treningi w tandemie - symulacja)
-(88, 6, 2, '2026-02-14 10:00:00', 1.0), -- Senior chce byæ w formie
+-- 3. Walentynkowy tydzieï¿½ (Sporo par przychodzi na treningi w tandemie - symulacja)
+(88, 6, 2, '2026-02-14 10:00:00', 1.0), -- Senior chce byï¿½ w formie
 (15, 8, 2, '2026-02-16 07:00:00', 1.0),
 (33, 6, 2, '2026-02-17 08:00:00', 1.0),
 (20, 9, 3, '2026-02-18 17:30:00', 1.0),
 (50, 10, 2, '2026-02-19 18:00:00', 1.0),
-(60, 7, 2, '2026-02-20 17:00:00', 1.0), -- Piotr ID 12 ma L4, wiêc bierze Pawe³ ID 7
+(60, 7, 2, '2026-02-20 17:00:00', 1.0), -- Piotr ID 12 ma L4, wiï¿½c bierze Paweï¿½ ID 7
 
--- 4. Ostatni tydzieñ lutego (Przygotowanie do wiosny)
+-- 4. Ostatni tydzieï¿½ lutego (Przygotowanie do wiosny)
 (15, 8, 2, '2026-02-23 07:00:00', 1.0),
 (80, 6, 2, '2026-02-23 18:00:00', 1.0),
 (33, 6, 2, '2026-02-24 08:00:00', 1.5),
 (22, 10, 3, '2026-02-25 17:00:00', 1.00),
-(45, 12, 2, '2026-02-26 18:30:00', 1.50), -- Piotr wróci³ po jednodniowym L4
+(45, 12, 2, '2026-02-26 18:30:00', 1.50), -- Piotr wrï¿½ciï¿½ po jednodniowym L4
 (13, 6, 2, '2026-02-27 18:00:00', 1.0),
 (25, 10, 2, '2026-02-28 10:00:00', 1.00);
 
 INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
--- --- STYCZEÑ TYDZIEÑ 1 (01-04.01) ---
+-- --- STYCZEï¿½ TYDZIEï¿½ 1 (01-04.01) ---
 -- Czwartek 01.01
 (2, 1, '2026-01-01 06:00:00', 8.5), -- Anna (Rec Rano)
-(3, 1, '2026-01-01 14:30:00', 8.5), -- Kasia (Rec Wieczór)
+(3, 1, '2026-01-01 14:30:00', 8.5), -- Kasia (Rec Wieczï¿½r)
 (6, 2, '2026-01-01 07:00:00', 8.0), -- Tomek (Trener Rano)
-(7, 2, '2026-01-01 15:00:00', 7.0), -- Pawe³ (Trener Wieczór)
-(11, NULL, '2026-01-01 08:00:00', 8.0), -- Józef (Konserwator)
+(7, 2, '2026-01-01 15:00:00', 7.0), -- Paweï¿½ (Trener Wieczï¿½r)
+(11, NULL, '2026-01-01 08:00:00', 8.0), -- Jï¿½zef (Konserwator)
 
--- Pi¹tek 02.01
+-- Piï¿½tek 02.01
 (4, 1, '2026-01-02 06:00:00', 8.5),
 (5, 1, '2026-01-02 14:30:00', 8.5),
 (8, 2, '2026-01-02 07:00:00', 8.0),
@@ -367,12 +367,12 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (6, 2, '2026-01-04 07:00:00', 8.0),
 (9, 2, '2026-01-04 15:00:00', 7.0),
 
--- --- STYCZEÑ TYDZIEÑ 2 (05-11.01) ---
--- Poniedzia³ek 05.01 (Pawe³ ID 7 CHORY 1 dzieñ)
+-- --- STYCZEï¿½ TYDZIEï¿½ 2 (05-11.01) ---
+-- Poniedziaï¿½ek 05.01 (Paweï¿½ ID 7 CHORY 1 dzieï¿½)
 (5, 1, '2026-01-05 06:00:00', 8.5),
 (2, 1, '2026-01-05 14:30:00', 8.5),
 (6, 2, '2026-01-05 07:00:00', 8.0),
-(8, 2, '2026-01-05 15:00:00', 7.0), -- Zastêpstwo za Paw³a
+(8, 2, '2026-01-05 15:00:00', 7.0), -- Zastï¿½pstwo za Pawï¿½a
 (11, NULL, '2026-01-05 08:00:00', 8.0),
 
 -- Wtorek 06.01
@@ -382,11 +382,11 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (10, 2, '2026-01-06 15:00:00', 7.0),
 (11, NULL, '2026-01-06 08:00:00', 8.0),
 
--- Œroda 07.01
+-- ï¿½roda 07.01
 (2, 1, '2026-01-07 06:00:00', 8.5),
 (5, 1, '2026-01-07 14:30:00', 8.5),
 (12, 2, '2026-01-07 07:00:00', 8.0),
-(7, 2, '2026-01-07 15:00:00', 7.0), -- Pawe³ wróci³
+(7, 2, '2026-01-07 15:00:00', 7.0), -- Paweï¿½ wrï¿½ciï¿½
 (11, NULL, '2026-01-07 08:00:00', 8.0),
 
 -- Czwartek 08.01
@@ -396,7 +396,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (8, 2, '2026-01-08 15:00:00', 7.0),
 (11, NULL, '2026-01-08 08:00:00', 8.0),
 
--- Pi¹tek 09.01
+-- Piï¿½tek 09.01
 (2, 1, '2026-01-09 06:00:00', 8.5),
 (5, 1, '2026-01-09 14:30:00', 8.5),
 (9, 2, '2026-01-09 07:00:00', 8.0),
@@ -415,12 +415,12 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (7, 2, '2026-01-11 07:00:00', 8.0),
 (8, 2, '2026-01-11 15:00:00', 7.0),
 
--- --- STYCZEÑ TYDZIEÑ 3 (12-18.01) - TOMEK (ID 6) CHORY (L4) ---
--- Poniedzia³ek 12.01
+-- --- STYCZEï¿½ TYDZIEï¿½ 3 (12-18.01) - TOMEK (ID 6) CHORY (L4) ---
+-- Poniedziaï¿½ek 12.01
 (3, 1, '2026-01-12 06:00:00', 8.5),
 (4, 1, '2026-01-12 14:30:00', 8.5),
 (9, 2, '2026-01-12 07:00:00', 8.0),
-(10, 2, '2026-01-12 15:00:00', 7.0), -- Tomek nie mo¿e, jest Marcin
+(10, 2, '2026-01-12 15:00:00', 7.0), -- Tomek nie moï¿½e, jest Marcin
 (11, NULL, '2026-01-12 08:00:00', 8.0),
 
 -- Wtorek 13.01
@@ -430,7 +430,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (7, 2, '2026-01-13 15:00:00', 7.0),
 (11, NULL, '2026-01-13 08:00:00', 8.0),
 
--- Œroda 14.01
+-- ï¿½roda 14.01
 (4, 1, '2026-01-14 06:00:00', 8.5),
 (3, 1, '2026-01-14 14:30:00', 8.5),
 (8, 2, '2026-01-14 07:00:00', 8.0),
@@ -444,7 +444,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (12, 2, '2026-01-15 15:00:00', 7.0),
 (11, NULL, '2026-01-15 08:00:00', 8.0),
 
--- Pi¹tek 16.01
+-- Piï¿½tek 16.01
 (3, 1, '2026-01-16 06:00:00', 8.5),
 (4, 1, '2026-01-16 14:30:00', 8.5),
 (7, 2, '2026-01-16 07:00:00', 8.0),
@@ -463,11 +463,11 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (12, 2, '2026-01-18 07:00:00', 8.0),
 (7, 2, '2026-01-18 15:00:00', 7.0),
 
--- --- STYCZEÑ TYDZIEÑ 4 (19-25.01) - MONIKA (ID 9) URLOP ---
--- Poniedzia³ek 19.01
+-- --- STYCZEï¿½ TYDZIEï¿½ 4 (19-25.01) - MONIKA (ID 9) URLOP ---
+-- Poniedziaï¿½ek 19.01
 (2, 1, '2026-01-19 06:00:00', 8.5),
 (5, 1, '2026-01-19 14:30:00', 8.5),
-(6, 2, '2026-01-19 07:00:00', 8.0), -- Tomek wróci³
+(6, 2, '2026-01-19 07:00:00', 8.0), -- Tomek wrï¿½ciï¿½
 (8, 2, '2026-01-19 15:00:00', 7.0),
 (11, NULL, '2026-01-19 08:00:00', 8.0),
 
@@ -478,7 +478,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (12, 2, '2026-01-20 15:00:00', 7.0), -- Monika na urlopie
 (11, NULL, '2026-01-20 08:00:00', 8.0),
 
--- Œroda 21.01
+-- ï¿½roda 21.01
 (5, 1, '2026-01-21 06:00:00', 8.5),
 (2, 1, '2026-01-21 14:30:00', 8.5),
 (7, 2, '2026-01-21 07:00:00', 8.0),
@@ -492,7 +492,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (10, 2, '2026-01-22 15:00:00', 7.0),
 (11, NULL, '2026-01-22 08:00:00', 8.0),
 
--- Pi¹tek 23.01
+-- Piï¿½tek 23.01
 (2, 1, '2026-01-23 06:00:00', 8.5),
 (5, 1, '2026-01-23 14:30:00', 8.5),
 (12, 2, '2026-01-23 07:00:00', 8.0),
@@ -503,7 +503,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (3, 1, '2026-01-24 06:00:00', 8.5),
 (4, 1, '2026-01-24 14:30:00', 8.5),
 (6, 2, '2026-01-24 07:00:00', 8.0),
-(9, 2, '2026-01-24 15:00:00', 7.0), -- Monika wróci³a po urlopie na weekend
+(9, 2, '2026-01-24 15:00:00', 7.0), -- Monika wrï¿½ciï¿½a po urlopie na weekend
 
 -- Niedziela 25.01
 (5, 1, '2026-01-25 06:00:00', 8.5),
@@ -511,9 +511,9 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (8, 2, '2026-01-25 07:00:00', 8.0),
 (10, 2, '2026-01-25 15:00:00', 7.0),
 
--- --- STYCZEÑ KONIEC (26-31.01) - KASIA (ID 3) CHORA 26.01 ---
--- Poniedzia³ek 26.01
-(4, 1, '2026-01-26 06:00:00', 8.5), -- Zastêpstwo za Kasiê
+-- --- STYCZEï¿½ KONIEC (26-31.01) - KASIA (ID 3) CHORA 26.01 ---
+-- Poniedziaï¿½ek 26.01
+(4, 1, '2026-01-26 06:00:00', 8.5), -- Zastï¿½pstwo za Kasiï¿½
 (5, 1, '2026-01-26 14:30:00', 8.5),
 (12, 2, '2026-01-26 07:00:00', 8.0),
 (7, 2, '2026-01-26 15:00:00', 7.0),
@@ -521,12 +521,12 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 
 -- Wtorek 27.01
 (2, 1, '2026-01-27 06:00:00', 8.5),
-(3, 1, '2026-01-27 14:30:00', 8.5), -- Kasia wróci³a
+(3, 1, '2026-01-27 14:30:00', 8.5), -- Kasia wrï¿½ciï¿½a
 (6, 2, '2026-01-27 07:00:00', 8.0),
 (9, 2, '2026-01-27 15:00:00', 7.0),
 (11, NULL, '2026-01-27 08:00:00', 8.0),
 
--- Œroda 28.01
+-- ï¿½roda 28.01
 (4, 1, '2026-01-28 06:00:00', 8.5),
 (5, 1, '2026-01-28 14:30:00', 8.5),
 (8, 2, '2026-01-28 07:00:00', 8.0),
@@ -540,7 +540,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (7, 2, '2026-01-29 15:00:00', 7.0),
 (11, NULL, '2026-01-29 08:00:00', 8.0),
 
--- Pi¹tek 30.01
+-- Piï¿½tek 30.01
 (4, 1, '2026-01-30 06:00:00', 8.5),
 (5, 1, '2026-01-30 14:30:00', 8.5),
 (6, 2, '2026-01-30 07:00:00', 8.0),
@@ -554,14 +554,14 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (10, 2, '2026-01-31 15:00:00', 7.0),
 
 
--- --- LUTY TYDZIEÑ 1 (01-08.02) - AGNIESZKA (ID 4) CHORA (04-06.02) ---
+-- --- LUTY TYDZIEï¿½ 1 (01-08.02) - AGNIESZKA (ID 4) CHORA (04-06.02) ---
 -- Niedziela 01.02
 (5, 1, '2026-02-01 06:00:00', 8.5),
 (4, 1, '2026-02-01 14:30:00', 8.5),
 (12, 2, '2026-02-01 07:00:00', 8.0),
 (7, 2, '2026-02-01 15:00:00', 7.0),
 
--- Poniedzia³ek 02.02
+-- Poniedziaï¿½ek 02.02
 (2, 1, '2026-02-02 06:00:00', 8.5),
 (3, 1, '2026-02-02 14:30:00', 8.5),
 (6, 2, '2026-02-02 07:00:00', 8.0),
@@ -575,30 +575,30 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (10, 2, '2026-02-03 15:00:00', 7.0),
 (11, NULL, '2026-02-03 08:00:00', 8.0),
 
--- Œroda 04.02 (Agnieszka ID 4 zaczyna L4)
+-- ï¿½roda 04.02 (Agnieszka ID 4 zaczyna L4)
 (2, 1, '2026-02-04 06:00:00', 8.5),
-(3, 1, '2026-02-04 14:30:00', 8.5), -- Zastêpstwo za Agnieszkê
+(3, 1, '2026-02-04 14:30:00', 8.5), -- Zastï¿½pstwo za Agnieszkï¿½
 (12, 2, '2026-02-04 07:00:00', 8.0),
 (7, 2, '2026-02-04 15:00:00', 7.0),
 (11, NULL, '2026-02-04 08:00:00', 8.0),
 
 -- Czwartek 05.02 (Agnieszka L4)
 (5, 1, '2026-02-05 06:00:00', 8.5),
-(2, 1, '2026-02-05 14:30:00', 8.5), -- Zastêpstwo
+(2, 1, '2026-02-05 14:30:00', 8.5), -- Zastï¿½pstwo
 (6, 2, '2026-02-05 07:00:00', 8.0),
 (9, 2, '2026-02-05 15:00:00', 7.0),
 (11, NULL, '2026-02-05 08:00:00', 8.0),
 
--- Pi¹tek 06.02 (Agnieszka L4)
+-- Piï¿½tek 06.02 (Agnieszka L4)
 (3, 1, '2026-02-06 06:00:00', 8.5),
-(5, 1, '2026-02-06 14:30:00', 8.5), -- Zastêpstwo
+(5, 1, '2026-02-06 14:30:00', 8.5), -- Zastï¿½pstwo
 (8, 2, '2026-02-06 07:00:00', 8.0),
 (10, 2, '2026-02-06 15:00:00', 7.0),
 (11, NULL, '2026-02-06 08:00:00', 8.0),
 
--- Sobota 07.02 (Agnieszka wróci³a)
+-- Sobota 07.02 (Agnieszka wrï¿½ciï¿½a)
 (2, 1, '2026-02-07 06:00:00', 8.5),
-(4, 1, '2026-02-07 14:30:00', 8.5), -- Ju¿ jest
+(4, 1, '2026-02-07 14:30:00', 8.5), -- Juï¿½ jest
 (12, 2, '2026-02-07 07:00:00', 8.0),
 (7, 2, '2026-02-07 15:00:00', 7.0),
 
@@ -608,8 +608,8 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (6, 2, '2026-02-08 07:00:00', 8.0),
 (9, 2, '2026-02-08 15:00:00', 7.0),
 
--- --- LUTY TYDZIEÑ 2 (09-15.02) - ANNA (ID 2) URLOP (09-13.02) ---
--- Poniedzia³ek 09.02
+-- --- LUTY TYDZIEï¿½ 2 (09-15.02) - ANNA (ID 2) URLOP (09-13.02) ---
+-- Poniedziaï¿½ek 09.02
 (3, 1, '2026-02-09 06:00:00', 8.5), -- Anna na urlopie
 (4, 1, '2026-02-09 14:30:00', 8.5),
 (8, 2, '2026-02-09 07:00:00', 8.0),
@@ -623,7 +623,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (7, 2, '2026-02-10 15:00:00', 7.0),
 (11, NULL, '2026-02-10 08:00:00', 8.0),
 
--- Œroda 11.02
+-- ï¿½roda 11.02
 (4, 1, '2026-02-11 06:00:00', 8.5),
 (5, 1, '2026-02-11 14:30:00', 8.5),
 (6, 2, '2026-02-11 07:00:00', 8.0),
@@ -637,15 +637,15 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (10, 2, '2026-02-12 15:00:00', 7.0),
 (11, NULL, '2026-02-12 08:00:00', 8.0),
 
--- Pi¹tek 13.02
+-- Piï¿½tek 13.02
 (5, 1, '2026-02-13 06:00:00', 8.5),
 (3, 1, '2026-02-13 14:30:00', 8.5),
 (12, 2, '2026-02-13 07:00:00', 8.0),
 (7, 2, '2026-02-13 15:00:00', 7.0),
 (11, NULL, '2026-02-13 08:00:00', 8.0),
 
--- Sobota 14.02 (Walentynki - Anna wróci³a?) nie, weekend
-(2, 1, '2026-02-14 06:00:00', 8.5), -- Wróci³a na weekend
+-- Sobota 14.02 (Walentynki - Anna wrï¿½ciï¿½a?) nie, weekend
+(2, 1, '2026-02-14 06:00:00', 8.5), -- Wrï¿½ciï¿½a na weekend
 (4, 1, '2026-02-14 14:30:00', 8.5),
 (6, 2, '2026-02-14 07:00:00', 8.0),
 (9, 2, '2026-02-14 15:00:00', 7.0),
@@ -656,8 +656,8 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (8, 2, '2026-02-15 07:00:00', 8.0),
 (10, 2, '2026-02-15 15:00:00', 7.0),
 
--- --- LUTY TYDZIEÑ 3 (16-22.02) - PIOTR (ID 12) CHORY 20.02 ---
--- Poniedzia³ek 16.02
+-- --- LUTY TYDZIEï¿½ 3 (16-22.02) - PIOTR (ID 12) CHORY 20.02 ---
+-- Poniedziaï¿½ek 16.02
 (2, 1, '2026-02-16 06:00:00', 8.5),
 (4, 1, '2026-02-16 14:30:00', 8.5),
 (12, 2, '2026-02-16 07:00:00', 8.0),
@@ -671,7 +671,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (9, 2, '2026-02-17 15:00:00', 7.0),
 (11, NULL, '2026-02-17 08:00:00', 8.0),
 
--- Œroda 18.02
+-- ï¿½roda 18.02
 (2, 1, '2026-02-18 06:00:00', 8.5),
 (4, 1, '2026-02-18 14:30:00', 8.5),
 (8, 2, '2026-02-18 07:00:00', 8.0),
@@ -685,10 +685,10 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (7, 2, '2026-02-19 15:00:00', 7.0),
 (11, NULL, '2026-02-19 08:00:00', 8.0),
 
--- Pi¹tek 20.02 (Piotr ID 12 CHORY)
+-- Piï¿½tek 20.02 (Piotr ID 12 CHORY)
 (2, 1, '2026-02-20 06:00:00', 8.5),
 (4, 1, '2026-02-20 14:30:00', 8.5),
-(6, 2, '2026-02-20 07:00:00', 8.0), -- Piotr nie mo¿e
+(6, 2, '2026-02-20 07:00:00', 8.0), -- Piotr nie moï¿½e
 (9, 2, '2026-02-20 15:00:00', 7.0),
 (11, NULL, '2026-02-20 08:00:00', 8.0),
 
@@ -704,8 +704,8 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (12, 2, '2026-02-22 07:00:00', 8.0),
 (7, 2, '2026-02-22 15:00:00', 7.0),
 
--- --- LUTY TYDZIEÑ 4 (23-28.02) ---
--- Poniedzia³ek 23.02
+-- --- LUTY TYDZIEï¿½ 4 (23-28.02) ---
+-- Poniedziaï¿½ek 23.02
 (3, 1, '2026-02-23 06:00:00', 8.5),
 (5, 1, '2026-02-23 14:30:00', 8.5),
 (6, 2, '2026-02-23 07:00:00', 8.0),
@@ -719,7 +719,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (10, 2, '2026-02-24 15:00:00', 7.0),
 (11, NULL, '2026-02-24 08:00:00', 8.0),
 
--- Œroda 25.02
+-- ï¿½roda 25.02
 (3, 1, '2026-02-25 06:00:00', 8.5),
 (5, 1, '2026-02-25 14:30:00', 8.5),
 (12, 2, '2026-02-25 07:00:00', 8.0),
@@ -733,7 +733,7 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 (9, 2, '2026-02-26 15:00:00', 7.0),
 (11, NULL, '2026-02-26 08:00:00', 8.0),
 
--- Pi¹tek 27.02
+-- Piï¿½tek 27.02
 (3, 1, '2026-02-27 06:00:00', 8.5),
 (5, 1, '2026-02-27 14:30:00', 8.5),
 (8, 2, '2026-02-27 07:00:00', 8.0),
@@ -748,8 +748,8 @@ INSERT INTO WorkShifts (EmployeeID, RoomID, StartTime, durationTime) VALUES
 
 INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime, durationTime) VALUES
 
--- ==================== STYCZEÑ ====================
--- Tydzieñ 1
+-- ==================== STYCZEï¿½ ====================
+-- Tydzieï¿½ 1
 (3, 0, 12, 9, '2026-01-01 10:00:00', 60.0),
 (4, 0, 25, 6, '2026-01-01 18:00:00', 60.0),
 (5, 0, 15, 8, '2026-01-02 17:00:00', 55.0),
@@ -758,7 +758,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (4, 0, 25, 6, '2026-01-03 12:00:00', 90.0),
 (2, 0, 15, 7, '2026-01-04 11:00:00', 60.0),
 
--- Tydzieñ 2
+-- Tydzieï¿½ 2
 (2, 0, 15, 8, '2026-01-05 17:30:00', 60.0),
 (7, 0, 12, 10, '2026-01-05 19:00:00', 60.0),
 (3, 0, 12, 9, '2026-01-06 10:00:00', 60.0),
@@ -774,7 +774,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (4, 0, 25, 6, '2026-01-10 12:00:00', 90.0),
 (2, 0, 15, 7, '2026-01-11 18:00:00', 60.0),
 
--- Tydzieñ 3
+-- Tydzieï¿½ 3
 (2, 0, 15, 8, '2026-01-12 17:30:00', 60.0),
 (4, 0, 25, 7, '2026-01-12 19:00:00', 60.0),
 (3, 0, 12, 9, '2026-01-13 10:00:00', 60.0),
@@ -788,7 +788,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (7, 0, 12, 10, '2026-01-17 10:00:00', 60.0),
 (6, 0, 25, 9, '2026-01-17 12:00:00', 60.0),
 
--- Tydzieñ 4
+-- Tydzieï¿½ 4
 (2, 0, 15, 8, '2026-01-19 17:30:00', 60.0),
 (4, 0, 25, 6, '2026-01-19 19:00:00', 60.0),
 (3, 0, 12, 8, '2026-01-20 10:00:00', 60.0),
@@ -803,7 +803,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (4, 0, 25, 6, '2026-01-24 12:00:00', 90.0),
 (2, 0, 15, 7, '2026-01-25 17:00:00', 60.0),
 
--- Tydzieñ 5
+-- Tydzieï¿½ 5
 (2, 0, 15, 8, '2026-01-26 17:30:00', 60.0),
 (6, 0, 25, 12, '2026-01-26 19:00:00', 60.0),
 (3, 0, 12, 9, '2026-01-27 10:00:00', 60.0),
@@ -818,7 +818,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (4, 0, 25, 6, '2026-01-31 12:00:00', 90.0),
 
 -- ==================== LUTY ====================
--- Tydzieñ 1
+-- Tydzieï¿½ 1
 (2, 0, 15, 8, '2026-02-02 17:30:00', 60.0),
 (4, 0, 25, 6, '2026-02-02 19:00:00', 60.0),
 (3, 0, 12, 9, '2026-02-03 10:00:00', 60.0),
@@ -833,7 +833,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (4, 0, 25, 6, '2026-02-07 12:00:00', 90.0),
 (2, 0, 15, 7, '2026-02-08 11:00:00', 60.0),
 
--- Tydzieñ 2
+-- Tydzieï¿½ 2
 (2, 0, 15, 8, '2026-02-09 17:30:00', 60.0),
 (6, 0, 25, 7, '2026-02-09 19:00:00', 60.0),
 (3, 0, 12, 9, '2026-02-10 10:00:00', 60.0),
@@ -847,7 +847,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (7, 0, 12, 10, '2026-02-14 10:00:00', 60.0),
 (7, 0, 12, 10, '2026-02-14 16:00:00', 90.0),
 
--- Tydzieñ 3
+-- Tydzieï¿½ 3
 (2, 0, 15, 8, '2026-02-16 17:30:00', 60.0),
 (4, 0, 25, 6, '2026-02-16 19:00:00', 60.0),
 (3, 0, 12, 9, '2026-02-17 10:00:00', 60.0),
@@ -862,7 +862,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (4, 0, 25, 6, '2026-02-21 12:00:00', 90.0),
 (2, 0, 15, 7, '2026-02-22 17:00:00', 60.0),
 
--- Tydzieñ 4
+-- Tydzieï¿½ 4
 (2, 0, 15, 8, '2026-02-23 17:30:00', 60.0),
 (6, 0, 25, 12, '2026-02-23 19:00:00', 60.0),
 (3, 0, 12, 9, '2026-02-24 10:00:00', 60.0),
@@ -876,8 +876,8 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (7, 0, 12, 10, '2026-02-28 10:00:00', 60.0),
 (4, 0, 25, 6, '2026-02-28 12:00:00', 90.0),
 
--- --- TYDZIEÑ 1 (02-08.03) ---
--- Poniedzia³ek 02.03
+-- --- TYDZIEï¿½ 1 (02-08.03) ---
+-- Poniedziaï¿½ek 02.03
 (2, 0, 15, 8, '2026-03-02 17:30:00', 60.0), -- Fitness (Regularne)
 (6, 0, 25, 7, '2026-03-02 19:00:00', 60.0), -- FBW Extra
 
@@ -886,7 +886,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (5, 0, 15, 12, '2026-03-03 18:00:00', 55.0), -- Healthy Spine
 (4, 0, 25, 6, '2026-03-03 19:30:00', 60.0), -- CrossFit
 
--- Œroda 04.03
+-- ï¿½roda 04.03
 (2, 0, 15, 7, '2026-03-04 08:00:00', 45.0), -- Fitness Poranny
 (6, 0, 25, 10, '2026-03-04 18:00:00', 60.0), -- FBW (Regularne)
 
@@ -894,7 +894,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (3, 0, 12, 9, '2026-03-05 10:00:00', 60.0), -- Wellness 50+ (Regularne)
 (7, 0, 12, 10, '2026-03-05 18:30:00', 60.0), -- Zumba
 
--- Pi¹tek 06.03
+-- Piï¿½tek 06.03
 (5, 0, 15, 8, '2026-03-06 17:00:00', 55.0), -- Healthy Spine
 (1, 0, 12, 12, '2026-03-06 19:00:00', 60.0), -- Aerobics (Regularne)
 
@@ -902,12 +902,12 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (7, 0, 12, 10, '2026-03-07 10:00:00', 60.0), -- Zumba
 (4, 0, 25, 6, '2026-03-07 12:00:00', 90.0), -- CrossFit
 
--- Niedziela 08.03 (Dzieñ Kobiet - Specjalny Maraton)
+-- Niedziela 08.03 (Dzieï¿½ Kobiet - Specjalny Maraton)
 (1, 0, 20, 12, '2026-03-08 16:00:00', 90.0), -- Aerobics Special
 (7, 0, 20, 10, '2026-03-08 18:00:00', 90.0), -- Zumba Special
 
--- --- TYDZIEÑ 2 (09-15.03) ---
--- Poniedzia³ek 09.03
+-- --- TYDZIEï¿½ 2 (09-15.03) ---
+-- Poniedziaï¿½ek 09.03
 (2, 0, 15, 8, '2026-03-09 17:30:00', 60.0), -- Fitness
 (4, 0, 25, 6, '2026-03-09 19:00:00', 60.0), -- CrossFit
 
@@ -915,14 +915,14 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (3, 0, 12, 9, '2026-03-10 10:00:00', 60.0), -- Wellness 50+
 (5, 0, 15, 12, '2026-03-10 18:00:00', 55.0), -- Healthy Spine
 
--- Œroda 11.03
+-- ï¿½roda 11.03
 (6, 0, 25, 10, '2026-03-11 18:00:00', 60.0), -- FBW
 
 -- Czwartek 12.03
 (3, 0, 12, 9, '2026-03-12 10:00:00', 60.0), -- Wellness 50+
 (7, 0, 12, 10, '2026-03-12 18:30:00', 60.0), -- Zumba
 
--- Pi¹tek 13.03
+-- Piï¿½tek 13.03
 (5, 0, 15, 8, '2026-03-13 17:00:00', 55.0), -- Healthy Spine
 (1, 0, 12, 12, '2026-03-13 19:00:00', 60.0), -- Aerobics
 
@@ -930,8 +930,8 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (7, 0, 12, 10, '2026-03-14 10:00:00', 60.0), -- Zumba
 (4, 0, 25, 6, '2026-03-14 12:00:00', 90.0), -- CrossFit
 
--- --- TYDZIEÑ 3 (16-22.03) ---
--- Poniedzia³ek 16.03
+-- --- TYDZIEï¿½ 3 (16-22.03) ---
+-- Poniedziaï¿½ek 16.03
 (2, 0, 15, 8, '2026-03-16 17:30:00', 60.0), -- Fitness
 (6, 0, 25, 7, '2026-03-16 19:00:00', 60.0), -- FBW Extra
 
@@ -940,7 +940,7 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (5, 0, 15, 12, '2026-03-17 18:00:00', 55.0), -- Healthy Spine
 (4, 0, 25, 6, '2026-03-17 19:30:00', 60.0), -- CrossFit
 
--- Œroda 18.03
+-- ï¿½roda 18.03
 (2, 0, 15, 7, '2026-03-18 08:00:00', 45.0), -- Fitness
 (6, 0, 25, 10, '2026-03-18 18:00:00', 60.0), -- FBW
 
@@ -948,16 +948,16 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (3, 0, 12, 9, '2026-03-19 10:00:00', 60.0), -- Wellness 50+
 (7, 0, 12, 10, '2026-03-19 18:30:00', 60.0), -- Zumba
 
--- Pi¹tek 20.03
+-- Piï¿½tek 20.03
 (5, 0, 15, 8, '2026-03-20 17:00:00', 55.0), -- Healthy Spine
 (1, 0, 12, 12, '2026-03-20 19:00:00', 60.0), -- Aerobics
 
 -- Sobota 21.03 (Powitanie wiosny)
 (7, 0, 12, 10, '2026-03-21 10:00:00', 60.0), -- Zumba
-(6, 0, 25, 12, '2026-03-21 12:00:00', 90.0), -- FBW Outdoor (jeœli pogoda pozwoli, ale w bazie to RoomID 2)
+(6, 0, 25, 12, '2026-03-21 12:00:00', 90.0), -- FBW Outdoor (jeï¿½li pogoda pozwoli, ale w bazie to RoomID 2)
 
--- --- TYDZIEÑ 4 (23-29.03) ---
--- Poniedzia³ek 23.03
+-- --- TYDZIEï¿½ 4 (23-29.03) ---
+-- Poniedziaï¿½ek 23.03
 (2, 0, 15, 8, '2026-03-23 17:30:00', 60.0), -- Fitness
 (4, 0, 25, 6, '2026-03-23 19:00:00', 60.0), -- CrossFit
 
@@ -965,14 +965,14 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 (3, 0, 12, 9, '2026-03-24 10:00:00', 60.0), -- Wellness 50+
 (5, 0, 15, 12, '2026-03-24 18:00:00', 55.0), -- Healthy Spine
 
--- Œroda 25.03
+-- ï¿½roda 25.03
 (6, 0, 25, 10, '2026-03-25 18:00:00', 60.0), -- FBW
 
 -- Czwartek 26.03
 (3, 0, 12, 9, '2026-03-26 10:00:00', 60.0), -- Wellness 50+
 (7, 0, 12, 10, '2026-03-26 18:30:00', 60.0), -- Zumba
 
--- Pi¹tek 27.03
+-- Piï¿½tek 27.03
 (5, 0, 15, 8, '2026-03-27 17:00:00', 55.0), -- Healthy Spine
 (1, 0, 12, 12, '2026-03-27 19:00:00', 60.0), -- Aerobics
 
@@ -983,8 +983,8 @@ INSERT INTO ClassSchedule (ClassID, Registered, Max_slots, EmployeeID, StartTime
 -- Niedziela 29.03
 (2, 0, 15, 7, '2026-03-29 17:00:00', 60.0), -- Fitness
 
--- --- KOÑCÓWKA (30-31.03) ---
--- Poniedzia³ek 30.03
+-- --- KOï¿½Cï¿½WKA (30-31.03) ---
+-- Poniedziaï¿½ek 30.03
 (2, 0, 15, 8, '2026-03-30 17:30:00', 60.0), -- Fitness
 (6, 0, 25, 7, '2026-03-30 19:00:00', 60.0), -- FBW Extra
 
@@ -2131,3 +2131,579 @@ INSERT INTO ClassRegistrations (ScheduleID, CustomerID) VALUES (70, 32);
 INSERT INTO ClassRegistrations (ScheduleID, CustomerID) VALUES (80, 76);
 INSERT INTO ClassRegistrations (ScheduleID, CustomerID) VALUES (21, 37);
 INSERT INTO ClassRegistrations (ScheduleID, CustomerID) VALUES (62, 84);
+
+
+--entriesBacklog
+--MINIMUM:
+--z tabeli singleEntries:
+INSERT INTO EntriesBacklog (PersonID, Data) VALUES (33, '2026-01-05 17:00:00');
+INSERT INTO EntriesBacklog (PersonID, Data) VALUES (33, '2026-01-12 17:15:00');
+INSERT INTO EntriesBacklog (PersonID, Data) VALUES (33, '2026-01-19 17:05:00');
+INSERT INTO EntriesBacklog (PersonID, Data) VALUES (33, '2026-01-26 17:10:00');
+
+INSERT INTO EntriesBacklog (PersonID, Data) VALUES (40, '2026-01-14 18:30:00');
+INSERT INTO EntriesBacklog (PersonID, Data) VALUES (13, '2026-01-02 08:00:00');
+INSERT INTO EntriesBacklog (PersonID, Data) VALUES (20, '2026-01-20 19:00:00');
+INSERT INTO EntriesBacklog (PersonID, Data) VALUES (50, '2026-01-15 07:00:00');
+--z tabeli classRegistrations:
+INSERT INTO EntriesBacklog (PersonID, Data)
+VALUES
+(53, '2026-01-02 16:56:00'),
+(81, '2026-01-02 16:53:00'),
+(89, '2026-01-02 16:50:00'),
+(16, '2026-01-02 18:48:00'),
+(37, '2026-01-02 18:45:00'),
+(48, '2026-01-02 18:42:00'),
+(51, '2026-01-02 18:40:00'),
+(56, '2026-01-02 18:55:00'),
+(89, '2026-01-02 18:52:00'),
+(37, '2026-01-03 09:49:00'),
+(61, '2026-01-03 09:46:00'),
+(89, '2026-01-03 09:43:00'),
+(28, '2026-01-03 11:43:00'),
+(46, '2026-01-03 11:41:00'),
+(58, '2026-01-04 10:47:00'),
+(85, '2026-01-04 10:44:00'),
+(69, '2026-01-05 17:14:00'),
+(28, '2026-01-05 18:56:00'),
+(37, '2026-01-05 18:53:00'),
+(41, '2026-01-05 18:50:00'),
+(53, '2026-01-05 18:48:00'),
+(61, '2026-01-05 18:45:00'),
+(81, '2026-01-05 18:42:00'),
+(43, '2026-01-06 09:40:00'),
+(51, '2026-01-06 09:55:00'),
+(77, '2026-01-06 09:52:00'),
+(89, '2026-01-06 09:49:00'),
+(46, '2026-01-06 17:46:00'),
+(53, '2026-01-06 17:43:00'),
+(61, '2026-01-06 17:40:00'),
+(81, '2026-01-06 17:56:00'),
+(85, '2026-01-06 17:53:00'),
+(54, '2026-01-06 19:19:00'),
+(89, '2026-01-06 19:16:00'),
+(89, '2026-01-07 07:45:00'),
+(28, '2026-01-07 17:42:00'),
+(53, '2026-01-07 17:40:00'),
+(28, '2026-01-08 09:55:00'),
+(69, '2026-01-08 09:52:00'),
+(81, '2026-01-08 09:49:00'),
+(41, '2026-01-08 18:15:00'),
+(44, '2026-01-08 18:12:00'),
+(46, '2026-01-08 18:09:00'),
+(49, '2026-01-08 18:26:00'),
+(81, '2026-01-09 16:44:00'),
+(89, '2026-01-09 16:56:00'),
+(59, '2026-01-09 18:53:00'),
+(77, '2026-01-09 18:50:00'),
+(89, '2026-01-09 18:48:00'),
+(24, '2026-01-10 09:45:00'),
+(47, '2026-01-10 09:42:00'),
+(56, '2026-01-10 09:40:00'),
+(58, '2026-01-10 09:55:00'),
+(89, '2026-01-10 09:52:00'),
+(16, '2026-01-10 11:49:00'),
+(51, '2026-01-10 11:46:00'),
+(52, '2026-01-10 11:43:00'),
+(54, '2026-01-10 11:47:00'),
+(69, '2026-01-10 11:44:00'),
+(81, '2026-01-10 11:41:00'),
+(89, '2026-01-10 11:56:00'),
+(24, '2026-01-11 17:42:00'),
+(73, '2026-01-11 17:40:00'),
+(37, '2026-01-12 17:26:00'),
+(44, '2026-01-12 17:20:00'),
+(51, '2026-01-12 17:18:00'),
+(53, '2026-01-12 17:15:00'),
+(59, '2026-01-12 17:12:00'),
+(77, '2026-01-12 17:09:00'),
+(81, '2026-01-12 17:25:00'),
+(49, '2026-01-12 18:52:00'),
+(53, '2026-01-12 18:49:00'),
+(52, '2026-01-13 09:46:00'),
+(41, '2026-01-13 17:56:00'),
+(58, '2026-01-13 17:50:00'),
+(61, '2026-01-13 17:48:00'),
+(24, '2026-01-13 19:15:00'),
+(56, '2026-01-13 19:12:00'),
+(46, '2026-01-14 17:49:00'),
+(69, '2026-01-14 17:46:00'),
+(24, '2026-01-15 09:43:00'),
+(47, '2026-01-15 09:40:00'),
+(46, '2026-01-15 17:55:00'),
+(56, '2026-01-15 17:52:00'),
+(57, '2026-01-15 17:49:00'),
+(59, '2026-01-15 17:47:00'),
+(85, '2026-01-15 17:44:00'),
+(52, '2026-01-16 16:42:00'),
+(81, '2026-01-16 16:40:00'),
+(28, '2026-01-16 18:55:00'),
+(41, '2026-01-16 18:52:00'),
+(43, '2026-01-16 18:49:00'),
+(54, '2026-01-16 18:45:00'),
+(73, '2026-01-16 18:42:00'),
+(77, '2026-01-16 18:40:00'),
+(81, '2026-01-16 18:56:00'),
+(43, '2026-01-17 09:53:00'),
+(46, '2026-01-17 09:50:00'),
+(56, '2026-01-17 09:47:00'),
+(44, '2026-01-17 11:48:00'),
+(47, '2026-01-17 11:50:00'),
+(56, '2026-01-17 11:47:00'),
+(58, '2026-01-17 11:44:00'),
+(59, '2026-01-17 11:41:00'),
+(37, '2026-01-19 17:26:00'),
+(47, '2026-01-19 17:23:00'),
+(53, '2026-01-19 17:20:00'),
+(81, '2026-01-19 17:17:00'),
+(47, '2026-01-19 18:55:00'),
+(51, '2026-01-19 18:52:00'),
+(52, '2026-01-19 18:49:00'),
+(53, '2026-01-19 18:46:00'),
+(16, '2026-01-20 09:56:00'),
+(20, '2026-01-20 09:53:00'),
+(61, '2026-01-20 09:50:00'),
+(46, '2026-01-20 17:47:00'),
+(58, '2026-01-20 17:44:00'),
+(37, '2026-01-21 07:52:00'),
+(56, '2026-01-21 07:49:00'),
+(43, '2026-01-21 17:56:00'),
+(85, '2026-01-21 17:53:00'),
+(89, '2026-01-21 17:50:00'),
+(37, '2026-01-22 09:56:00'),
+(41, '2026-01-22 09:53:00'),
+(44, '2026-01-22 09:50:00'),
+(57, '2026-01-22 09:47:00'),
+(58, '2026-01-22 09:44:00'),
+(24, '2026-01-22 18:26:00'),
+(49, '2026-01-22 18:23:00'),
+(59, '2026-01-22 18:20:00'),
+(61, '2026-01-22 18:17:00'),
+(58, '2026-01-23 16:56:00'),
+(28, '2026-01-23 18:53:00'),
+(73, '2026-01-23 18:50:00'),
+(16, '2026-01-24 09:56:00'),
+(24, '2026-01-24 09:53:00'),
+(69, '2026-01-24 09:50:00'),
+(85, '2026-01-24 09:47:00'),
+(48, '2026-01-24 11:56:00'),
+(49, '2026-01-24 11:53:00'),
+(61, '2026-01-24 11:50:00'),
+(73, '2026-01-24 11:47:00'),
+(81, '2026-01-24 11:44:00'),
+(24, '2026-01-25 16:56:00'),
+(56, '2026-01-25 16:53:00'),
+(58, '2026-01-25 16:50:00'),
+(73, '2026-01-25 16:47:00'),
+(24, '2026-01-26 17:26:00'),
+(44, '2026-01-26 17:23:00'),
+(47, '2026-01-26 17:20:00'),
+(57, '2026-01-26 17:17:00'),
+(73, '2026-01-26 17:14:00'),
+(77, '2026-01-26 17:11:00'),
+(48, '2026-01-26 18:56:00'),
+(81, '2026-01-26 18:53:00'),
+(47, '2026-01-27 09:56:00'),
+(58, '2026-01-27 09:53:00'),
+(41, '2026-01-27 17:56:00'),
+(46, '2026-01-27 17:53:00'),
+(51, '2026-01-27 17:50:00'),
+(52, '2026-01-27 17:47:00'),
+(56, '2026-01-27 17:44:00'),
+(69, '2026-01-27 17:41:00'),
+(81, '2026-01-27 17:58:00'),
+(47, '2026-01-27 19:26:00'),
+(59, '2026-01-27 19:23:00'),
+(89, '2026-01-27 19:20:00'),
+(37, '2026-01-28 17:56:00'),
+(41, '2026-01-28 17:53:00'),
+(49, '2026-01-28 17:50:00'),
+(52, '2026-01-28 17:47:00'),
+(77, '2026-01-28 17:44:00'),
+(37, '2026-01-29 09:56:00'),
+(51, '2026-01-29 09:53:00'),
+(61, '2026-01-29 09:50:00'),
+(46, '2026-01-29 18:26:00'),
+(58, '2026-01-29 18:23:00'),
+(59, '2026-01-29 18:20:00'),
+(73, '2026-01-29 18:17:00'),
+(24, '2026-01-30 16:56:00'),
+(51, '2026-01-30 16:53:00'),
+(59, '2026-01-30 16:50:00'),
+(61, '2026-01-30 16:47:00'),
+(69, '2026-01-30 16:44:00'),
+(77, '2026-01-30 16:41:00'),
+(52, '2026-01-30 18:56:00'),
+(53, '2026-01-30 18:53:00'),
+(77, '2026-01-30 18:50:00'),
+(41, '2026-01-31 09:56:00'),
+(46, '2026-01-31 09:53:00'),
+(52, '2026-01-31 09:50:00'),
+(54, '2026-01-31 09:47:00'),
+(77, '2026-01-31 09:44:00'),
+(85, '2026-01-31 09:41:00'),
+(43, '2026-01-31 11:56:00'),
+(77, '2026-01-31 11:53:00'),
+(14, '2026-02-02 17:26:00'),
+(18, '2026-02-02 17:23:00'),
+(19, '2026-02-02 17:20:00'),
+(25, '2026-02-02 17:17:00'),
+(26, '2026-02-02 17:25:00'),
+(32, '2026-02-02 17:22:00'),
+(40, '2026-02-02 17:19:00'),
+(41, '2026-02-02 17:17:00'),
+(46, '2026-02-02 17:14:00'),
+(52, '2026-02-02 17:11:00'),
+(54, '2026-02-02 17:28:00'),
+(91, '2026-02-02 17:24:00'),
+(21, '2026-02-02 18:56:00'),
+(36, '2026-02-02 18:53:00'),
+(41, '2026-02-02 18:50:00'),
+(49, '2026-02-02 18:47:00'),
+(54, '2026-02-02 18:44:00'),
+(57, '2026-02-02 18:41:00'),
+(61, '2026-02-02 18:58:00'),
+(67, '2026-02-02 18:55:00'),
+(72, '2026-02-02 18:52:00'),
+(74, '2026-02-02 18:49:00'),
+(77, '2026-02-02 18:46:00'),
+(86, '2026-02-02 18:43:00'),
+(29, '2026-02-03 09:56:00'),
+(34, '2026-02-03 09:53:00'),
+(83, '2026-02-03 09:50:00'),
+(84, '2026-02-03 09:47:00'),
+(62, '2026-02-03 17:56:00'),
+(87, '2026-02-03 17:53:00'),
+(18, '2026-02-04 07:56:00'),
+(21, '2026-02-04 07:53:00'),
+(62, '2026-02-04 07:50:00'),
+(72, '2026-02-04 07:47:00'),
+(84, '2026-02-04 07:44:00'),
+(86, '2026-02-04 07:41:00'),
+(17, '2026-02-04 17:56:00'),
+(21, '2026-02-04 17:53:00'),
+(23, '2026-02-04 17:50:00'),
+(39, '2026-02-04 17:47:00'),
+(76, '2026-02-04 17:44:00'),
+(82, '2026-02-04 17:41:00'),
+(90, '2026-02-04 17:58:00'),
+(19, '2026-02-05 09:56:00'),
+(32, '2026-02-05 09:53:00'),
+(74, '2026-02-05 09:50:00'),
+(86, '2026-02-05 09:47:00'),
+(34, '2026-02-05 18:26:00'),
+(63, '2026-02-05 18:23:00'),
+(72, '2026-02-05 18:20:00'),
+(74, '2026-02-05 18:17:00'),
+(80, '2026-02-05 18:14:00'),
+(91, '2026-02-05 18:11:00'),
+(19, '2026-02-06 16:56:00'),
+(70, '2026-02-06 16:53:00'),
+(83, '2026-02-06 16:50:00'),
+(18, '2026-02-06 18:56:00'),
+(19, '2026-02-06 18:53:00'),
+(34, '2026-02-06 18:50:00'),
+(38, '2026-02-06 18:47:00'),
+(68, '2026-02-06 18:44:00'),
+(71, '2026-02-06 18:41:00'),
+(80, '2026-02-06 18:58:00'),
+(83, '2026-02-06 18:55:00'),
+(90, '2026-02-06 18:52:00'),
+(17, '2026-02-07 09:56:00'),
+(18, '2026-02-07 09:53:00'),
+(29, '2026-02-07 09:50:00'),
+(40, '2026-02-07 09:47:00'),
+(71, '2026-02-07 09:44:00'),
+(91, '2026-02-07 09:41:00'),
+(30, '2026-02-07 11:56:00'),
+(38, '2026-02-07 11:53:00'),
+(68, '2026-02-07 11:50:00'),
+(83, '2026-02-07 11:47:00'),
+(88, '2026-02-07 11:44:00'),
+(92, '2026-02-07 11:41:00'),
+(26, '2026-02-08 10:56:00'),
+(67, '2026-02-08 10:53:00'),
+(84, '2026-02-08 10:50:00'),
+(86, '2026-02-08 10:47:00'),
+(22, '2026-02-09 17:26:00'),
+(26, '2026-02-09 17:23:00'),
+(35, '2026-02-09 17:20:00'),
+(40, '2026-02-09 17:17:00'),
+(66, '2026-02-09 17:14:00'),
+(68, '2026-02-09 17:11:00'),
+(72, '2026-02-09 17:28:00'),
+(75, '2026-02-09 17:24:00'),
+(27, '2026-02-09 18:56:00'),
+(29, '2026-02-09 18:53:00'),
+(38, '2026-02-09 18:50:00'),
+(39, '2026-02-09 18:47:00'),
+(68, '2026-02-09 18:44:00'),
+(70, '2026-02-09 18:41:00'),
+(74, '2026-02-09 18:58:00'),
+(30, '2026-02-10 09:56:00'),
+(39, '2026-02-10 09:53:00'),
+(66, '2026-02-10 09:50:00'),
+(68, '2026-02-10 09:47:00'),
+(70, '2026-02-10 09:44:00'),
+(30, '2026-02-10 17:56:00'),
+(31, '2026-02-10 17:53:00'),
+(79, '2026-02-10 17:50:00'),
+(13, '2026-02-10 19:26:00'),
+(14, '2026-02-10 19:23:00'),
+(22, '2026-02-10 19:20:00'),
+(29, '2026-02-10 19:17:00'),
+(34, '2026-02-10 19:14:00'),
+(74, '2026-02-10 19:11:00'),
+(75, '2026-02-10 19:28:00'),
+(79, '2026-02-10 19:24:00'),
+(17, '2026-02-11 17:56:00'),
+(18, '2026-02-11 17:53:00'),
+(19, '2026-02-11 17:50:00'),
+(21, '2026-02-11 17:47:00'),
+(39, '2026-02-11 17:44:00'),
+(67, '2026-02-11 17:41:00'),
+(68, '2026-02-11 17:58:00'),
+(75, '2026-02-11 17:55:00'),
+(18, '2026-02-12 09:56:00'),
+(25, '2026-02-12 09:53:00'),
+(27, '2026-02-12 09:50:00'),
+(30, '2026-02-12 09:47:00'),
+(35, '2026-02-12 09:44:00'),
+(64, '2026-02-12 09:41:00'),
+(71, '2026-02-12 09:58:00'),
+(75, '2026-02-12 09:55:00'),
+(76, '2026-02-12 09:52:00'),
+(83, '2026-02-12 09:49:00'),
+(86, '2026-02-12 09:46:00'),
+(92, '2026-02-12 09:43:00'),
+(15, '2026-02-12 18:26:00'),
+(17, '2026-02-12 18:23:00'),
+(26, '2026-02-12 18:20:00'),
+(31, '2026-02-12 18:17:00'),
+(82, '2026-02-12 18:14:00'),
+(84, '2026-02-12 18:11:00'),
+(14, '2026-02-13 16:56:00'),
+(21, '2026-02-13 16:53:00'),
+(27, '2026-02-13 16:50:00'),
+(39, '2026-02-13 16:47:00'),
+(40, '2026-02-13 16:44:00'),
+(71, '2026-02-13 16:41:00'),
+(83, '2026-02-13 16:58:00'),
+(87, '2026-02-13 16:55:00'),
+(88, '2026-02-13 16:52:00'),
+(18, '2026-02-13 18:56:00'),
+(21, '2026-02-13 18:53:00'),
+(22, '2026-02-13 18:50:00'),
+(29, '2026-02-13 18:47:00'),
+(30, '2026-02-13 18:44:00'),
+(63, '2026-02-13 18:41:00'),
+(71, '2026-02-13 18:58:00'),
+(74, '2026-02-13 18:55:00'),
+(14, '2026-02-14 09:56:00'),
+(39, '2026-02-14 09:53:00'),
+(63, '2026-02-14 09:50:00'),
+(68, '2026-02-14 09:47:00'),
+(88, '2026-02-14 09:44:00'),
+(91, '2026-02-14 09:41:00'),
+(15, '2026-02-14 15:56:00'),
+(31, '2026-02-14 15:53:00'),
+(32, '2026-02-14 15:50:00'),
+(40, '2026-02-14 15:47:00'),
+(64, '2026-02-14 15:44:00'),
+(74, '2026-02-14 15:41:00'),
+(75, '2026-02-14 15:58:00'),
+(14, '2026-02-16 17:26:00'),
+(25, '2026-02-16 17:23:00'),
+(84, '2026-02-16 17:20:00'),
+(19, '2026-02-16 18:56:00'),
+(22, '2026-02-16 18:53:00'),
+(26, '2026-02-16 18:50:00'),
+(36, '2026-02-16 18:47:00'),
+(39, '2026-02-16 18:44:00'),
+(64, '2026-02-16 18:41:00'),
+(71, '2026-02-16 18:58:00'),
+(83, '2026-02-16 18:55:00'),
+(91, '2026-02-16 18:52:00'),
+(23, '2026-02-17 09:56:00'),
+(27, '2026-02-17 09:53:00'),
+(30, '2026-02-17 09:50:00'),
+(50, '2026-02-17 09:47:00'),
+(15, '2026-02-17 17:56:00'),
+(17, '2026-02-17 17:53:00'),
+(23, '2026-02-17 17:50:00'),
+(63, '2026-02-17 17:47:00'),
+(90, '2026-02-17 17:44:00'),
+(19, '2026-02-18 07:56:00'),
+(63, '2026-02-18 07:53:00'),
+(68, '2026-02-18 07:50:00'),
+(75, '2026-02-18 07:47:00'),
+(82, '2026-02-18 07:44:00'),
+(13, '2026-02-18 17:56:00'),
+(19, '2026-02-18 17:53:00'),
+(40, '2026-02-18 17:50:00'),
+(62, '2026-02-18 17:47:00'),
+(79, '2026-02-18 17:44:00'),
+(87, '2026-02-18 17:41:00'),
+(27, '2026-02-19 09:56:00'),
+(34, '2026-02-19 09:53:00'),
+(76, '2026-02-19 09:50:00'),
+(13, '2026-02-19 18:26:00'),
+(31, '2026-02-19 18:26:00'),
+(62, '2026-02-19 18:23:00'),
+(63, '2026-02-19 18:20:00'),
+(67, '2026-02-19 18:17:00'),
+(80, '2026-02-19 18:14:00'),
+(84, '2026-02-19 18:11:00'),
+(63, '2026-02-20 16:56:00'),
+(64, '2026-02-20 16:53:00'),
+(67, '2026-02-20 16:50:00'),
+(86, '2026-02-20 16:47:00'),
+(18, '2026-02-20 18:56:00'),
+(26, '2026-02-20 18:53:00'),
+(32, '2026-02-20 18:50:00'),
+(62, '2026-02-20 18:47:00'),
+(64, '2026-02-20 18:44:00'),
+(66, '2026-02-20 18:41:00'),
+(80, '2026-02-20 18:58:00'),
+(23, '2026-02-21 09:56:00'),
+(29, '2026-02-21 09:53:00'),
+(38, '2026-02-21 09:50:00'),
+(67, '2026-02-21 09:47:00'),
+(83, '2026-02-21 09:44:00'),
+(88, '2026-02-21 09:41:00'),
+(30, '2026-02-21 11:56:00'),
+(31, '2026-02-21 11:53:00'),
+(32, '2026-02-21 11:50:00'),
+(39, '2026-02-21 11:47:00'),
+(75, '2026-02-21 11:44:00'),
+(82, '2026-02-21 11:41:00'),
+(87, '2026-02-21 11:58:00'),
+(88, '2026-02-21 11:55:00'),
+(91, '2026-02-21 11:52:00'),
+(30, '2026-02-22 16:56:00'),
+(31, '2026-02-22 16:53:00'),
+(35, '2026-02-22 16:50:00'),
+(63, '2026-02-22 16:47:00'),
+(70, '2026-02-22 16:44:00'),
+(90, '2026-02-22 16:41:00'),
+(23, '2026-02-23 17:26:00'),
+(31, '2026-02-23 17:23:00'),
+(71, '2026-02-23 17:20:00'),
+(74, '2026-02-23 17:17:00'),
+(80, '2026-02-23 17:14:00'),
+(18, '2026-02-23 18:56:00'),
+(19, '2026-02-23 18:53:00'),
+(25, '2026-02-23 18:50:00'),
+(68, '2026-02-23 18:47:00'),
+(91, '2026-02-23 18:44:00'),
+(15, '2026-02-24 09:56:00'),
+(62, '2026-02-24 09:53:00'),
+(63, '2026-02-24 09:50:00'),
+(78, '2026-02-24 09:47:00'),
+(84, '2026-02-24 09:44:00'),
+(88, '2026-02-24 09:41:00'),
+(26, '2026-02-24 17:56:00'),
+(27, '2026-02-24 17:53:00'),
+(30, '2026-02-24 17:50:00'),
+(50, '2026-02-24 17:47:00'),
+(74, '2026-02-24 17:44:00'),
+(78, '2026-02-24 17:41:00'),
+(83, '2026-02-24 17:58:00'),
+(84, '2026-02-24 17:55:00'),
+(87, '2026-02-24 17:52:00'),
+(19, '2026-02-24 19:26:00'),
+(31, '2026-02-24 19:23:00'),
+(34, '2026-02-24 19:20:00'),
+(62, '2026-02-24 19:17:00'),
+(76, '2026-02-24 19:14:00'),
+(29, '2026-02-25 17:56:00'),
+(39, '2026-02-25 17:53:00'),
+(68, '2026-02-25 17:50:00'),
+(15, '2026-02-26 09:56:00'),
+(17, '2026-02-26 09:53:00'),
+(63, '2026-02-26 09:50:00'),
+(17, '2026-02-26 18:26:00'),
+(22, '2026-02-26 18:23:00'),
+(27, '2026-02-26 18:20:00'),
+(32, '2026-02-26 18:17:00'),
+(35, '2026-02-26 18:14:00'),
+(50, '2026-02-26 18:11:00'),
+(67, '2026-02-26 18:28:00'),
+(87, '2026-02-26 18:24:00'),
+(92, '2026-02-26 18:21:00'),
+(15, '2026-02-27 16:56:00'),
+(71, '2026-02-27 16:53:00'),
+(75, '2026-02-27 16:50:00'),
+(87, '2026-02-27 16:47:00'),
+(29, '2026-02-27 18:56:00'),
+(39, '2026-02-27 18:53:00'),
+(71, '2026-02-27 18:50:00'),
+(82, '2026-02-27 18:47:00'),
+(83, '2026-02-27 18:44:00'),
+(88, '2026-02-27 18:41:00'),
+(13, '2026-02-28 09:56:00'),
+(39, '2026-02-28 09:53:00'),
+(66, '2026-02-28 09:50:00'),
+(72, '2026-02-28 09:47:00'),
+(14, '2026-02-28 11:56:00'),
+(27, '2026-02-28 11:53:00'),
+(29, '2026-02-28 11:50:00');
+--z tabeli personalTrainingSessions:
+INSERT INTO EntriesBacklog (PersonID, Data) VALUES
+(13, '2026-01-02 17:43:00.000'),
+(14, '2026-01-02 18:48:00.000'),
+(15, '2026-01-05 06:52:00.000'),
+(20, '2026-01-05 17:21:00.000'),
+(25, '2026-01-05 17:55:00.000'),
+(30, '2026-01-05 19:17:00.000'),
+(33, '2026-01-06 07:44:00.000'),
+(35, '2026-01-06 16:51:00.000'),
+(40, '2026-01-06 17:47:00.000'),
+(15, '2026-01-07 06:58:00.000'),
+(42, '2026-01-07 16:22:00.000'),
+(50, '2026-01-08 17:41:00.000'),
+(55, '2026-01-08 18:52:00.000'),
+(13, '2026-01-09 17:39:00.000'),
+(60, '2026-01-09 16:56:00.000'),
+(15, '2026-01-12 06:46:00.000'),
+(65, '2026-01-12 15:53:00.000'),
+(33, '2026-01-13 07:55:00.000'),
+(70, '2026-01-14 18:14:00.000'),
+(75, '2026-01-15 18:42:00.000'),
+(18, '2026-01-16 16:43:00.000'),
+(15, '2026-01-19 06:57:00.000'),
+(80, '2026-01-19 17:46:00.000'),
+(33, '2026-01-20 07:38:00.000'),
+(22, '2026-01-21 16:49:00.000'),
+(45, '2026-01-22 18:19:00.000'),
+(13, '2026-01-23 17:53:00.000'),
+(15, '2026-01-26 06:50:00.000'),
+(33, '2026-01-27 07:52:00.000'),
+(20, '2026-01-28 17:22:00.000'),
+(50, '2026-01-29 17:48:00.000'),
+(60, '2026-01-30 16:41:00.000'),
+(15, '2026-02-02 06:54:00.000'),
+(14, '2026-02-02 18:42:00.000'),
+(33, '2026-02-03 07:49:00.000'),
+(25, '2026-02-04 17:57:00.000'),
+(30, '2026-02-05 19:23:00.000'),
+(13, '2026-02-06 17:45:00.000'),
+(15, '2026-02-09 06:48:00.000'),
+(42, '2026-02-09 16:15:00.000'),
+(35, '2026-02-10 16:53:00.000'),
+(70, '2026-02-11 18:21:00.000'),
+(55, '2026-02-12 18:50:00.000'),
+(18, '2026-02-13 16:52:00.000'),
+(88, '2026-02-14 09:45:00.000'),
+(15, '2026-02-16 06:56:00.000'),
+(33, '2026-02-17 07:41:00.000'),
+(20, '2026-02-18 17:19:00.000'),
+(50, '2026-02-19 17:54:00.000'),
+(60, '2026-02-20 16:47:00.000'),
+(15, '2026-02-23 06:49:00.000'),
+(80, '2026-02-23 17:44:00.000'),
+(33, '2026-02-24 07:50:00.000'),
+(22, '2026-02-25 16:52:00.000'),
+(45, '2026-02-26 18:17:00.000'),
+(13, '2026-02-27 17:47:00.000'),
+(25, '2026-02-28 09:51:00.000');
