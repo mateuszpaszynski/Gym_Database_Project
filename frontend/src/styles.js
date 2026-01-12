@@ -1,52 +1,93 @@
 import React from "react";
 
-export const drawCalendar = (x) => {
-    const year = 2026;
+export const drawCalendar = (m,y,classesLookup) => {
+    const year = y;
+    const month = m;
     const calendar = [];
     const dayNames = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
-    let firstDay = new Date(year, x, 1).getDay();
+    let firstDay = new Date(year, month, 1).getDay();
     firstDay = (firstDay === 0) ? 6 : firstDay - 1;
 
-    const daysInPrevMonth = new Date(year, x, 0).getDate();
-    const daysInCurrentMonth = new Date(year, x + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+    const daysInCurrentMonth = new Date(year, month + 1, 0).getDate();
 
     for ( let i =0;i<7;i++)
     {
         calendar.push(<div key={`h-${i}`} style={uniwersalStyles.dayHeader}>{dayNames[i]}</div>)
     }
 
-    // 2. Poprzedni miesiąc (Gray Cells)
     for (let i = 0; i < firstDay; i++) {
         const d = daysInPrevMonth - firstDay + i + 1;
-        const m = x === 0 ? 11 : x - 1; // Grudzień to 11
-        const y = x === 0 ? year - 1 : year;
+        const m = month === 0 ? 11 : month - 1;
+        const y = month === 0 ? year - 1 : year;
+        const kluczzajec = `${y}-${m}-${d}`;
+        const zajeciategodnia = classesLookup[kluczzajec] || [];
+
         calendar.push(
-            <div key={`prev-${y}-${m}-${d}`} style={uniwersalStyles.grayDayCell}>{d}</div>
+            <div key={`${y}-${m}-${d}`} style={uniwersalStyles.grayDayCell}>
+                {d}
+                <div style ={{border:'2px solid red',width:'20px',height:'20px'}}>
+                    {
+                        zajeciategodnia.map(z => (
+                            <div>
+                                {z.ClassName}
+                            </div>
+
+                        ))
+                    }
+                </div>
+
+            </div>
         );
     }
-
-    // 3. Bieżący miesiąc (White Cells)
     for (let d = 1; d <= daysInCurrentMonth; d++) {
+        const kluczzajec = `${y}-${m}-${d}`;
+        const zajeciategodnia = classesLookup[kluczzajec] || [];
         calendar.push(
-            <div key={`curr-${year}-${x}-${d}`} style={uniwersalStyles.dayCell}>{d}</div>
+            <div key={`${year}-${month}-${d}`} style={uniwersalStyles.dayCell}>{d}
+
+                <div style ={{border:'2px solid red',width:'20px',height:'20px'}}>
+                    {
+                        zajeciategodnia.map(z => (
+                            <div>
+                                {z.ClassName}
+                            </div>
+
+                        ))
+                    }
+                </div>
+
+            </div>
+
         );
     }
-
-    // 4. Następny miesiąc (Gray Cells)
     let nextD = 1;
     while (calendar.length % 7 !== 0) {
-        const m = x === 11 ? 0 : x + 1;
-        const y = x === 11 ? year + 1 : year;
+
+        const m = month === 11 ? 0 : month + 1;
+        const y = month === 11 ? year + 1 : year;
+        const kluczzajec = `${y}-${m}-${nextD}`;
+        const zajeciategodnia = classesLookup[kluczzajec] || [];
         calendar.push(
-            <div key={`next-${y}-${m}-${nextD}`} style={uniwersalStyles.grayDayCell}>{nextD}</div>
+            <div key={`${y}-${m}-${nextD}`} style={uniwersalStyles.grayDayCell}>{nextD}
+                <div style ={{border:'2px solid red',width:'20px',height:'20px'}}>
+                    {
+                        zajeciategodnia.map(z => (
+                            <div style ={{fontSize:'1vw'}}>
+                                {z.ScheduleID}
+                            </div>
+
+                        ))
+                    }
+                </div>
+
+
+            </div>
         );
-        nextD++;
+        nextD = nextD+1;
     }
-
     return calendar;
-
-
 };
 export const uniwersalStyles ={
         desktopContainer:{position : 'relative',display: 'flex', justifyContent: 'center',alignItems: 'center',
@@ -87,15 +128,18 @@ export const uniwersalStyles ={
             cursor :'pointer',
         },
         calendarMenu:{
-            border:'2px solid black',
+            backgroundColor: 'rgba(0, 0, 0, 0.3)',
+            margin: '0px',
+            fontSize :'3vw',
+            fontWeight:'700',
+            //border:'2px solid black',
             display:'flex',
-            justifyContent:'space-between',
-            height:'15%',
+            justifyContent:'flex-end',
+            alignItems: 'center',
             width:'100%',
-
-
         },
         gridContainer:{
+            maring: '0px',
             // flexGrow: 1,
             backgroundColor: '#ccc',
             display: 'grid',
@@ -105,8 +149,7 @@ export const uniwersalStyles ={
             width:'99%',
             height:'auto',
             gap:'2px',
-            border: '1px solid red',
-            marginTop:'8%',
+            //border: '1px solid red',
             padding:'1% 0.5%'
 
         },

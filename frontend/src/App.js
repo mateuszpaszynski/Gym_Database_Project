@@ -22,7 +22,6 @@ function App() {
                     <button
                         onClick={()=>setWidok('Offer')}
                         style = {widok === 'Offer' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>OFFER</button>
-
                     <button
                         onClick={()=>setWidok('Classes')}
                         style = {widok === 'Classes' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Classes</button>

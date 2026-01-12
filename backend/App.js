@@ -22,7 +22,7 @@ app.get('/api/PopularClasses', async (req, res) => {
 app.get('/api/Classes',async(req,res) =>{
     try{
         let pool = await sql.connect(config);
-        let result = await pool.request().query('SELECT * FROM dbo.GetClassSchedule(1) ORDER BY StartTime');
+        let result = await pool.request().query('SELECT * FROM dbo.GetClassSchedule ORDER BY StartTime');
         res.json(result.recordset);
     }catch(err)
     {

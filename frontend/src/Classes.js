@@ -15,20 +15,41 @@ function Classes()
         }
 };
     useEffect(() => {getData() },[]);
-    const [month,setMonth] = useState(3);
-    const days =[];
-    const dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    return (
-        <div style = {{border :'2px solid green',width:'100%',height:'100%',display:'flex',flexDirection:'column',justifyContent: 'center',itemsAlign:'center'}}>
-            <div style = {uniwersalStyles.calendarMenu}>
+    const classesLookup ={};
+    for ( let i = 0;i<dane.length;i++)
+    {
+       const d = new Date(dane[i].StartTime);
+       console.log('Nalesnik');
+       const klucz = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+       console.log(klucz);
+       if (!classesLookup[klucz])
+       {
+           classesLookup[klucz] = [];
+       }
+       classesLookup[klucz].push(dane[i]);
+    }
 
+
+    const [month,setMonth] = useState(2);
+    const [year,setYear] = useState(2026);
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return (
+        <div style = {{width:'100%',height:'100%',display:'flex',flexDirection:'column',justifyContent: 'flex-end',itemsAlign:'center',gap:'0px'}}>
+            <div style = {uniwersalStyles.calendarMenu}>
+                <header style ={{alignSelf:'flex-start',marginRight: 'auto',marginLeft:'1%',color:'white',marginTop:'0.5%'}}> {monthNames[month ]} {year}</header>
+                <button
+                    onClick={()=> {setYear(month===0 ? year-1 : year) ;setMonth(month === 0 ? 11 : month-1)  }}
+                    style = {uniwersalStyles.menuButton}>{"<"}</button>
+
+                <button
+                    onClick={()=>{setYear(month===11 ? year+1 : year) ; setMonth(month === 11 ? 0 : month+1)}}
+                    style = {uniwersalStyles.menuButton}>{">"}</button>
             </div>
             <div style = {uniwersalStyles.gridContainer}>
                 {
-                    drawCalendar(0)
+                    drawCalendar(month,year,classesLookup)
                 }
             </div>
-
         </div>
     );
 }

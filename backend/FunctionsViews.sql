@@ -50,14 +50,12 @@ where P.ID in ( SELECT * FROM CUSTOMERS)
 GO
 
 IF OBJECT_ID('dbo.GetClassSchedule') is not null
-DROP FUNCTION dbo.GetClassSchedule
+DROP VIEW dbo.GetClassSchedule
 GO
 
-CREATE FUNCTION dbo.GetClassSchedule (@Month INT)
-RETURNS TABLE
+CREATE VIEW dbo.GetClassSchedule 
 AS
-RETURN (SELECT CS.ScheduleID,T.ClassName ,CS.Registered,CS.Max_slots,P.Name,P.Surname,CS.StartTime,Cs.durationTime FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN ClassTypes T on T.ClassID = CS.ClassID WHERE MONTH(CS.StartTime) = @Month);
+SELECT CS.ScheduleID,T.ClassName ,CS.Registered,CS.Max_slots,P.Name,P.Surname,CS.StartTime,Cs.durationTime FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN ClassTypes T on T.ClassID = CS.ClassID
 GO
 
-SELECT * FROM dbo.GetClassSchedule(1)
 
