@@ -55,7 +55,7 @@ GO
 
 CREATE VIEW dbo.GetClassSchedule 
 AS
-SELECT CS.ScheduleID,T.ClassName ,CS.Registered,CS.Max_slots,P.Name,P.Surname,CS.StartTime,Cs.durationTime FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN ClassTypes T on T.ClassID = CS.ClassID
+SELECT CS.ScheduleID,CS.ClassID,T.ClassName ,CS.Registered,CS.Max_slots,P.Name,P.Surname,CS.StartTime,Cs.durationTime,LEFT(CAST(StartTime as TIME),5) [time] FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN ClassTypes T on T.ClassID = CS.ClassID
 GO
 
 

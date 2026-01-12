@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import uniwersalStyles, {drawCalendar} from "./styles";
+import  {uniwersalStyles,drawCalendar,classStyles} from './styles.js';
 function Classes()
 {
     const [dane,setDane] = useState([]);
@@ -16,12 +16,11 @@ function Classes()
 };
     useEffect(() => {getData() },[]);
     const classesLookup ={};
-    for ( let i = 0;i<dane.length;i++)
+    for ( let i = 0;i<dane.length;i++) //ustawia slownik zajec potem wyszukiwanie O(1)
     {
        const d = new Date(dane[i].StartTime);
-       console.log('Nalesnik');
        const klucz = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-       console.log(klucz);
+
        if (!classesLookup[klucz])
        {
            classesLookup[klucz] = [];
@@ -29,10 +28,14 @@ function Classes()
        classesLookup[klucz].push(dane[i]);
     }
 
-
     const [month,setMonth] = useState(2);
     const [year,setYear] = useState(2026);
     const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const [popup,setPopup] = useState({
+        visible:false,
+        x:0,
+        y:0,
+    });
     return (
         <div style = {{width:'100%',height:'100%',display:'flex',flexDirection:'column',justifyContent: 'flex-end',itemsAlign:'center',gap:'0px'}}>
             <div style = {uniwersalStyles.calendarMenu}>
@@ -47,24 +50,32 @@ function Classes()
             </div>
             <div style = {uniwersalStyles.gridContainer}>
                 {
-                    drawCalendar(month,year,classesLookup)
+                    drawCalendar(month,year,classesLookup,setPopup)
                 }
+                {
+                    popup.visible && (<div style={{...popup ,...classStyles[popup.item.ClassID],justifyContent:'flex-start',flexDirection:'column',
+                            top: popup.y - 40,
+                            position:'fixed',
+                            left: popup.x,
+                            width:'auto'}}>
+
+                            <div style = {{whiteSpace: 'pre-wrap',marginLeft:'2px'}}>
+                                 {`${popup.item.ClassName}
+                                 
+With: ${popup.item.Name} ${popup.item.Surname}
+duration: ${popup.item.durationTime} minutes
+at: ${popup.item.time}
+registered: ${popup.item.Registered}/${popup.item.Max_slots}
+                                `
+                                }
+                        </div>
+                        <button >Register</button>
+                        <button onClick={() => setPopup({ ...popup, visible: false })}>Close</button>
+                    </div>
+                )}
             </div>
         </div>
     );
 }
-const styles ={
-    Header:{
-        color:'black',
-        fontSize: '5vw',
-        lineHeight :'0',
-    },
-    table :{
-        display: 'flex',
-        justifyContent:'center',
-        flexDirection: 'row',
 
-    },
-    container:{},
-};
 export default Classes;
