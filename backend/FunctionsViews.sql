@@ -80,3 +80,34 @@ GROUP BY ileNaDzien.dzienTygodnia
 Go
 select*
 from dbo.GetAvgDayAWeek
+
+-- 10 najbardziej obecnych klientow
+if OBJECT_ID('dbo.TenBestActivePeople','V') is NOT NULL
+drop view dbo.TenBestActivePeople
+GO
+
+create view dbo.TenBestActivePeople
+AS
+select top 10  p.Name,p.Surname, COUNT(*) as sumaWejsc
+from EntriesBacklog as eb
+join Person as p on eb.PersonID=p.ID
+GROUP BY p.Name,p.Surname
+ORDER BY sumaWejsc desc
+GO
+    
+--Zwraca srednia ilosc osob w danej godzinie
+if OBJECT_ID('dbo.AvgNumberInHour','V') is not null
+drop view dbo.AvgNumberInHour
+GO
+
+create view dbo.AvgNumberInHour
+AS
+with ileNaDzienGodzina As(
+    SELECT DATEPART(hour, eb.[Data]) as godzina,CAST(eb.[Data] as date) as dzien,COUNT(*) as zliczaj
+    FROM EntriesBacklog as eb
+    GROUP BY DATEPART(hour, eb.[Data]),CAST(eb.[Data] as date)
+)
+select dod.godzina,AVG(dod.zliczaj) as sredniaIloscOsob
+from ileNaDzienGodzina as dod
+GROUP BY dod.godzina
+GO
