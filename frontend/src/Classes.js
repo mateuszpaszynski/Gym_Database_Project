@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react';
-import  {uniwersalStyles,drawCalendar,classStyles} from './styles.js';
+import  {uniwersalStyles,classStyles} from './styles.js';
+import drawCalendar from './calendar.js'
 function Classes()
 {
     const [dane,setDane] = useState([]);
@@ -27,7 +28,28 @@ function Classes()
        }
        classesLookup[klucz].push(dane[i]);
     }
+    const Register = async (item) => {
+        const idZajec = item.ScheduleID;
+        const url =  'http://localhost:5000/api/RegisterForClass/' + idZajec;
+        try {
+            const response = await fetch(url
+                ,
+                {method : 'PUT'});
+            if( response.ok)
+            {
+                alert("Registered");
+                setPopup({...popup,visible:false});
+                getData();
+            }
+            else {
+                const errorText = await response.text();
+                alert("Błąd zapisu :" + errorText);
 
+            }}
+        catch(err){
+            console.log("Blad sieci",err);
+        }
+    }
     const [month,setMonth] = useState(2);
     const [year,setYear] = useState(2026);
     const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -37,9 +59,9 @@ function Classes()
         y:0,
     });
     return (
-        <div style = {{width:'100%',height:'100%',display:'flex',flexDirection:'column',justifyContent: 'flex-end',itemsAlign:'center',gap:'0px'}}>
+        <div style = {{width:'100%',height:'100%',display:'flex',flexDirection:'column',itemsAlign:'center',gap:'0px'}}>
             <div style = {uniwersalStyles.calendarMenu}>
-                <header style ={{alignSelf:'flex-start',marginRight: 'auto',marginLeft:'1%',color:'white',marginTop:'0.5%'}}> {monthNames[month ]} {year}</header>
+                <header style ={{alignSelf:'flex-start',marginRight: 'auto',marginLeft:'0.5%',color:'white',marginTop:'0.5%'}}> {monthNames[month]} {year}</header>
                 <button
                     onClick={()=> {setYear(month===0 ? year-1 : year) ;setMonth(month === 0 ? 11 : month-1)  }}
                     style = {uniwersalStyles.menuButton}>{"<"}</button>
@@ -48,6 +70,7 @@ function Classes()
                     onClick={()=>{setYear(month===11 ? year+1 : year) ; setMonth(month === 11 ? 0 : month+1)}}
                     style = {uniwersalStyles.menuButton}>{">"}</button>
             </div>
+
             <div style = {uniwersalStyles.gridContainer}>
                 {
                     drawCalendar(month,year,classesLookup,setPopup)
@@ -58,7 +81,6 @@ function Classes()
                             position:'fixed',
                             left: popup.x,
                             width:'auto'}}>
-
                             <div style = {{whiteSpace: 'pre-wrap',marginLeft:'2px'}}>
                                  {`${popup.item.ClassName}
                                  
@@ -69,13 +91,15 @@ registered: ${popup.item.Registered}/${popup.item.Max_slots}
                                 `
                                 }
                         </div>
-                        <button >Register</button>
+                        <button onClick={() => Register(popup.item)}>Register</button>
                         <button onClick={() => setPopup({ ...popup, visible: false })}>Close</button>
                     </div>
                 )}
             </div>
+
         </div>
     );
 }
+
 
 export default Classes;

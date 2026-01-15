@@ -1,3 +1,60 @@
+
+IF OBJECT_ID('dbo.AddClass') is not null
+DROP PROCEDURE dbo.AddClass
+GO
+CREATE PROCEDURE dbo.AddClass
+@ClassID int, 
+@Max_slots int,
+@EmployeeID int,
+@StartTime datetime,
+@durationTime decimal (4,2)
+AS
+BEGIN SET NOCOUNT ON;
+INSERT INTO ClassSchedule(ClassID,Registered,Max_slots,EmployeeID,StartTime,durationTime)
+VALUES (@ClassID,0,@Max_slots,@EmployeeID,@StartTime,@durationtime)
+END;
+
+
+IF OBJECT_ID('dbo.RegisterForClass') is not null
+DROP PROCEDURE dbo.RegisterForClass
+GO
+CREATE PROCEDURE dbo.RegisterForClass
+@ScheduleID int,
+@CustomerID int
+AS 
+BEGIN SET NOCOUNT ON;
+INSERT INTO ClassRegistrations(ScheduleID,CustomerID) VALUES
+(@ScheduleID,@CustomerID)
+END;
+
+
+IF OBJECT_ID('dbo.UpdateClass') is not null
+DROP PROCEDURE dbo.UpdateClass
+GO
+CREATE PROCEDURE dbo.UpdateClass
+@ScheduleID int,
+@ClassID int,
+@Max_slots int,
+@EmployeeID int,
+@StartTime datetime,
+@durationTime int
+AS
+BEGIN SET NOCOUNT ON;
+UPDATE ClassSchedule SET ClassID = @ClassID,Max_slots = @Max_slots,EmployeeID = @EmployeeID, StartTime = @StartTime,durationTime=@durationTime  WHERE ScheduleID = @ScheduleID
+END;
+GO
+
+IF OBJECT_ID('dbo.DeleteClass') is not null
+DROP PROCEDURE dbo.DeleteClass
+GO
+CREATE PROCEDURE dbo.DeleteClass
+@ScheduleID int
+AS
+BEGIN SET NOCOUNT ON;
+DELETE FROM ClassSchedule WHERE ScheduleID = @ScheduleID
+END;
+GO
+
 IF OBJECT_ID('dbo.AddCustomer') is not null
 DROP PROCEDURE dbo.AddCustomer
 GO

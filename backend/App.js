@@ -19,6 +19,22 @@ app.get('/api/PopularClasses', async (req, res) => {
         res.status(500).send(err.message);
     }
 });
+app.put('/api/RegisterForClass/:id', async(req,res)=> {
+        try {
+            const ScheduleID = req.params.id;
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('ScheduleID',sql.Int,ScheduleID)
+                .input('CustomerID',sql.Int,1)
+                .execute('dbo.RegisterForClass')
+            res.status(201).json('Registered successfully')
+
+        } catch (err) {
+            res.status(500).send(err.message);
+        }
+
+    }
+);
 app.get('/api/Classes',async(req,res) =>{
     try{
         let pool = await sql.connect(config);
