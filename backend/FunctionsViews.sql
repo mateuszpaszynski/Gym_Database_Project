@@ -31,10 +31,10 @@ BEGIN
     -- Sprawdzamy czy istnieje karnet
     IF EXISTS (SELECT 1 FROM Memberships WHERE CustomerID = @CustomerID AND @Date BETWEEN StartDate AND EndDate)
         RETURN 1;
-    -- Jeœli nie, sprawdzamy czy istnieje wejœcie jednorazowe
+    -- Jeï¿½li nie, sprawdzamy czy istnieje wejï¿½cie jednorazowe
     IF EXISTS (SELECT 1 FROM SingleEntries WHERE CustomerID = @CustomerID AND CAST(EntryDate AS DATE) = @Date)
         RETURN 1;
-    -- Jeœli nic nie znalaz³
+    -- Jeï¿½li nic nie znalazï¿½
     RETURN 0;
 END;
 GO
@@ -59,3 +59,24 @@ SELECT CS.ScheduleID,CS.ClassID,T.ClassName ,CS.Registered,CS.Max_slots,P.Name,P
 GO
 
 
+--Srednia ilosc osob w danym dniu tygodnia (1-poniedzialek)
+set dateFirst 1
+go
+
+if OBJECT_ID('dbo.GetAvgDayAWeek','V') is NOT NULL
+drop view dbo.GetAvgDayAWeek
+GO
+
+create view dbo.GetAvgDayAWeek
+AS
+with ileNaDzien as (
+    select CAST(eb.[Data] as date) as dzien, DATEPART(WEEKDAY,eb.[Data]) as dzienTygodnia, count(distinct eb.PersonID) as ileOsob
+    from EntriesBacklog as eb
+    GROUP BY CAST(eb.[Data] as date),DATEPART(WEEKDAY,eb.[Data])
+)
+select ileNaDzien.dzienTygodnia as [DzieÅ„ tygodnia], avg(ileNaDzien.ileOsob) AS sredniaIloscOsob
+from ileNaDzien
+GROUP BY ileNaDzien.dzienTygodnia
+Go
+select*
+from dbo.GetAvgDayAWeek
