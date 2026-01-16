@@ -7,7 +7,6 @@ import Employees from "./Employees.js";
 import Offer from "./Offer.js"
 import {uniwersalStyles} from "./styles"
 
-
 function App() {
     const [widok,setWidok] = useState('Home');
     return (

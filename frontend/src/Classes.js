@@ -3,6 +3,87 @@ import  {uniwersalStyles,classStyles} from './styles.js';
 import drawCalendar from './calendar.js'
 function Classes()
 {
+    const [userID,setUserID] = useState("1");
+    const [notification, setNotification] = useState({
+        show: false,
+        message: '',
+        type: 'success',
+        zIndex :100,
+    });
+    const [isEditing,setIsEditing] = useState(false);
+    const [formData,setFormData] = useState({});
+    const startEditing = () => {
+        setFormData({
+            ScheduleID: popup.item.ScheduleID,
+            ClassID: popup.item.ClassID,        // Ważne: ID, nie nazwa
+            ClassName: popup.item.ClassName,    // Do wyświetlania
+            Max_slots: popup.item.Max_slots,
+            EmployeeID: popup.item.EmployeeID,
+            StartTime: popup.item.StartTime,    // Format: YYYY-MM-DDTHH:mm:ss
+            durationTime: popup.item.durationTime
+
+        });
+        setIsEditing(true);
+    }
+    const handleChange = (e) => {
+        setFormData({...formData,[e.target.name]:e.target.value});
+    }
+    const handleDelete = async(item) => {
+        if (item.StartTime < today)
+        {
+            showNotification("You can't delete class from the past",'error');
+            setPopup({...popup,visible:false});
+
+            return;
+        }
+        try {
+            const response = await fetch('http://localhost:5000/api/DeleteClass/' + item.ScheduleID, {
+                    method: 'DELETE',
+                })
+            if(response.ok)
+            {
+                showNotification('Class Deleted');
+                getData();
+                drawCalendar(month,year,classesLookup,setPopup);
+            }
+            else {
+                showNotification('Server error','error');
+            }
+        }
+        catch(err)
+        {
+            console.log(err.message);
+        }
+
+    };
+    const handleSave = async() => {
+        try {
+            const response = await fetch('http://localhost:5000/api/UpdateClass',{
+                method :'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            if (response.ok) {
+                showNotification("Zaktualizowano!", "success");
+                setIsEditing(false);
+                setPopup({ ...popup, visible: false }); // Zamknij lub odśwież dane
+                getData(); // Odśwież kalendarz
+            } else {
+                showNotification("Błąd aktualizacji", "error");
+            }
+        }
+        catch(err)
+        {
+            console.log(err);
+        }
+    };
+    const showNotification = (msg, type = 'success') => {
+        setNotification({ show: true, message: msg, type });
+
+        setTimeout(() => {
+            setNotification((prev) => ({ ...prev, show: false }));
+        }, 3000);
+    };
     const [dane,setDane] = useState([]);
     const getData = async() =>{
         try {
@@ -29,6 +110,12 @@ function Classes()
        classesLookup[klucz].push(dane[i]);
     }
     const Register = async (item) => {
+        if (item.StartTime < today)
+        {
+            showNotification("You can't register for classes in the past",'error');
+            setPopup({...popup,visible:false});
+            return;
+        }
         const idZajec = item.ScheduleID;
         const url =  'http://localhost:5000/api/RegisterForClass/' + idZajec;
         try {
@@ -37,20 +124,31 @@ function Classes()
                 {method : 'PUT'});
             if( response.ok)
             {
-                alert("Registered");
+                showNotification("Registered successfully");
                 setPopup({...popup,visible:false});
                 getData();
+                return;
             }
-            else {
-                const errorText = await response.text();
-                alert("Błąd zapisu :" + errorText);
+            switch(response.status) {
+                case 409:
+                    showNotification("Class full","error");
+                    setPopup({...popup,visible:false});
+                    break;
+                case 404:
+                showNotification("You have already registered for this class!","error");
+                    setPopup({...popup,visible:false});
+                break;
+                default :
+                    showNotification("Server error","error");
+                    setPopup({...popup,visible:false});
 
             }}
         catch(err){
             console.log("Blad sieci",err);
         }
     }
-    const [month,setMonth] = useState(2);
+
+    const [month,setMonth] = useState(0);
     const [year,setYear] = useState(2026);
     const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const [popup,setPopup] = useState({
@@ -58,10 +156,12 @@ function Classes()
         x:0,
         y:0,
     });
+    const today = new Date().toISOString().split('T')[0];
     return (
         <div style = {{width:'100%',height:'100%',display:'flex',flexDirection:'column',itemsAlign:'center',gap:'0px'}}>
             <div style = {uniwersalStyles.calendarMenu}>
                 <header style ={{alignSelf:'flex-start',marginRight: 'auto',marginLeft:'0.5%',color:'white',marginTop:'0.5%'}}> {monthNames[month]} {year}</header>
+
                 <button
                     onClick={()=> {setYear(month===0 ? year-1 : year) ;setMonth(month === 0 ? 11 : month-1)  }}
                     style = {uniwersalStyles.menuButton}>{"<"}</button>
@@ -77,7 +177,9 @@ function Classes()
                 }
                 {
                     popup.visible && (<div style={{...popup ,...classStyles[popup.item.ClassID],justifyContent:'flex-start',flexDirection:'column',
+
                             top: popup.y - 40,
+
                             position:'fixed',
                             left: popup.x,
                             width:'auto'}}>
@@ -92,13 +194,26 @@ registered: ${popup.item.Registered}/${popup.item.Max_slots}
                                 }
                         </div>
                         <button onClick={() => Register(popup.item)}>Register</button>
+                        {userID === "1" ? <button>Edit</button> : null}
+                        {userID === "1" ? <button onClick={()=>handleDelete(popup.item)}>Delete</button>: null}
                         <button onClick={() => setPopup({ ...popup, visible: false })}>Close</button>
                     </div>
                 )}
-            </div>
 
+            </div>
+            {notification.show && (
+                <div style={{
+                    ...uniwersalStyles.notificationBox,
+                    backgroundColor: notification.type === 'success' ? '#2ecc71' : '#e74c3c' // Zielony lub Czerwony
+                }}>
+                    {/* Opcjonalnie ikonka */}
+                    <span>{notification.type === 'success' ? '✅' : '⚠️'}</span>
+                    {notification.message}
+                </div>
+            )}
         </div>
     );
+
 }
 
 

@@ -22,19 +22,66 @@ app.get('/api/PopularClasses', async (req, res) => {
 app.put('/api/RegisterForClass/:id', async(req,res)=> {
         try {
             const ScheduleID = req.params.id;
+            const CustomerID = 1;
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .input('ScheduleID',sql.Int,ScheduleID)
-                .input('CustomerID',sql.Int,1)
+                .input('CustomerID',sql.Int,CustomerID)
                 .execute('dbo.RegisterForClass')
             res.status(201).json('Registered successfully')
-
         } catch (err) {
-            res.status(500).send(err.message);
+
+            if ( !err.message ) {
+
+                return res.status(409).json({ message: "Brak wolnych miejsc na te zajęcia!" });
+            }
+
+            if (err.message.includes('PRIMARY KEY') || err.message.includes('Violation of PRIMARY KEY')) {
+                return res.status(404).json({ message: "Już jesteś zapisany na te zajęcia." });
+            }
+
+            res.status(500).json({message: 'Błąd serwera: ' + err.message});
         }
 
     }
 );
+app.delete('/api/DeleteClass/:id',async(req,res)=>{
+    try {
+        const ScheduleID = req.params.id;
+        const pool = await sql.connect(config);
+        const result = await pool.request()
+            .input('ScheduleID',sql.Int,ScheduleID)
+            .execute('dbo.DeleteClass');
+        res.status(202).json({message: 'Class Deleted'});
+    }
+    catch(err)
+    {
+        res.status(500).send(err.message);
+    }
+});
+app.put('/api/UpdateClass',async(req,res) =>{
+    try {
+        const {ScheduleID,ClassID,Max_slots,EmployeeID,StartTime,durationTime} = req.body;
+        let pool = await sql.connect(config);
+        await pool.request()
+            .input('ScheduleID',sql.Int,ScheduleID)
+            .input('ClassID',sql.Int,ClassID)
+            .input('Max_slots',sql.Int,Max_slots)
+            .input('EmployeeID',sql.Int,EmployeeID)
+            .input('StartTime',sql.DateTime,StartTime)
+            .input('durationTime',sql.Int,durationTime)
+            .execute(dbo.UpdateClass);
+        res.status(200).json({message:"Class Updated"});
+
+    }catch(err)
+    {
+        console.log(err);
+        res.status(500).json({message: err.message});
+    }
+
+
+
+});
 app.get('/api/Classes',async(req,res) =>{
     try{
         let pool = await sql.connect(config);

@@ -76,25 +76,24 @@ export const uniwersalStyles ={
         //border:'3px solid black',
         justifyContent:'center',
         textAlign: 'flex-start',
-        //height:'30px',
+
         display:'flex',
         fontWeight:'700',
         fontSize :'1.5vw',
-        //lineHeight:'1',
+
     },
     dayCell:{
         border: '1px solid #e2e8f0',
         transition: 'background-color 0.2s',
-        // border:' 2px solid red',
+
         display :'flex',
         flexDirection:'column',
         justifyContent:'center',
         textAlign: 'center',
         height:'90px',
         fontWeight:'500',
-        overflow: 'auto',
-// lub tylko pionowo:
-        overflowY: 'auto',
+
+
     },
     grayDayCell:{
         border: '1px solid #e2e8f0',
@@ -106,76 +105,94 @@ export const uniwersalStyles ={
         textAlign: 'center',
         height:'90px',
         color:'grey',
-        overflow: 'auto',
-// lub tylko pionowo:
-        overflowY: 'auto',
+
     },
     containerClassBoxes:{
-        border :'2px solid red',
         alignSelf:'center',
         display:'flex',
         justifyContent:'space-around',
         width:'90%',
-        gap:'2px'
+        gap:'2px',
+        maxHeight:'60%',
+    },
+    notificationBox: {
+        position:'fixed',
+        zIndex: 9999,
+        alignSelf:'center',
+        justifySelf:'center',
+
+        padding: '15px 25px',
+        borderRadius: '8px',
+        color: 'white',
+        fontWeight: 'bold',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)', // Cień dla efektu 3D
+        transition: 'all 0.3s ease', // Ładne pojawianie się
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px'
     },
 
 }
 export const classStyles = {
     1: {
         boxSizing:'content-box',
-
        //Aerobics
         display :'flex',
         justifyContent:'center',
-        marginTop: '10px', fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
         border: '2px solid #7B1FA2', backgroundColor: '#F3E5F5', color: '#7B1FA2'
-        ,textWrap:'wrap',paddingLeft:'2px',paddingRight:'2px',
+        ,textWrap:'wrap',
         width:'47px',
         cursor:'pointer',
+        overflow :'hidden',
     },
     2: {
         //Fitness
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        marginTop: '10px', fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
         border: '2px solid #F57C00', backgroundColor: '#FFF3E0', color: '#F57C00'
-        ,textWrap:'wrap',paddingLeft:'2px',paddingRight:'2px',
+        ,textWrap:'wrap',
         width:'45px',
         cursor:'pointer',
+        overflow :'hidden',
     },
     3: {
         //Welness 50+
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        marginTop: '10px', fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
         border: '2px solid #D32F2F', backgroundColor: '#FFE5E5', color: '#D32F2F'
-        ,textWrap:'wrap',paddingLeft:'2px',paddingRight:'2px',
+        ,textWrap:'wrap',
         width:'50px',
         cursor:'pointer',
+        overflow :'hidden',
     },
     4: {
         //Crossfit
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        marginTop: '10px', fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
         border: '2px solid #1976D2', backgroundColor: '#E3F2FD', color: '#1976D2'
-        ,textWrap:'wrap',paddingLeft:'2px',paddingRight:'2px',
+        ,textWrap:'wrap',
         width:'45px',
         cursor:'pointer',
+        overflow :'hidden',
     },
     5: {
         //Healthy Spine
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        marginTop: '10px', fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
         border: '2px solid #388E3C', backgroundColor: '#E8F5E9', color: '#388E3C'
-        ,textWrap:'wrap',paddingLeft:'2px',paddingRight:'2px',
+        ,textWrap:'wrap',
         width:'45px',
         cursor:'pointer',
+        overflow :'hidden',
 
     },
     6: {
@@ -183,20 +200,21 @@ export const classStyles = {
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        marginTop: '10px', fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+         fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
         border: '2px solid #00796B', backgroundColor: '#E0F2F1', color: '#00796B'
-        ,textWrap:'wrap',paddingLeft:'2px',paddingRight:'2px',
+        ,textWrap:'wrap',
         width:'53px',
         cursor:'pointer',
+        overflow :'hidden',
     },
     7: {
         //Zumba
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        marginTop: '10px', fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+         fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
         border: '2px solid #C2185B', backgroundColor: '#FCE4EC', color: '#C2185B'
-        ,textWrap:'wrap',paddingLeft:'2px',paddingRight:'2px',
+        ,textWrap:'wrap',
         width:'45px',
         cursor:'pointer',
 
