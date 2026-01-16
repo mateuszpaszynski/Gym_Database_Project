@@ -135,3 +135,20 @@ UPDATE WorkShifts SET EmployeeID = @EmployeeID,
 RoomID = @RoomID, StartTime = @StartTime,
 durationTime = @durationTime WHERE ShiftID = @ShiftID
 END;
+
+if OBJECT_ID('dbo.AddEntry','P') is NOT NULL
+drop PROCEDURE dbo.AddEntry
+GO
+CREATE PROC dbo.AddEntry
+    @personId int,
+    @data datetime
+AS
+BEGIN
+    set NOCOUNT ON
+    if @personId is null or @data is NULL
+    BEGIN
+        ;THROW 50001, 'Parametry @personId i @data nie moga byc NULL', 1;
+    end
+    INSERT into dbo.EntriesBacklog(PersonID,[Data])
+    VALUES(@personId,@data);
+end;
