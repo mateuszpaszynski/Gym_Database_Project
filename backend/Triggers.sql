@@ -92,5 +92,4 @@ BEGIN
     BEGIN
         ;THROW 50000, 'Osoba musi byc pelnoletnia', 1;
     END
-END
 GO
