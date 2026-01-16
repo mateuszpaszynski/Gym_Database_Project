@@ -124,3 +124,46 @@ join Person as p on e.ID=p.ID
 where e.JobTitle='Trener'
 GROUP BY p.Name, p.Surname, e.JobTitle
 go
+
+--Wiek osoby
+if OBJECT_ID('dbo.GetAge','fn') is NOT NULL
+drop FUNCTION dbo.GetAge
+GO
+
+CREATE FUNCTION dbo.GetAge (@someoneId int)
+returns INT
+AS
+BEGIN
+    declare @age INT, @pesel CHAR(11);
+
+    SELECT @pesel=p.Pesel
+    from Person as p
+    where p.ID=@someoneId
+
+    declare @rok int, @miesiac int, @dzien int;
+    set @rok=CAST(SUBSTRING(@pesel,1,2) as int);
+    set @miesiac=CAST(SUBSTRING(@pesel,3,2) as int);
+    set @dzien=CAST(SUBSTRING(@pesel,5,2) as int);
+    if @miesiac BETWEEN 21 and 32
+    BEGIN
+        SET @rok+=2000;
+        set @miesiac-=20;
+    END
+    else if @miesiac BETWEEN 1 and 12
+    BEGIN
+        set @rok+=1900;
+    END
+    declare @dataUrodzenia date;
+    set @dataUrodzenia=DATEFROMPARTS(@rok,@miesiac,@dzien);
+    set @age=DATEDIFF(YEAR,@dataUrodzenia,GETDATE())
+    if @miesiac>MONTH(GETDATE())
+    BEGIN
+        SET @age-=1;
+    END
+    if @miesiac=MONTH(GETDATE()) and @dzien>DAY(GETDATE())
+    BEGIN
+        SET @age-=1;
+    END
+    RETURN @age;
+END
+go
