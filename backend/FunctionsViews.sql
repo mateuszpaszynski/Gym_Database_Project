@@ -55,7 +55,7 @@ GO
 
 CREATE VIEW dbo.GetClassSchedule 
 AS
-SELECT CS.ScheduleID,CS.ClassID,T.ClassName ,CS.Registered,CS.Max_slots,P.Name,P.Surname,CS.StartTime,Cs.durationTime,LEFT(CAST(StartTime as TIME),5) [time] FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN ClassTypes T on T.ClassID = CS.ClassID
+SELECT CS.ScheduleID,CS.ClassID,T.ClassName ,CS.Registered,CS.Max_slots,P.Name,P.Surname,CS.StartTime,Cs.durationTime FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN ClassTypes T on T.ClassID = CS.ClassID
 GO
 
 
@@ -78,8 +78,6 @@ select ileNaDzien.dzienTygodnia as [Dzień tygodnia], avg(ileNaDzien.ileOsob) AS
 from ileNaDzien
 GROUP BY ileNaDzien.dzienTygodnia
 Go
-select*
-from dbo.GetAvgDayAWeek
 
 -- 10 najbardziej obecnych klientow
 if OBJECT_ID('dbo.TenBestActivePeople','V') is NOT NULL
@@ -94,7 +92,6 @@ join Person as p on eb.PersonID=p.ID
 GROUP BY p.Name,p.Surname
 ORDER BY sumaWejsc desc
 GO
-    
 --Zwraca srednia ilosc osob w danej godzinie
 if OBJECT_ID('dbo.AvgNumberInHour','V') is not null
 drop view dbo.AvgNumberInHour
@@ -111,3 +108,19 @@ select dod.godzina,AVG(dod.zliczaj) as sredniaIloscOsob
 from ileNaDzienGodzina as dod
 GROUP BY dod.godzina
 GO
+
+
+--Suma rejestracji na danego trenera personalnego
+if OBJECT_ID('dbo.TrainerPopularity','V') is NOT NULL
+drop VIEW dbo.TrainerPopularity
+GO
+
+create view dbo.TrainerPopularity
+AS
+select p.Name, p.Surname,e.JobTitle,COUNT(pts.SessionID) as ileTreningow
+from Employees as e
+left join PersonalTrainingSessions as pts on e.ID=pts.EmployeeID
+join Person as p on e.ID=p.ID
+where e.JobTitle='Trener'
+GROUP BY p.Name, p.Surname, e.JobTitle
+go
