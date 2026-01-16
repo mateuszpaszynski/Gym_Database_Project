@@ -75,6 +75,22 @@ INSERT INTO Payments(ClientID,ServiceID,Data,UnitPrice,Amount)
 SELECT I.CustomerID, 6 [ServiceID],I.startTime,S.Price,CAST(duration * S.Price as MONEY)[Amount] FROM INSERTED I LEFT JOIN [Services] S on S.ServiceID = 6
 END;
 
-
-
-
+if OBJECT_ID('TR_MinorAlertMembership','TR') is NOT NULL
+drop TRIGGER TR_MinorAlertMembership
+GO
+create TRIGGER TR_MinorAlertMembership
+on Memberships
+after INSERT, UPDATE
+AS
+BEGIN 
+    set NOCOUNT on;
+    IF EXISTS(
+        SELECT 1
+        from inserted t
+        where dbo.GetAge(t.CustomerID)<18 or dbo.GetAge(t.CustomerID) is null
+    )
+    BEGIN
+        ;THROW 50000, 'Osoba musi byc pelnoletnia', 1;
+    END
+END
+GO
