@@ -154,8 +154,7 @@ BEGIN
         set @rok+=1900;
     END
     declare @dataUrodzenia date;
-    set @dataUrodzenia=DATEFROMPARTS(@rok,@miesiac,@dzien);
-    set @age=DATEDIFF(YEAR,@dataUrodzenia,GETDATE())
+    set @age=YEAR(GETDATE())-@rok
     if @miesiac>MONTH(GETDATE())
     BEGIN
         SET @age-=1;
@@ -164,6 +163,10 @@ BEGIN
     BEGIN
         SET @age-=1;
     END
+
+    IF @rok < 1900 OR @rok > 2026 or @miesiac>12 or @miesiac<1 or @dzien>31 or @dzien<1
+        RETURN NULL;
+        
     RETURN @age;
 END
 go
