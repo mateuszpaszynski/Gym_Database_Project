@@ -1,7 +1,7 @@
 import React from "react";
 import uniwersalStyles, {classStyles} from "./styles";
 
-export const drawCalendar = (m,y,classesLookup,setPopup) => {
+export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers) => {
     const handleClick =(Class,z)=>{
         const rect = Class.target.getBoundingClientRect();
         let newx = rect.right+10;
@@ -12,6 +12,8 @@ export const drawCalendar = (m,y,classesLookup,setPopup) => {
             y:newy,
             item : z
         })
+        fetchTrainers(z.StartTime);
+        console.log('trainers:');
     }
     const today = new Date();
     const year = y;

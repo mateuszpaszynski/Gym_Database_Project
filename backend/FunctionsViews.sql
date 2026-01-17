@@ -12,6 +12,17 @@ Select S1.ID,S1.Name,S1.Surname,S1.[Month],CAST(S1.[Hours] * E.HourlySalary as M
 GROUP BY P.ID,Month(StartTime)) S on S.ID = P.ID) S1 on S1.ID = E.ID
 WHERE @Month = S1.[Month];
 GO
+IF OBJECT_ID('dbo.GetAvailableTrainers') is not null
+DROP FUNCTION dbo.GetAvailableTrainers
+GO
+CREATE FUNCTION dbo.GetAvailableTrainers(@Date DATE) 
+RETURNS TABLE 
+as
+RETURN
+SELECT CONCAT(P.Name,' ',P.Surname)[Trainer] FROM Employees E LEFT JOIN Person P on P.ID = E.ID WHERE P.ID not in (
+SELECT E.ID FROM Employees E LEFT JOIN Person P on E.ID = P.ID CROSS JOIN EmployeesHolidays EH  WHERE E.JobTitle = 'Trener' and EH.EmployeeID = P.ID and (StartDate <@Date and @Date< EndDate)
+) and E.JobTitle = 'trener'
+GO
 
 IF OBJECT_ID('dbo.PopularClasses') is not null
 DROP VIEW PopularClasses
@@ -55,7 +66,8 @@ GO
 
 CREATE VIEW dbo.GetClassSchedule 
 AS
-SELECT CS.ScheduleID,CS.ClassID,T.ClassName ,CS.Registered,CS.Max_slots,P.Name,P.Surname,CS.StartTime,Cs.durationTime FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN ClassTypes T on T.ClassID = CS.ClassID
+SELECT CS.ScheduleID,CS.ClassID,T.ClassName ,CS.Registered,CS.Max_slots,CONCAT(P.Name,' ',P.Surname)[Trainer],Cs.durationTime,CS.StartTime,LEFT(Cast(CS.StartTime as TIME(0)),5)[time]
+FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN ClassTypes T on T.ClassID = CS.ClassID
 GO
 
 

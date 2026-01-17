@@ -10,15 +10,39 @@ function Classes()
         type: 'success',
         zIndex :100,
     });
+
     const [isEditing,setIsEditing] = useState(false);
+    const [availableTrainers,setAvailableTrainers] = useState([]);
+    const fetchTrainers = async(dateString) =>{
+
+        const res = await fetch('http://localhost:5000/api/GetAvailableTrainers',
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({date: dateString})});
+        const data = await res.json();
+        console.log(data);
+        setAvailableTrainers(data);
+    };
+
+    const [availableClasses,setAvailableClasses] = useState([]);
+    useEffect(()=> {
+            const fetchLookups = async () => {
+                const res = await fetch('http://localhost:5000/api/GetClassTypes')
+                const data = await res.json();
+                setAvailableClasses(data);
+            };
+            fetchLookups();
+        },[]);
     const [formData,setFormData] = useState({});
     const startEditing = () => {
+        showNotification('Editing');
         setFormData({
             ScheduleID: popup.item.ScheduleID,
             ClassID: popup.item.ClassID,        // Ważne: ID, nie nazwa
-            ClassName: popup.item.ClassName,    // Do wyświetlania
+            ClassName: popup.item.ClassName, // Do wyświetlania
             Max_slots: popup.item.Max_slots,
-            EmployeeID: popup.item.EmployeeID,
+            Trainer: popup.item.Trainer,
             StartTime: popup.item.StartTime,    // Format: YYYY-MM-DDTHH:mm:ss
             durationTime: popup.item.durationTime
 
@@ -29,11 +53,11 @@ function Classes()
         setFormData({...formData,[e.target.name]:e.target.value});
     }
     const handleDelete = async(item) => {
+        const registered = item.Registered;
         if (item.StartTime < today)
         {
             showNotification("You can't delete class from the past",'error');
             setPopup({...popup,visible:false});
-
             return;
         }
         try {
@@ -42,7 +66,13 @@ function Classes()
                 })
             if(response.ok)
             {
-                showNotification('Class Deleted');
+                let msg = 'Class Deleted';
+                if ( registered)
+                {
+                    msg = msg + ' unregistered ' + registered + ' users';
+                }
+                showNotification(msg);
+                setPopup({...popup,visible:false});
                 getData();
                 drawCalendar(month,year,classesLookup,setPopup);
             }
@@ -147,7 +177,6 @@ function Classes()
             console.log("Blad sieci",err);
         }
     }
-
     const [month,setMonth] = useState(0);
     const [year,setYear] = useState(2026);
     const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -173,30 +202,48 @@ function Classes()
 
             <div style = {uniwersalStyles.gridContainer}>
                 {
-                    drawCalendar(month,year,classesLookup,setPopup)
+                    drawCalendar(month,year,classesLookup,setPopup,fetchTrainers)
                 }
                 {
                     popup.visible && (<div style={{...popup ,...classStyles[popup.item.ClassID],justifyContent:'flex-start',flexDirection:'column',
-
-                            top: popup.y - 40,
-
-                            position:'fixed',
                             left: popup.x,
+                            top: popup.y,
+                            position:'fixed',
+                            padding:'3px',
                             width:'auto'}}>
-                            <div style = {{whiteSpace: 'pre-wrap',marginLeft:'2px'}}>
-                                 {`${popup.item.ClassName}
-                                 
-With: ${popup.item.Name} ${popup.item.Surname}
-duration: ${popup.item.durationTime} minutes
-at: ${popup.item.time}
-registered: ${popup.item.Registered}/${popup.item.Max_slots}
-                                `
+                            <div style = {{display:'flex',flexDirection:'column',marginLeft:'2px'}}>
+                                {isEditing ? (
+                                    <select name="ClassID" value={formData.ClassID} onChange={handleChange}>
+                                        {
+                                            availableClasses.map((c)=>(<option>{c.ClassName}</option>))
+                                        }
+                                    </select> )
+
+                                    : <span>{popup.item.ClassName}</span>
                                 }
+                                {isEditing ? (<select name="Trainer" value={formData.Trainer} onChange={handleChange}>
+
+                                            {availableTrainers.map((t) => (<option>{t.Trainer}</option>)) }
+
+                                    </select> )
+
+                               : (<span>with: {popup.item.Trainer}</span>)
+                                }
+                                {isEditing? (<input type="number" name="durationTime" value ={formData.durationTime} onChange={handleChange} min={"15"} step="5"/>)   :
+
+                                    (<span>duration: {popup.item.durationTime} minutes</span>)}
+
+
+
+                            <span>at: {popup.item.time}</span>
+                            <span>registered: {popup.item.Registered}/{popup.item.Max_slots}</span>
+
+
                         </div>
                         <button onClick={() => Register(popup.item)}>Register</button>
-                        {userID === "1" ? <button>Edit</button> : null}
+                        {userID === "1" ? <button onClick={()=>startEditing()}>Edit</button> : null}
                         {userID === "1" ? <button onClick={()=>handleDelete(popup.item)}>Delete</button>: null}
-                        <button onClick={() => setPopup({ ...popup, visible: false })}>Close</button>
+                        <button onClick={() => {setPopup({ ...popup, visible: false });setIsEditing(false);}}>Close</button>
                     </div>
                 )}
 
@@ -206,7 +253,6 @@ registered: ${popup.item.Registered}/${popup.item.Max_slots}
                     ...uniwersalStyles.notificationBox,
                     backgroundColor: notification.type === 'success' ? '#2ecc71' : '#e74c3c' // Zielony lub Czerwony
                 }}>
-                    {/* Opcjonalnie ikonka */}
                     <span>{notification.type === 'success' ? '✅' : '⚠️'}</span>
                     {notification.message}
                 </div>

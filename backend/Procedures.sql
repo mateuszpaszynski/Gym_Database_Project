@@ -51,6 +51,8 @@ CREATE PROCEDURE dbo.DeleteClass
 @ScheduleID int
 AS
 BEGIN SET NOCOUNT ON;
+DELETE FROM ClassRegistrations WHERE ScheduleID = @ScheduleID
+
 DELETE FROM ClassSchedule WHERE ScheduleID = @ScheduleID
 END;
 GO

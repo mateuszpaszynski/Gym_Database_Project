@@ -2,6 +2,7 @@ const express = require('express');
 const sql = require('mssql');
 const cors = require('cors');
 const app = express();
+app.use(express.json());
 app.use(cors()); // To musi być, żeby React nie wywalał błędu
 const config = {
     user: 'sa',
@@ -18,6 +19,25 @@ app.get('/api/PopularClasses', async (req, res) => {
     } catch (err) {
         res.status(500).send(err.message);
     }
+});
+app.post('/api/AddClass',async(req,res) => {
+    try {
+        const {ClassID,Max_slots,EmployeeID,StartTime,durationTime} = req.body;
+        let pool = await sql.connect(config);
+    await pool.request()
+        .input('ClassID', sql.Int, ClassID)
+        .input('Max_slots', sql.Int, Max_slots)
+        .input('EmployeeID', sql.Int, EmployeeID)
+        .input('StartTime', sql.DateTime, StartTime)
+        .input('durationTime', sql.Int, durationTime)
+        .execute('dbo.AddClass')
+        res.json({message:'Class added'});
+}
+catch (err)
+{
+    res.status(500).json({message:err.message});
+}
+
 });
 app.put('/api/RegisterForClass/:id', async(req,res)=> {
         try {
@@ -45,6 +65,31 @@ app.put('/api/RegisterForClass/:id', async(req,res)=> {
 
     }
 );
+
+app.post('/api/GetAvailableTrainers',async(req,res)=> {
+    try {
+        const {date} = req.body;
+        const pool = await sql.connect(config);
+        const result = await pool.request()
+            .input('date',sql.DateTime,date)
+            .query('SELECT Trainer FROM dbo.GetAvailableTrainers(@date)');
+        res.json(result.recordset);
+    }catch(err)
+    {
+        res.status(500).send(err.message);
+    }
+});
+app.get('/api/GetClassTypes',async(req,res) => {
+    try {
+        const pool = await sql.connect(config);
+        let result = await pool.request().query('SELECT * FROM ClassTypes')
+        res.json(result.recordset);
+    }
+    catch(err)
+    {
+        res.status(500).send(err.message);
+    }
+    });
 app.delete('/api/DeleteClass/:id',async(req,res)=>{
     try {
         const ScheduleID = req.params.id;
@@ -106,7 +151,7 @@ app.get('/api/Services',async (req,res) =>{
 );
 app.get('/api/Payouts', async (req,res) => {
         try {
-            const month = req.query.month;
+            const month = req.body.month;
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .input('MonthParam',sql.Int,month)
