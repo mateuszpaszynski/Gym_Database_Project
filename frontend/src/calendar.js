@@ -1,7 +1,9 @@
 import React from "react";
 import uniwersalStyles, {classStyles} from "./styles";
-
 export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers) => {
+    const handleAddClass = ()=> {
+
+    }
     const handleClick =(Class,z)=>{
         const rect = Class.target.getBoundingClientRect();
         let newx = rect.right+10;
@@ -13,7 +15,6 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers) => {
             item : z
         })
         fetchTrainers(z.StartTime);
-        console.log('trainers:');
     }
     const today = new Date();
     const year = y;
@@ -36,7 +37,8 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers) => {
         const zajeciategodnia = classesLookup[kluczzajec] || [];
         const isToday = (today.getFullYear() === y && today.getMonth() === m && today.getDate() === d) ? 1 : 0;
         calendar.push(
-            <div key={`${y}-${m}-${d}`} style={isToday? {...uniwersalStyles.grayDayCell,border:'2px solid red'} : uniwersalStyles.grayDayCell}>
+            <div key={`${y}-${m}-${d}`} style={isToday? {...uniwersalStyles.grayDayCell,border:'2px solid red'} : uniwersalStyles.grayDayCell}
+            onClick={handleAddClass}>
                 {d}
                 <div style = {uniwersalStyles.containerClassBoxes}>
                     {

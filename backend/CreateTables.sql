@@ -108,9 +108,9 @@ ScheduleID int IDENTITY(1,1) not null PRIMARY KEY,
 ClassID int not null,
 Registered int not null,
 Max_slots int not null,
-EmployeeID int not null,
+EmployeeID int not null,	
 StartTime datetime not null,
-durationTime decimal(4,2),
+durationTime decimal(5,2),
 CONSTRAINT FK_ClassScheduleClassID FOREIGN KEY(CLASSID) REFERENCES ClassTypes(ClassID),
 CONSTRAINT FK_ClassScheduleEmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID)
 )

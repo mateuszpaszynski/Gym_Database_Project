@@ -1,4 +1,3 @@
-
 IF OBJECT_ID('dbo.AddClass') is not null
 DROP PROCEDURE dbo.AddClass
 GO

@@ -19,7 +19,7 @@ CREATE FUNCTION dbo.GetAvailableTrainers(@Date DATE)
 RETURNS TABLE 
 as
 RETURN
-SELECT CONCAT(P.Name,' ',P.Surname)[Trainer] FROM Employees E LEFT JOIN Person P on P.ID = E.ID WHERE P.ID not in (
+SELECT E.ID,CONCAT(P.Name,' ',P.Surname)[Trainer] FROM Employees E LEFT JOIN Person P on P.ID = E.ID WHERE P.ID not in (
 SELECT E.ID FROM Employees E LEFT JOIN Person P on E.ID = P.ID CROSS JOIN EmployeesHolidays EH  WHERE E.JobTitle = 'Trener' and EH.EmployeeID = P.ID and (StartDate <@Date and @Date< EndDate)
 ) and E.JobTitle = 'trener'
 GO
@@ -66,7 +66,7 @@ GO
 
 CREATE VIEW dbo.GetClassSchedule 
 AS
-SELECT CS.ScheduleID,CS.ClassID,T.ClassName ,CS.Registered,CS.Max_slots,CONCAT(P.Name,' ',P.Surname)[Trainer],Cs.durationTime,CS.StartTime,LEFT(Cast(CS.StartTime as TIME(0)),5)[time]
+SELECT CS.ScheduleID,CS.EmployeeID,CS.ClassID,T.ClassName ,CS.Registered,CS.Max_slots,CONCAT(P.Name,' ',P.Surname)[Trainer],Cs.durationTime,CS.StartTime,LEFT(Cast(CS.StartTime as TIME(0)),5)[time]
 FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN ClassTypes T on T.ClassID = CS.ClassID
 GO
 

@@ -76,11 +76,9 @@ export const uniwersalStyles ={
         //border:'3px solid black',
         justifyContent:'center',
         textAlign: 'flex-start',
-
         display:'flex',
         fontWeight:'700',
         fontSize :'1.5vw',
-
     },
     dayCell:{
         border: '1px solid #e2e8f0',
@@ -145,6 +143,7 @@ export const classStyles = {
         width:'47px',
         cursor:'pointer',
         overflow :'hidden',
+        borderRadius: '3px',
     },
     2: {
         //Fitness
@@ -157,6 +156,7 @@ export const classStyles = {
         width:'45px',
         cursor:'pointer',
         overflow :'hidden',
+        borderRadius: '3px',
     },
     3: {
         //Welness 50+
@@ -169,6 +169,7 @@ export const classStyles = {
         width:'50px',
         cursor:'pointer',
         overflow :'hidden',
+        borderRadius: '3px',
     },
     4: {
         //Crossfit
@@ -181,6 +182,7 @@ export const classStyles = {
         width:'45px',
         cursor:'pointer',
         overflow :'hidden',
+        borderRadius: '3px',
     },
     5: {
         //Healthy Spine
@@ -193,7 +195,7 @@ export const classStyles = {
         width:'45px',
         cursor:'pointer',
         overflow :'hidden',
-
+        borderRadius: '3px',
     },
     6: {
         //FullBody Workout
@@ -206,6 +208,7 @@ export const classStyles = {
         width:'53px',
         cursor:'pointer',
         overflow :'hidden',
+        borderRadius: '3px',
     },
     7: {
         //Zumba
@@ -217,6 +220,7 @@ export const classStyles = {
         ,textWrap:'wrap',
         width:'45px',
         cursor:'pointer',
+        borderRadius: '3px',
 
     }
 }

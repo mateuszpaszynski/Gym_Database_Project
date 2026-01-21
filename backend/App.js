@@ -37,12 +37,12 @@ catch (err)
 {
     res.status(500).json({message:err.message});
 }
-
 });
 app.put('/api/RegisterForClass/:id', async(req,res)=> {
         try {
             const ScheduleID = req.params.id;
-            const CustomerID = 1;
+            const {CustomerID} = req.body;
+
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .input('ScheduleID',sql.Int,ScheduleID)
@@ -50,7 +50,8 @@ app.put('/api/RegisterForClass/:id', async(req,res)=> {
                 .execute('dbo.RegisterForClass')
             res.status(201).json('Registered successfully')
         } catch (err) {
-
+            console.log("Pelny obiekt bledu: ",err);
+            console.log('Nr: ',err.number);
             if ( !err.message ) {
 
                 return res.status(409).json({ message: "Brak wolnych miejsc na te zajęcia!" });
@@ -58,6 +59,10 @@ app.put('/api/RegisterForClass/:id', async(req,res)=> {
 
             if (err.message.includes('PRIMARY KEY') || err.message.includes('Violation of PRIMARY KEY')) {
                 return res.status(404).json({ message: "Już jesteś zapisany na te zajęcia." });
+            }
+            if (err.number === 547 ||err.message.includes('FOREIGN KEY') || err.message.includes('Violation of FOREIGN KEY'))
+            {
+                return res.status(422).json({message: "Pracownicy nie muszą zapisywać się na zajęcia"})
             }
 
             res.status(500).json({message: 'Błąd serwera: ' + err.message});
@@ -72,7 +77,7 @@ app.post('/api/GetAvailableTrainers',async(req,res)=> {
         const pool = await sql.connect(config);
         const result = await pool.request()
             .input('date',sql.DateTime,date)
-            .query('SELECT Trainer FROM dbo.GetAvailableTrainers(@date)');
+            .query('SELECT * FROM dbo.GetAvailableTrainers(@date)');
         res.json(result.recordset);
     }catch(err)
     {
@@ -106,16 +111,16 @@ app.delete('/api/DeleteClass/:id',async(req,res)=>{
 });
 app.put('/api/UpdateClass',async(req,res) =>{
     try {
-        const {ScheduleID,ClassID,Max_slots,EmployeeID,StartTime,durationTime} = req.body;
+        const {ScheduleID,ClassID,ClassName,Max_slots,EmployeeID,Trainer,time,durationTime,StartTime} = req.body;
         let pool = await sql.connect(config);
         await pool.request()
             .input('ScheduleID',sql.Int,ScheduleID)
             .input('ClassID',sql.Int,ClassID)
             .input('Max_slots',sql.Int,Max_slots)
             .input('EmployeeID',sql.Int,EmployeeID)
-            .input('StartTime',sql.DateTime,StartTime)
+            .input('StartTime',sql.VarChar,StartTime)
             .input('durationTime',sql.Int,durationTime)
-            .execute(dbo.UpdateClass);
+            .execute('dbo.UpdateClass');
         res.status(200).json({message:"Class Updated"});
 
     }catch(err)

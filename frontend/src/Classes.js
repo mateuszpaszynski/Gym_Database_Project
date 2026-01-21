@@ -3,14 +3,13 @@ import  {uniwersalStyles,classStyles} from './styles.js';
 import drawCalendar from './calendar.js'
 function Classes()
 {
-    const [userID,setUserID] = useState("1");
+    const [userID,setUserID] = useState(1);
     const [notification, setNotification] = useState({
         show: false,
         message: '',
         type: 'success',
         zIndex :100,
     });
-
     const [isEditing,setIsEditing] = useState(false);
     const [availableTrainers,setAvailableTrainers] = useState([]);
     const fetchTrainers = async(dateString) =>{
@@ -21,7 +20,6 @@ function Classes()
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({date: dateString})});
         const data = await res.json();
-        console.log(data);
         setAvailableTrainers(data);
     };
 
@@ -36,16 +34,23 @@ function Classes()
         },[]);
     const [formData,setFormData] = useState({});
     const startEditing = () => {
+        if (popup.item.StartTime < today)
+        {
+            showNotification("You can't edit classes that already happened",'error');
+            setPopup({...popup,visible:false});
+            return;
+        }
         showNotification('Editing');
         setFormData({
             ScheduleID: popup.item.ScheduleID,
             ClassID: popup.item.ClassID,        // Ważne: ID, nie nazwa
             ClassName: popup.item.ClassName, // Do wyświetlania
             Max_slots: popup.item.Max_slots,
+            EmployeeID: popup.item.EmployeeID,
             Trainer: popup.item.Trainer,
-            StartTime: popup.item.StartTime,    // Format: YYYY-MM-DDTHH:mm:ss
-            durationTime: popup.item.durationTime
-
+            time: popup.item.time,    // Format: YYYY-MM-DDTHH:mm:ss
+            durationTime: popup.item.durationTime,
+            StartTime:popup.item.StartTime
         });
         setIsEditing(true);
     }
@@ -80,13 +85,10 @@ function Classes()
                 showNotification('Server error','error');
             }
         }
-        catch(err)
-        {
-            console.log(err.message);
-        }
+        catch(err){console.log(err.message);}
 
     };
-    const handleSave = async() => {
+    const handleSave = async() =>   {
         try {
             const response = await fetch('http://localhost:5000/api/UpdateClass',{
                 method :'PUT',
@@ -99,6 +101,7 @@ function Classes()
                 setPopup({ ...popup, visible: false }); // Zamknij lub odśwież dane
                 getData(); // Odśwież kalendarz
             } else {
+                console.log(response);
                 showNotification("Błąd aktualizacji", "error");
             }
         }
@@ -119,7 +122,9 @@ function Classes()
         try {
             const response = await fetch('http://localhost:5000/api/Classes')
             const data = await response.json();
+            console.log("tutaj sa dane: " ,data);
             setDane(data);
+
         }
         catch(err)
         {
@@ -139,6 +144,16 @@ function Classes()
        }
        classesLookup[klucz].push(dane[i]);
     }
+    const handleTimeChange = (e) =>{
+    const newTime = e.target.value;
+    const dateOnly = formData.StartTime.split('T')[0];
+    const newStartTime = `${dateOnly}T${newTime}:00`;
+    setFormData({
+        ...formData,
+        time:newTime,
+        StartTime: newStartTime,
+    })
+    }
     const Register = async (item) => {
         if (item.StartTime < today)
         {
@@ -149,9 +164,17 @@ function Classes()
         const idZajec = item.ScheduleID;
         const url =  'http://localhost:5000/api/RegisterForClass/' + idZajec;
         try {
-            const response = await fetch(url
-                ,
-                {method : 'PUT'});
+            const response = await fetch(url, {
+                method: 'PUT',
+                // 1. Musisz powiedzieć, że wysyłasz JSON
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // 2. Musisz zamienić dane na napis JSON i użyć klucza "CustomerID"
+                body: JSON.stringify({
+                    CustomerID: userID
+                })
+            });
             if( response.ok)
             {
                 showNotification("Registered successfully");
@@ -160,6 +183,10 @@ function Classes()
                 return;
             }
             switch(response.status) {
+                case 422:
+                    showNotification("Employees dont have to register for classes");
+                    setPopup({...popup,visible:false});
+                    break;
                 case 409:
                     showNotification("Class full","error");
                     setPopup({...popup,visible:false});
@@ -186,11 +213,26 @@ function Classes()
         y:0,
     });
     const today = new Date().toISOString().split('T')[0];
+    const generateTimeOptions = (startHour, endHour, stepMinutes) => {
+        const options = [];
+        for (let hour = startHour; hour < endHour; hour++) {
+            for (let min = 0; min < 60; min += stepMinutes) {
+                const h = hour.toString().padStart(2, '0');
+                const m = min.toString().padStart(2, '0');
+                const timeString = `${h}:${m}`;
+                options.push(timeString);
+            }
+        }
+        options.push(`${endHour}:00`)
+        return options;
+    };
+    const timeOptions = generateTimeOptions(10, 20, 15);
     return (
         <div style = {{width:'100%',height:'100%',display:'flex',flexDirection:'column',itemsAlign:'center',gap:'0px'}}>
             <div style = {uniwersalStyles.calendarMenu}>
                 <header style ={{alignSelf:'flex-start',marginRight: 'auto',marginLeft:'0.5%',color:'white',marginTop:'0.5%'}}> {monthNames[month]} {year}</header>
-
+                <button onClick={()=>setUserID(1)} style={userID === 1? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Admin</button>
+                <button onClick={()=>setUserID(20)} style ={userID === 20? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>User</button>
                 <button
                     onClick={()=> {setYear(month===0 ? year-1 : year) ;setMonth(month === 0 ? 11 : month-1)  }}
                     style = {uniwersalStyles.menuButton}>{"<"}</button>
@@ -215,38 +257,35 @@ function Classes()
                                 {isEditing ? (
                                     <select name="ClassID" value={formData.ClassID} onChange={handleChange}>
                                         {
-                                            availableClasses.map((c)=>(<option>{c.ClassName}</option>))
+                                            availableClasses.map((c)=>(<option key={c.ClassID} value={c.ClassID}>{c.ClassName}</option>))
                                         }
-                                    </select> )
-
-                                    : <span>{popup.item.ClassName}</span>
-                                }
-                                {isEditing ? (<select name="Trainer" value={formData.Trainer} onChange={handleChange}>
-
-                                            {availableTrainers.map((t) => (<option>{t.Trainer}</option>)) }
-
-                                    </select> )
-
-                               : (<span>with: {popup.item.Trainer}</span>)
-                                }
-                                {isEditing? (<input type="number" name="durationTime" value ={formData.durationTime} onChange={handleChange} min={"15"} step="5"/>)   :
-
+                                    </select>
+                                    ) : <span>{popup.item.ClassName}</span>}
+                                {isEditing ? (
+                                    <select name="EmployeeID" value={formData.EmployeeID} onChange={handleChange}>
+                                            {availableTrainers.map((t) => (<option key={t.ID} value={t.ID}>
+                                                {t.Trainer}</option>)) }
+                                    </select>
+                                    ) : (<span>with: {popup.item.Trainer}</span>)}
+                                {isEditing? (
+                                    <input type="number" name="durationTime" value ={formData.durationTime} onChange={handleChange} min={"45"} max={"120"} step="5"/>)   :
                                     (<span>duration: {popup.item.durationTime} minutes</span>)}
-
-
-
-                            <span>at: {popup.item.time}</span>
-                            <span>registered: {popup.item.Registered}/{popup.item.Max_slots}</span>
-
-
+                                {isEditing? (<select name="time" value={formData.time} onChange={handleTimeChange}>
+                                        {
+                                            timeOptions.map((t)=>(<option>{t}</option>))
+                                        }
+                                    </select>):(<span>at: {popup.item.time}</span>)}
+                                { isEditing? (<input type="number" name="Max_slots" value={formData.Max_slots} onChange={handleChange} min={"10"} max={"25"} step="1"/>)
+                                    :(<span>registered: {popup.item.Registered}/{popup.item.Max_slots}</span>)
+                                }
                         </div>
-                        <button onClick={() => Register(popup.item)}>Register</button>
-                        {userID === "1" ? <button onClick={()=>startEditing()}>Edit</button> : null}
-                        {userID === "1" ? <button onClick={()=>handleDelete(popup.item)}>Delete</button>: null}
+                            {isEditing? <button onClick={handleSave}>Save</button>: null}
+                            { userID!== 1 ? (!isEditing? <button onClick={() => Register(popup.item)}>Register</button> : null) : null }
+                            {!isEditing? (userID === 1 ? <button onClick={()=>startEditing()}>Edit</button> : null) : null }
+                        {!isEditing? (userID === 1 ? <button onClick={()=>handleDelete(popup.item)}>Delete</button>: null):null}
                         <button onClick={() => {setPopup({ ...popup, visible: false });setIsEditing(false);}}>Close</button>
                     </div>
                 )}
-
             </div>
             {notification.show && (
                 <div style={{
@@ -259,8 +298,23 @@ function Classes()
             )}
         </div>
     );
-
 }
+const rowStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '5px',
+    width: '100%'
+};
 
+const labelStyle = {
+    width: '120px',
+    fontWeight: 'bold',
+    textAlign: 'right',
+    marginRight: '5px'
+};
 
+const inputStyle = {
+    flex: 1,
+    padding: '5px'
+};
 export default Classes;
