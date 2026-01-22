@@ -6,14 +6,13 @@ CREATE PROCEDURE dbo.AddClass
 @Max_slots int,
 @EmployeeID int,
 @StartTime datetime,
-@durationTime decimal (4,2)
+@durationTime decimal (5,2)
 AS
 BEGIN SET NOCOUNT ON;
 INSERT INTO ClassSchedule(ClassID,Registered,Max_slots,EmployeeID,StartTime,durationTime)
 VALUES (@ClassID,0,@Max_slots,@EmployeeID,@StartTime,@durationtime)
 END;
-
-
+GO
 IF OBJECT_ID('dbo.RegisterForClass') is not null
 DROP PROCEDURE dbo.RegisterForClass
 GO

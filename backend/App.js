@@ -22,19 +22,20 @@ app.get('/api/PopularClasses', async (req, res) => {
 });
 app.post('/api/AddClass',async(req,res) => {
     try {
-        const {ClassID,Max_slots,EmployeeID,StartTime,durationTime} = req.body;
+        const {ScheduleID,ClassID,ClassName,Max_slots,EmployeeID,Trainer,time,durationTime,StartTime} = req.body;
         let pool = await sql.connect(config);
     await pool.request()
         .input('ClassID', sql.Int, ClassID)
         .input('Max_slots', sql.Int, Max_slots)
         .input('EmployeeID', sql.Int, EmployeeID)
-        .input('StartTime', sql.DateTime, StartTime)
+        .input('StartTime', sql.VarChar, StartTime)
         .input('durationTime', sql.Int, durationTime)
         .execute('dbo.AddClass')
         res.json({message:'Class added'});
 }
 catch (err)
 {
+    console.log(err);
     res.status(500).json({message:err.message});
 }
 });

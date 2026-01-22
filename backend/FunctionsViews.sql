@@ -20,7 +20,7 @@ RETURNS TABLE
 as
 RETURN
 SELECT E.ID,CONCAT(P.Name,' ',P.Surname)[Trainer] FROM Employees E LEFT JOIN Person P on P.ID = E.ID WHERE P.ID not in (
-SELECT E.ID FROM Employees E LEFT JOIN Person P on E.ID = P.ID CROSS JOIN EmployeesHolidays EH  WHERE E.JobTitle = 'Trener' and EH.EmployeeID = P.ID and (StartDate <@Date and @Date< EndDate)
+SELECT E.ID FROM Employees E LEFT JOIN Person P on E.ID = P.ID CROSS JOIN EmployeesHolidays EH  WHERE E.JobTitle = 'Trener' and EH.EmployeeID = P.ID and (StartDate <=@Date and @Date<=EndDate)
 ) and E.JobTitle = 'trener'
 GO
 

@@ -15,7 +15,6 @@ export const uniwersalStyles ={
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },
-
     menuContainer:{
         justifySelf :'flex-start',
         alignSelf:'flex-start',
@@ -38,9 +37,8 @@ export const uniwersalStyles ={
     },
     activeButton:{
         width:'auto',
-        backgroundColor: 'rgba(0, 0, 0, 0.4)', // Bardzo ciemny, ale 80% przezroczystości
-        backdropFilter: 'blur(5px)', // Rozmycie tła pod przyciskiem (efekt mrożonego szkła)
-        //border: '2px solid white',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        backdropFilter: 'blur(5px)',
         color :'white',
         fontWeight :'700',
         fontFamily :'"Anonymous Pro", monospace',
@@ -69,7 +67,6 @@ export const uniwersalStyles ={
         width:'100%',
         gap:'2px',
         marginBottom:'80px',
-
     },
     dayHeader:{
         margin:'3px',
@@ -83,15 +80,12 @@ export const uniwersalStyles ={
     dayCell:{
         border: '1px solid #e2e8f0',
         transition: 'background-color 0.2s',
-
         display :'flex',
         flexDirection:'column',
         justifyContent:'center',
         textAlign: 'center',
         height:'90px',
         fontWeight:'500',
-
-
     },
     grayDayCell:{
         border: '1px solid #e2e8f0',
