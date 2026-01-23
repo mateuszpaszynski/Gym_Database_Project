@@ -15,7 +15,7 @@ app.get('/api/PopularClasses', async (req, res) => {
     try {
         let pool = await sql.connect(config);
         let result = await pool.request().query('SELECT * FROM PopularClasses')
-        res.json(result.recordset); // Wysyłamy dane do przeglądarki/Reacta
+        res.json(result.recordset);
     } catch (err) {
         res.status(500).send(err.message);
     }

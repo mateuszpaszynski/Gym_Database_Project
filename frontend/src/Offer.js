@@ -34,15 +34,14 @@ function Offer({onNavigate}){
 }
 const styles = {
     glassCard: {
-        backgroundColor: 'rgba(0, 0, 0, 0.6)', // Ciemne tło, 75% krycia
-        backdropFilter: 'blur(10px)',           // ROZMYCIE TEGO CO POD SPODEM (Efekt szkła)
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        backdropFilter: 'blur(10px)',
         padding: '50px',
-        borderRadius: '20px',                   // Zaokrąglone rogi
-        border: '1px solid rgba(255, 255, 255, 0.1)', // Delikatna ramka
-        //textAlign: 'center',
+        borderRadius: '20px',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
         maxWidth: '1200px',
         width: '100%',
-        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5)', // Cień pod spodem dla głębi
+        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5)',
         color: 'white',
         display:'flex',
         flexDirection:'column',
@@ -50,50 +49,48 @@ const styles = {
 
     Header: {
         color: 'white',
-        fontSize: '3rem',       // Trochę mniejszy niż 5vw, bardziej elegancki
+        fontSize: '3rem',
         fontWeight: '800',
-        marginTop: '0',         // Kasujemy margines góry
-        marginBottom: '40px',   // Odstęp od kafelków
+        marginTop: '0',
+        marginBottom: '40px',
         textTransform: 'uppercase',
         letterSpacing: '3px',
-        borderBottom: '3px solid #2ecc71', // Zielona linia pod napisem dla stylu
+        borderBottom: '3px solid #2ecc71',
         paddingBottom: '10px',
         width: '100%',
         justifySelf:'flex-start',
-        alignSelf:'flex-start'// Żeby linia była na całą szerokość (opcjonalne)
+        alignSelf:'flex-start'
     },
 
-    // Kontener na kafelki
     offerGrid: {
         display: 'flex',
-        gap: '20px',            // Odstępy między kafelkami
+        gap: '20px',
         width: '100%',
-        justifyContent: 'space-between', // Rozstrzel kafelki
-        flexWrap: 'wrap',       // Żeby na telefonie spadły pod siebie
-        marginBottom: '40px',   // Odstęp od przycisku na dole
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        marginBottom: '40px',
     },
 
-    // Pojedynczy kafelek
     offerItem: {
         display:'flex',
         flexDirection:'column',
-        flex: '1',              // Każdy zajmuje tyle samo miejsca
-        minWidth: '150px',      // Minimalna szerokość
-        backgroundColor: 'rgba(255, 255, 255, 0.05)', // Bardzo delikatne tło (jaśniejsze od głównego)
+        flex: '1',
+        minWidth: '150px',
+        backgroundColor: 'rgba(255, 255, 255, 0.05)',
         padding: '20px',
         borderRadius: '15px',
         border: '1px solid rgba(255, 255, 255, 0.3)',
-        textAlign: 'center',    // W środku kafelka tekst wyśrodkowany
-        transition: 'all 0.3s ease', // Do animacji najechania
+        textAlign: 'center',
+        transition: 'all 0.3s ease',
         cursor: 'default',
     },
     icon: {
-        fontSize: '3rem',       // Duża ikona/emoji
+        fontSize: '3rem',
         marginBottom: '10px',
         display: 'block',
     },
     itemTitle: {
-        color: '#2ecc71',       // Zielony tytuł
+        color: '#2ecc71',
         fontWeight: 'bold',
         fontSize: '1.1rem',
         marginBottom: '10px',

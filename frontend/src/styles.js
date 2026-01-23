@@ -117,8 +117,8 @@ export const uniwersalStyles ={
         borderRadius: '8px',
         color: 'white',
         fontWeight: 'bold',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.3)', // Cień dla efektu 3D
-        transition: 'all 0.3s ease', // Ładne pojawianie się
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+        transition: 'all 0.3s ease',
         display: 'flex',
         alignItems: 'center',
         gap: '10px'
