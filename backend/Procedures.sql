@@ -1,3 +1,5 @@
+USE Silownia
+GO
 IF OBJECT_ID('dbo.AddClass') is not null
 DROP PROCEDURE dbo.AddClass
 GO
@@ -24,7 +26,7 @@ BEGIN SET NOCOUNT ON;
 INSERT INTO ClassRegistrations(ScheduleID,CustomerID) VALUES
 (@ScheduleID,@CustomerID)
 END;
-
+GO
 
 IF OBJECT_ID('dbo.UpdateClass') is not null
 DROP PROCEDURE dbo.UpdateClass
@@ -68,8 +70,9 @@ BEGIN
 SET NOCOUNT ON;
 INSERT INTO Person(Name,Surname,Pesel,Email) VALUES
 (@Name,@Surname,@Pesel,@Email);
+DECLARE @NewID int = SCOPE_IDENTITY();
 INSERT INTO Customers(ID) VALUES
-((SELECT COUNT(*) FROM PERSON));
+(@NewID);
 PRINT 'Customer Added'
 END;
 GO
@@ -107,7 +110,7 @@ INSERT INTO WorkShifts(EmployeeID,RoomID,StartTime,durationTime) VALUES
 (@EmployeeID,@RoomID,@StartTime,@durationTime);
 PRINT 'Shift added';
 END;
-
+GO
 IF OBJECT_ID('dbo.DeleteShift') is not null
 DROP PROCEDURE dbo.DeleteShift
 GO
@@ -135,7 +138,7 @@ UPDATE WorkShifts SET EmployeeID = @EmployeeID,
 RoomID = @RoomID, StartTime = @StartTime,
 durationTime = @durationTime WHERE ShiftID = @ShiftID
 END;
-
+GO
 if OBJECT_ID('dbo.AddEntry','P') is NOT NULL
 drop PROCEDURE dbo.AddEntry
 GO

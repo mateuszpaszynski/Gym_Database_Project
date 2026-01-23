@@ -38,8 +38,8 @@ function App() {
                     display: 'flex',
                     justifyContent: 'center'
                 }}>
-                {widok === 'Home'      &&  <Home/>}
-                {widok === 'Offer'     &&  <Offer/>}
+                {widok === 'Home'      &&  <Home onNavigate={setWidok}/>}
+                {widok === 'Offer'     &&  <Offer onNavigate={setWidok}/>}
                 {widok === 'Classes' &&  <Classes/>}
             </main>
         </div>

@@ -1,7 +1,7 @@
-IF OBJECT_ID('TR_UpdateRegisteredCount') is not null
-DROP TRIGGER TR_UpdateRegisteredCount
+IF OBJECT_ID('dbo.UpdateRegisteredCount') is not null
+DROP TRIGGER dbo.UpdateRegisteredCount
 GO
-CREATE TRIGGER TR_UpdateRegisteredCount
+CREATE TRIGGER dbo.UpdateRegisteredCount
 ON ClassRegistrations
 AFTER INSERT,DELETE
 AS 
@@ -28,10 +28,10 @@ FROM ClassSchedule CS Join DELETED d on Cs.ScheduleID = D.ScheduleID
 END
 END;
 GO
-IF OBJECT_ID('TR_GeneratePaymentForSingleEntry') is not null
-DROP TRIGGER TR_GeneratePaymentForSingleEntry
+IF OBJECT_ID('dbo.GeneratePaymentForSingleEntry') is not null
+DROP TRIGGER dbo.GeneratePaymentForSingleEntry
 GO
-CREATE TRIGGER TR_GeneratePaymentForSingleEntry
+CREATE TRIGGER dbo.GeneratePaymentForSingleEntry
 ON SingleEntries
 AFTER INSERT AS
 BEGIN SET NOCOUNT ON;
@@ -41,10 +41,10 @@ SELECT CustomerID,4,EntryDate,S.Price,S.Price FROM Inserted I LEFT JOIN [Service
 END;
 GO
 
-IF OBJECT_ID('TR_GeneratePaymentForMembership') is not null
-DROP TRIGGER TR_GeneratePaymentForMembership
+IF OBJECT_ID('dbo.GeneratePaymentForMembership') is not null
+DROP TRIGGER dbo.GeneratePaymentForMembership
 GO
-CREATE TRIGGER TR_GeneratePaymentForMembership
+CREATE TRIGGER dbo.GeneratePaymentForMembership
 ON Memberships
 AFTER INSERT AS
 BEGIN SET NOCOUNT ON;
@@ -52,11 +52,11 @@ INSERT INTO PAYMENTS(ClientID,ServiceID,Data,UnitPrice,Amount)
 SELECT CustomerID,I.ServiceID,I.PurchaseDate,S.Price,S.Price FROM INSERTED I LEFT JOIN [SERVICES] S on S.ServiceID = I.ServiceID
 END;
 GO
-IF OBJECT_ID('TR_GeneratePaymentForReservations') is not null
-DROP TRIGGER TR_GeneratePaymentForReservations
+IF OBJECT_ID('dbo.GeneratePaymentForReservations') is not null
+DROP TRIGGER dbo.GeneratePaymentForReservations
 
 GO
-CREATE TRIGGER TR_GeneratePaymentForReservations
+CREATE TRIGGER dbo.GeneratePaymentForReservations
 ON Reservations
 AFTER INSERT AS
 BEGIN SET NOCOUNT ON;
@@ -64,10 +64,10 @@ INSERT INTO Payments(ClientID,ServiceID,Data,UnitPrice,Amount)
 Select I.ClientID,I.RoomID + 6 [ServiceID],I.Data,S.Price,I.duration*S.Price [Amount] From Inserted I LEFT JOIN [Services] S on (I.RoomID + 6) = S.ServiceID
 END;
 GO
-IF OBJECT_ID('TR_GeneratePaymentForPersonalTrainingSessions') is not null
-DROP TRIGGER TR_GeneratePaymentForPersonalTrainingSessions
+IF OBJECT_ID('dbo.GeneratePaymentForPersonalTrainingSessions') is not null
+DROP TRIGGER dbo.GeneratePaymentForPersonalTrainingSessions
 GO
-CREATE TRIGGER TR_GeneratePaymentForPersonalTrainingSessions
+CREATE TRIGGER dbo.GeneratePaymentForPersonalTrainingSessions
 ON PersonalTrainingSessions
 AFTER INSERT AS
 BEGIN SET NOCOUNT ON;

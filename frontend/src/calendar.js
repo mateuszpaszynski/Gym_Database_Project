@@ -38,7 +38,7 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
         const zajeciategodnia = classesLookup[kluczzajec] || [];
         const isToday = (today.getFullYear() === y && today.getMonth() === m && today.getDate() === d) ? 1 : 0;
         calendar.push(
-            <div key={`${y}-${m}-${d}`} style={isToday? {...uniwersalStyles.grayDayCell,border:'2px solid red'} : uniwersalStyles.grayDayCell}
+            <div key={`${y}-${m}-${d}`} style={isToday? {...uniwersalStyles.grayDayCell,border:'3px solid red'} : uniwersalStyles.grayDayCell}
           >
                 {d}
                 <div style = {uniwersalStyles.containerClassBoxes}>
@@ -62,7 +62,7 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
         const monthString = String(month+1).padStart(2,'0');
         const dayString = String(d).padStart(2,'0');
         calendar.push(
-            <div key={`${year}-${month}-${d}`} style={isToday? {...uniwersalStyles.dayCell,border:'2px solid red'} : uniwersalStyles.dayCell}
+            <div key={`${year}-${month}-${d}`} style={isToday? {...uniwersalStyles.dayCell,border:'3px solid red'} : uniwersalStyles.dayCell}
                  >{d}
                 <div style = {uniwersalStyles.containerClassBoxes}>
                     {
@@ -86,7 +86,7 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
         const zajeciategodnia = classesLookup[kluczzajec] || [];
         const isToday = (today.getFullYear() === y && today.getMonth() === m && today.getDate() === nextD) ? 1 : 0;
         calendar.push(
-            <div key={`${y}-${m}-${nextD}`} style={isToday? {...uniwersalStyles.grayDayCell,border:'2px solid red'} : uniwersalStyles.grayDayCell}
+            <div key={`${y}-${m}-${nextD}`} style={isToday? {...uniwersalStyles.grayDayCell,border:'3px solid red'} : uniwersalStyles.grayDayCell}
             >{nextD}
                 <div style = {uniwersalStyles.containerClassBoxes}>
                     {

@@ -131,7 +131,7 @@ export const classStyles = {
        //Aerobics
         display :'flex',
         justifyContent:'center',
-        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '53px',
         border: '2px solid #7B1FA2', backgroundColor: '#F3E5F5', color: '#7B1FA2'
         ,textWrap:'wrap',
         width:'47px',
@@ -144,7 +144,7 @@ export const classStyles = {
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '53px',
         border: '2px solid #F57C00', backgroundColor: '#FFF3E0', color: '#F57C00'
         ,textWrap:'wrap',
         width:'45px',
@@ -157,7 +157,7 @@ export const classStyles = {
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '53px',
         border: '2px solid #D32F2F', backgroundColor: '#FFE5E5', color: '#D32F2F'
         ,textWrap:'wrap',
         width:'50px',
@@ -170,7 +170,7 @@ export const classStyles = {
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '53px',
         border: '2px solid #1976D2', backgroundColor: '#E3F2FD', color: '#1976D2'
         ,textWrap:'wrap',
         width:'45px',
@@ -183,7 +183,7 @@ export const classStyles = {
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+        fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '53px',
         border: '2px solid #388E3C', backgroundColor: '#E8F5E9', color: '#388E3C'
         ,textWrap:'wrap',
         width:'45px',
@@ -196,7 +196,7 @@ export const classStyles = {
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-         fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+         fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '53px',
         border: '2px solid #00796B', backgroundColor: '#E0F2F1', color: '#00796B'
         ,textWrap:'wrap',
         width:'53px',
@@ -209,7 +209,7 @@ export const classStyles = {
         boxSizing:'content-box',
         display :'flex',
         justifyContent:'center',
-         fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '40px',
+         fontSize: '0.8vw', flexWrap: 'wrap', minHeight: '53px',
         border: '2px solid #C2185B', backgroundColor: '#FCE4EC', color: '#C2185B'
         ,textWrap:'wrap',
         width:'45px',

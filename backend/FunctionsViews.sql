@@ -1,4 +1,3 @@
---CheatSheet for HR 
 IF OBJECT_ID('dbo.GetMonthlyPayouts') is not null
 DROP FUNCTION dbo.GetMonthlyPayouts
 GO
@@ -31,7 +30,7 @@ CREATE VIEW PopularCLasses as
 SELECT T.ClassName,SUM(C.Registered)[Total Registrations] FROM ClassSchedule C LEFT JOIN ClassTypes T on C.ClassID = T.ClassID
 GROUP BY T.ClassName
 GO
---Check if Customers has Access to facility at given time 
+
 IF OBJECT_ID('dbo.CheckAccessPermission') is not null
 DROP FUNCTION dbo.CheckAccessPermission
 GO
@@ -39,17 +38,16 @@ CREATE FUNCTION dbo.CheckAccessPermission (@CustomerID INT, @Date DATE)
 RETURNS BIT
 AS
 BEGIN
-    -- Sprawdzamy czy istnieje karnet
+    
     IF EXISTS (SELECT 1 FROM Memberships WHERE CustomerID = @CustomerID AND @Date BETWEEN StartDate AND EndDate)
         RETURN 1;
-    -- Je�li nie, sprawdzamy czy istnieje wej�cie jednorazowe
+    
     IF EXISTS (SELECT 1 FROM SingleEntries WHERE CustomerID = @CustomerID AND CAST(EntryDate AS DATE) = @Date)
         RETURN 1;
-    -- Je�li nic nie znalaz�
+
     RETURN 0;
 END;
 GO
--- HOW MUCH MONEY EACH Customer Spent 
 IF OBJECT_ID('dbo.CustomersSpending') is not null
 DROP VIEW CustomersSpending
 GO
@@ -71,7 +69,6 @@ FROM ClassSchedule CS LEFT JOIN Person P on P.ID = CS.EmployeeID LEFT JOIN Class
 GO
 
 
---Srednia ilosc osob w danym dniu tygodnia (1-poniedzialek)
 set dateFirst 1
 go
 
@@ -91,7 +88,6 @@ from ileNaDzien
 GROUP BY ileNaDzien.dzienTygodnia
 Go
 
--- 10 najbardziej obecnych klientow
 if OBJECT_ID('dbo.TenBestActivePeople','V') is NOT NULL
 drop view dbo.TenBestActivePeople
 GO
@@ -104,7 +100,7 @@ join Person as p on eb.PersonID=p.ID
 GROUP BY p.Name,p.Surname
 ORDER BY sumaWejsc desc
 GO
---Zwraca srednia ilosc osob w danej godzinie
+
 if OBJECT_ID('dbo.AvgNumberInHour','V') is not null
 drop view dbo.AvgNumberInHour
 GO
@@ -122,7 +118,6 @@ GROUP BY dod.godzina
 GO
 
 
---Suma rejestracji na danego trenera personalnego
 if OBJECT_ID('dbo.TrainerPopularity','V') is NOT NULL
 drop VIEW dbo.TrainerPopularity
 GO
@@ -137,7 +132,6 @@ where e.JobTitle='Trener'
 GROUP BY p.Name, p.Surname, e.JobTitle
 go
 
---Wiek osoby
 if OBJECT_ID('dbo.GetAge','fn') is NOT NULL
 drop FUNCTION dbo.GetAge
 GO

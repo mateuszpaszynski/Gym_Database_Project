@@ -142,5 +142,15 @@ CONSTRAINT FK_PersonalTrainingSessionsCustomerID FOREIGN KEY(CustomerID) REFEREN
 CONSTRAINT FK_PersonalTrainingSessionsEmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(ID),
 CONSTRAINT FK_PersonalTrainingSessionsRoomID FOREIGN KEY(RoomID) REFERENCES ROOMS(ID),
 )
+GO
+CREATE NONCLUSTERED INDEX idx_Person_Pesel 
+ON Person(Pesel);
 
+CREATE NONCLUSTERED INDEX idx_Schedule_Employee 
+ON ClassSchedule(EmployeeID);
 
+CREATE NONCLUSTERED INDEX idx_Registrations_Customer 
+ON ClassRegistrations(CustomerID);
+
+CREATE NONCLUSTERED INDEX idx_Entries_Date 
+ON EntriesBacklog([Data]);
