@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import  {uniwersalStyles,classStyles} from './styles.jsx';
 import drawCalendar from './calendar.jsx'
-function Classes() {
+function Classes({onNavigate}) {
     const [classForm, setClassForm] = useState({visible: false});
     const [userID, setUserID] = useState(1);
     const [notification, setNotification] = useState({
@@ -267,8 +267,6 @@ catch
         <div style = {{width:'100%',height:'100%',display:'flex',flexDirection:'column',itemsAlign:'center',gap:'0px'}}>
             <div style = {uniwersalStyles.calendarMenu}>
                 <header style ={{alignSelf:'flex-start',marginRight: 'auto',marginLeft:'0.5%',color:'white',marginTop:'0.5%'}}> {monthNames[month]} {year}</header>
-                <button onClick={()=>setUserID(1)} style={userID === 1? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Admin</button>
-                <button onClick={()=>setUserID(20)} style ={userID === 20? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>User</button>
                 <button
                     onClick={()=> {setYear(month===0 ? year-1 : year) ;setMonth(month === 0 ? 11 : month-1)  }}
                     style = {uniwersalStyles.menuButton}>{"<"}</button>

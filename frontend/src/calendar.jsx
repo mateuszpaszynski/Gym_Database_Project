@@ -15,10 +15,7 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
             x:newx,
             y:newy,
             item : z
-
         })
-
-
     }
     const today = new Date();
     const year = y;
@@ -76,9 +73,7 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
                                 <div style ={{alignSelf:'flex-end'}}>{z.time}</div>
                             </button>
                         ))}
-                    {userID===1 && (today.getFullYear() < y || ( today.getFullYear() === y && today.getMonth() < m) ||(today.getMonth() === m && today.getDate() <= d)) ?
-                        (<button style={{alignSelf:'center',cursor:'pointer'}}
-                                 onClick={(e)=>handleAddClass(`${year}-${monthString}-${dayString}`)}>+</button>) : null}
+
                 </div>
             </div>
         );
