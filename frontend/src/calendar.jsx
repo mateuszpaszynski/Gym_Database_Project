@@ -9,13 +9,16 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
         const rect = Class.target.getBoundingClientRect();
         let newx = rect.right+10;
         let newy = rect.top + 150 < window.innerHeight ? rect.top - 40 : rect.top - 100;
+        fetchTrainers(z.StartTime);
         setPopup({
             visible:true,
             x:newx,
             y:newy,
             item : z
+
         })
-        fetchTrainers(z.StartTime);
+
+
     }
     const today = new Date();
     const year = y;
@@ -73,7 +76,9 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
                                 <div style ={{alignSelf:'flex-end'}}>{z.time}</div>
                             </button>
                         ))}
-                    {userID===1 && (today.getFullYear() < y || ( today.getFullYear() === y && today.getMonth() < m) ||(today.getMonth() === m && today.getDate() <= d)) ? (<button style={{alignSelf:'center',cursor:'pointer'}} onClick={(e)=>handleAddClass(`${year}-${monthString}-${dayString}`)}>+</button>) : null}
+                    {userID===1 && (today.getFullYear() < y || ( today.getFullYear() === y && today.getMonth() < m) ||(today.getMonth() === m && today.getDate() <= d)) ?
+                        (<button style={{alignSelf:'center',cursor:'pointer'}}
+                                 onClick={(e)=>handleAddClass(`${year}-${monthString}-${dayString}`)}>+</button>) : null}
                 </div>
             </div>
         );

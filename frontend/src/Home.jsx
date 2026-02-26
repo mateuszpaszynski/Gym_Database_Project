@@ -34,7 +34,7 @@ const styles = {
         borderRadius: '20px',                   // Zaokrąglone rogi
         border: '1px solid rgba(255, 255, 255, 0.1)', // Delikatna ramka
         textAlign: 'center',
-        maxWidth: '1200px',
+        //maxWidth: '1200px',
         width: '100%',
         boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5)', // Cień pod spodem dla głębi
         color: 'white',
@@ -45,7 +45,7 @@ const styles = {
         margin: '0 0 10px 0',
         textTransform: 'uppercase', // Wielkie litery
         letterSpacing: '2px',
-        lineHeight: '1.1',
+        lineHeight: '4rem',
     },
     spanAccent: {
         color: '#2ecc71', // Twój zielony (lub zmień na #ff0055)
@@ -55,7 +55,7 @@ const styles = {
         fontSize: '2rem',
         color: '#cccccc', // Lekko szary dla mniejszego tekstu
         marginBottom: '10px',
-        lineHeight: '1.6',
+        lineHeight: '4rem',
     },
     button: {
         alignSelf:'center',

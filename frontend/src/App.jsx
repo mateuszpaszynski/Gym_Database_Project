@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import Home from './Home.js'
-import Classes from './Classes.js'
-import Customers from './Customers.js'
-import Shifts from './Shifts.js'
-import Employees from "./Employees.js";
-import Offer from "./Offer.js"
+import React, { useState } from 'react';
+import Home from './Home.jsx'
+import Classes from './Classes.jsx'
+import Offer from "./Offer.jsx"
 import {uniwersalStyles} from "./styles"
+import Login from "./Login.jpg"
 
 function App() {
     const [widok,setWidok] = useState('Home');
@@ -18,17 +16,15 @@ function App() {
                     <button
                         onClick={()=>setWidok('Offer')}
                         style = {widok === 'Offer' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>OFFER</button>
-                    <button
-                        onClick={()=>setWidok('Classes')}
-                        style = {widok === 'Classes' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Classes</button>
-                    {/*  <button
-                        onClick={()=>setWidok('Employees')}
-                        style = {widok === 'Employees' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Employees</button>
 
-                    <button
-                        onClick={()=>setWidok('Shifts')}
-                        style = {widok === 'Shifts' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Shifts</button>
-                        */}
+                    <div style = {{display:'flex',justifyContent:'space-between'}}>
+                        <button
+                            onClick={()=>setWidok('Classes')}
+                            style = {widok === 'Classes' ? uniwersalStyles.activeButton : uniwersalStyles.menuButton}>Classes</button>
+                        <img src="/images/shoppingCart.svg" alt="shoppingCart" style={{...uniwersalStyles.menuButton, justifySelf:'flex-end'}}/>
+                        <img src="/images/login.svg" alt ="Login" style = {uniwersalStyles.menuButton}/>
+                    </div>
+
                 </nav>
                 <main style={{
                     zIndex: 7,
@@ -41,6 +37,7 @@ function App() {
                 {widok === 'Home'      &&  <Home onNavigate={setWidok}/>}
                 {widok === 'Offer'     &&  <Offer onNavigate={setWidok}/>}
                 {widok === 'Classes' &&  <Classes/>}
+
             </main>
         </div>
     );}

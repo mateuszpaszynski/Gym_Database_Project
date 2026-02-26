@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
-import  {uniwersalStyles,classStyles} from './styles.js';
-import drawCalendar from './calendar.js'
+import  {uniwersalStyles,classStyles} from './styles.jsx';
+import drawCalendar from './calendar.jsx'
 function Classes() {
     const [classForm, setClassForm] = useState({visible: false});
     const [userID, setUserID] = useState(1);
@@ -13,14 +13,24 @@ function Classes() {
     const [isEditing, setIsEditing] = useState(false);
     const [availableTrainers, setAvailableTrainers] = useState([]);
     const fetchTrainers = async (dateString) => {
-        const res = await fetch('http://localhost:5000/api/GetAvailableTrainers',
-            {
+        try {
+            const res = await fetch('http://localhost:5000/api/GetAvailableTrainers', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({date: dateString})
             });
-        const data = await res.json();
-        setAvailableTrainers(data);
+            const data = await res.json();
+            setAvailableTrainers(data);
+            if (data && data.length > 0) {
+                setFormData(prev => ({
+                    ...prev,
+                    Trainer: data[0].Trainer,
+                    EmployeeID: data[0].ID
+                }));
+            }
+        } catch (error) {
+            console.error("Błąd przy pobieraniu trenerów:", error);
+        }
     };
     const [availableClasses, setAvailableClasses] = useState([]);
     useEffect(() => {
@@ -31,7 +41,13 @@ function Classes() {
         };
         fetchLookups();
     }, []);
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        ClassID:1,
+        Max_slots:'10',
+        durationTime:'60',
+        time:'10:00',
+
+    });
     const startEditing = () => {
         if (popup.item.StartTime < today) {
             showNotification("You can't edit classes that already happened", 'error');
@@ -223,7 +239,8 @@ catch
             console.log("Blad sieci",err);
         }
     }
-    const [month,setMonth] = useState(0);
+    const M = new Date().getMonth();
+    const [month,setMonth] = useState(M);
     const [year,setYear] = useState(2026);
     const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const [popup,setPopup] = useState({

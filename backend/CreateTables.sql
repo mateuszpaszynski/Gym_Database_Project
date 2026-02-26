@@ -131,6 +131,14 @@ CONSTRAINT FK_WorkShiftsEmployeeID FOREIGN KEY(EmployeeID) REFERENCES Employees(
 CONSTRAINT FK_WorkShiftsRoomID FOREIGN KEY(RoomID) References ROOMS(ID)
 
 )
+USE Silownia
+CREATE TABLE UserLogins(
+ID int not null,
+Ulogin NVARCHAR(16) UNIQUE not null,
+UPassword NVARCHAR(16) not null,
+UAccess int not null,
+CONSTRAINT FK_UserLoginsCustomer FOREIGN KEY(ID) references Person(ID)
+)
 CREATE TABLE PersonalTrainingSessions(
 SessionID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 CustomerID int not null,
