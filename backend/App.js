@@ -11,6 +11,36 @@ const config = {
     database: 'Silownia',
     options: { encrypt: false, trustServerCertificate: true }
 };
+app.post('/api/Auth',async (req,res)=> {
+    try {
+
+        const {Login,Password} = req.body;
+        let pool = await sql.connect(config);
+        let result = await pool.request().
+                input('Login',sql.VarChar,Login)
+                .query('SELECT * FROM PERSON WHERE Login = @Login');
+           const user = result.recordset[0];
+
+            if (!user )
+            {
+                return res.status(404).json({success:false,message:'User not found'});
+            }
+            if (user.Password === Password)
+            {
+                res.json({success:true,role: user.Role,userID: user.ID,userName: user.Name});
+
+            }
+            else {
+                res.status(401).json({success: false,message:'Wrong password'});
+            }
+    }
+    catch(err)
+    {
+        res.status(500).send(err.message);
+    }
+
+
+});
 app.get('/api/PopularClasses', async (req, res) => {
     try {
         let pool = await sql.connect(config);

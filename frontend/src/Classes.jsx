@@ -1,15 +1,11 @@
 import React,{useEffect,useState} from 'react';
 import  {uniwersalStyles,classStyles} from './styles.jsx';
 import drawCalendar from './calendar.jsx'
-function Classes({onNavigate}) {
+import {ROLES} from './App'
+function Classes({userRole,setNotification,showNotification}) {
     const [classForm, setClassForm] = useState({visible: false});
     const [userID, setUserID] = useState(1);
-    const [notification, setNotification] = useState({
-        show: false,
-        message: '',
-        type: 'success',
-        zIndex: 100,
-    });
+
     const [isEditing, setIsEditing] = useState(false);
     const [availableTrainers, setAvailableTrainers] = useState([]);
     const fetchTrainers = async (dateString) => {
@@ -119,13 +115,6 @@ function Classes({onNavigate}) {
             console.log(err);
         }
     };
-    const showNotification = (msg, type = 'success') => {
-        setNotification({show: true, message: msg, type});
-
-        setTimeout(() => {
-            setNotification((prev) => ({...prev, show: false}));
-        }, 3000);
-    };
     const [dane, setDane] = useState([]);
     const getData = async () => {
         try {
@@ -190,6 +179,12 @@ catch
     }
 };
     const Register = async (item) => {
+        if (userRole === 0)
+        {
+            showNotification("Log in to register for Classes",'error');
+            setPopup({...popup, visible: false});
+            return;
+        }
         if (item.StartTime < today)
         {
             showNotification("You can't register for classes in the past",'error');
@@ -207,7 +202,7 @@ catch
                 },
                 // 2. Musisz zamienić dane na napis JSON i użyć klucza "CustomerID"
                 body: JSON.stringify({
-                    CustomerID: userID
+                    CustomerID: 20
                 })
             });
             if( response.ok)
@@ -356,22 +351,14 @@ catch
                                 }
                         </div>
                             {isEditing? <button onClick={handleSave}>Save</button>: null}
-                            { userID!== 1 ? (!isEditing? <button onClick={() => Register(popup.item)}>Register</button> : null) : null }
-                            {!isEditing? (userID === 1 ? <button onClick={()=>startEditing()}>Edit</button> : null) : null }
-                        {!isEditing? (userID === 1 ? <button onClick={()=>handleDelete(popup.item)}>Delete</button>: null):null}
+                            { userRole < ROLES.EMPLOYEE ? (!isEditing? <button onClick={() => Register(popup.item)}>Register</button> : null) : null }
+                            {!isEditing? (userRole > ROLES.ADMIN ? <button onClick={()=>startEditing()}>Edit</button> : null) : null }
+                        {!isEditing? (userRole > ROLES.ADMIN  ? <button onClick={()=>handleDelete(popup.item)}>Delete</button>: null):null}
                         <button onClick={() => {setPopup({ ...popup, visible: false });setIsEditing(false);}}>Close</button>
                     </div>
                 )}
             </div>
-            {notification.show && (
-                <div style={{
-                    ...uniwersalStyles.notificationBox,
-                    backgroundColor: notification.type === 'success' ? '#2ecc71' : '#e74c3c'
-                }}>
-                    <span>{notification.type === 'success' ? '✅' : '⚠️'}</span>
-                    {notification.message}
-                </div>
-            )}
+
         </div>
     );
 }

@@ -1,24 +1,80 @@
 import React,{useState}  from 'react'
 import {ROLES} from './App.jsx'
 import {uniwersalStyles} from "./styles"
-function Login({onNavigate})
+function Login({showNotification,setUserName,setCurrentUser,setWidok})
 {
-    const handleClick = async()=>{
-
+    const [formData,setFormData] = useState({Login:"",Password:""});
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
     }
-    const [formData,setFormData]=useState();
+    const handleSubmit = async()=>{
+        try {
+            if ( localStorage.getItem('gymUser') !==null)
+            {
+                showNotification("You are already logged in",'error');
+                return;
+            }
+            const response = await fetch('http://localhost:5000/api/Auth',
+            {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({Login: formData.Login,Password: formData.Password})
+            })
+            if ( response.ok) {
+                const data = await response.json();
+                localStorage.setItem('gymUser',JSON.stringify(data));
+                setCurrentUser(data);
+                setWidok('Home');
+                showNotification("Hello " + data.userName);
+                setUserName(data.userName);
+            }
+            else {
+                switch(response.status)
+                {
+                    case 404: {
+                        showNotification("User not found",'error');
+                        break;
+                    }
+                    case 401: {
+                        showNotification("Wrong password",'error');
+                        break;
+                    }
+                    default: {
+                        showNotification("Server error",'error');
+                        break;
+                    }
+                }
+                console.log(response);
+            }
+        }
+        catch(err) {
+            console.log("Blad sieci",err);
+        }
+    }
+        const handleLogOut = () => {
+            if ( localStorage.getItem('gymUser') === null)
+            {
+                return;
+            }
+            localStorage.removeItem('gymUser'); // Czyścimy pamięć stałą
+            setCurrentUser(null);
+            setWidok('Home');
+            showNotification("Logged out");
+            setUserName('Log in');
+        };
     return (
         <div style ={styles.glassCard}>
             <header style = {styles.header}>LOG IN </header>
             <div style ={{padding:'5px'}}>
                 <header style = {styles.title}>Login</header>
-                <input alt = "Login" style = {styles.input}/>
+                <input type="varchar" name="Login" value={formData.Login} onChange={handleChange} alt = "Login" style = {styles.input}/>
             </div>
             <div style ={{padding:'5px'}}>
                 <header style = {styles.title}>Password</header>
-                <input alt = "Password" style = {styles.input}/>
+                <input type="password" name="Password" value={formData.Password} onChange={handleChange} alt = "Password" style = {styles.input}/>
             </div>
-            <button onClick={()=>handleClick()} style ={{width:'97.5%',alignSelf:'center'}}>SUBMIT</button>
+            <button onClick={()=>handleSubmit()} style ={{width:'97.5%',alignSelf:'center'}}>SUBMIT</button>
+            <button onClick={()=>handleLogOut()} style = {{width:'97.5%',alignSelf:'center'}}>LOG OUT</button>
         </div>
     );
 }

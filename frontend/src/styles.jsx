@@ -113,7 +113,7 @@ export const uniwersalStyles ={
         zIndex: 9999,
         alignSelf:'center',
         justifySelf:'center',
-
+        marginTop:'110px',
         padding: '15px 25px',
         borderRadius: '8px',
         color: 'white',
