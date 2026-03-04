@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-function Offer({onNavigate}){
+function Offer(){
     const [dane,setDane] = useState([]);
     const getData = async () =>{
         try {

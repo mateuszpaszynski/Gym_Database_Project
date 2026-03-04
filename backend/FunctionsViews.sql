@@ -23,10 +23,20 @@ SELECT E.ID FROM Employees E LEFT JOIN Person P on E.ID = P.ID CROSS JOIN Employ
 ) and E.JobTitle = 'trener'
 GO
 
-IF OBJECT_ID('dbo.PopularClasses') is not null
-DROP VIEW PopularClasses
+IF OBJECT_ID('dbo.GetRegisteredUsers') is not null
+DROP FUNCTION dbo.GetRegisteredUsers
 GO
-CREATE VIEW PopularCLasses as
+CREATE FUNCTION dbo.GetRegisteredUsers(@ScheduleID INT)
+RETURNS TABLE
+as
+RETURN
+SELECT P.ID,P.Name,P.Surname FROM ClassRegistrations CR LEFT JOIN PERSON P on CR.CustomerID = P.ID LEFT JOIN ClassSchedule CS on CR.ScheduleID = CS.ScheduleID WHERE CS.ScheduleID = @ScheduleID
+GO
+
+IF OBJECT_ID('dbo.PopularClasses') is not null
+DROP VIEW dbo.PopularClasses
+GO
+CREATE VIEW dbo.PopularCLasses as
 SELECT T.ClassName,SUM(C.Registered)[Total Registrations] FROM ClassSchedule C LEFT JOIN ClassTypes T on C.ClassID = T.ClassID
 GROUP BY T.ClassName
 GO

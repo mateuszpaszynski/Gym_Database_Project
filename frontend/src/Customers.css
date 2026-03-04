@@ -1,0 +1,17 @@
+.glass-container::-webkit-scrollbar {
+    width: 8px;               /* Cienki suwak */
+}
+
+.glass-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05); /* Tło toru suwaka */
+    border-radius: 10px;
+}
+
+.glass-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 204, 0, 0.3);    /* Twój złoty kolor, ale z przezroczystością */
+    border-radius: 10px;
+}
+
+.glass-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 204, 0, 0.6);    /* Mocniejszy kolor przy dotknięciu */
+}

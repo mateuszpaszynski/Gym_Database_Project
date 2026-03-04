@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-
-import mainbackground from './background.jpg'
-import {uniwersalStyles} from "./styles";
-import Classes from "./Classes";
-function Home({onNavigate}){
+function Home({setWidok}){
         return (
             <div style ={styles.glassCard}>
                     <header style ={styles.title}> Achieve Your Goals.</header>
                     <header style={styles.subtitle}>Why Choose Us?</header>
                     <header style ={styles.subtitle}>BECAUSE WE ARE MORE THAN JUST A GYM</header>
-                    We believe in variety. That’s why every pass includes unlimited access to <div style={styles.button} onClick={()=>onNavigate('Classes')}>our scheduled
+                    We believe in variety. That’s why every pass includes unlimited access to <div style={styles.button} onClick={()=>setWidok('Classes')}>our scheduled
                     group activities. </div><br/>Whether you're into high-intensity interval training, yoga, or pilates,
                     our professional instructors are here to guide you.
                 <br />

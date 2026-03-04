@@ -11,6 +11,37 @@ const config = {
     database: 'Silownia',
     options: { encrypt: false, trustServerCertificate: true }
 };
+app.get('/api/Customers',async(req,res)=>{
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request().query('SELECT P.ID,P.Name,P.Surname,P.Email,P.Login,M.PurchaseDate,M.StartDate,M.EndDate\n' +
+            'FROM Customers C LEFT JOIN Person P on P.ID = C.ID LEFT JOIN (\n' +
+            '    SELECT \n' +
+            '        *,\n' +
+            '        ROW_NUMBER() OVER (PARTITION BY CustomerID ORDER BY startDate DESC) as NumerZamowienia\n' +
+            '    FROM Memberships \n' +
+            ') as M on P.ID = M.CustomerID WHERE NumerZamowienia is null or NumerZamowienia = 1\n' +
+            'ORDER BY P.ID\n'
+        )
+        res.json(result.recordset);
+    }
+    catch(err)
+    {
+        res.status(500).json(err.message);
+    }
+});
+app.get('/api/Employees',async(req,res)=>
+{
+    try {
+        let pool = await sql.connect(config);
+        let result = await pool.request().query('SELECT P.ID,Name,Surname,Email,[Login],[Role],JobTitle,HireDate,HourlySalary FROM PERSON P RIGHT JOIN Employees E on E.ID = P.ID')
+        res.json(result.recordset);
+    }
+    catch(err)
+    {
+        res.status(500).json(err.message);
+    }
+});
 app.post('/api/Auth',async (req,res)=> {
     try {
 
@@ -101,7 +132,23 @@ app.put('/api/RegisterForClass/:id', async(req,res)=> {
 
     }
 );
+app.post('api/GetRegisterUsers',async(req,res)=>
+    {
+        try {
+            const {ScheduleID} = req.body;
+            const pool = await sql.connect(config);
+            const result = await pool.request()
+                .input('ScheduleID',sql.Int,ScheduleID)
+                .query('SELECT * FROM dbo.GetRegisteredUsers(@ScheduleID)');
+            res.json(result.recordset);
+        }
+        catch(err)
+        {
+            res.status(500).json({message: 'Bład serwera: '+ err.message});
+        }
 
+
+    });
 app.post('/api/GetAvailableTrainers',async(req,res)=> {
     try {
         const {date} = req.body;

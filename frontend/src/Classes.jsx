@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import  {uniwersalStyles,classStyles} from './styles.jsx';
 import drawCalendar from './calendar.jsx'
 import {ROLES} from './App'
-function Classes({userRole,setNotification,showNotification}) {
+function Classes({userRole,showNotification,currentUser}) {
     const [classForm, setClassForm] = useState({visible: false});
     const [userID, setUserID] = useState(1);
 
@@ -196,13 +196,12 @@ catch
         try {
             const response = await fetch(url, {
                 method: 'PUT',
-                // 1. Musisz powiedzieć, że wysyłasz JSON
+
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                // 2. Musisz zamienić dane na napis JSON i użyć klucza "CustomerID"
                 body: JSON.stringify({
-                    CustomerID: 20
+                    CustomerID: currentUser?.userID
                 })
             });
             if( response.ok)
@@ -228,7 +227,6 @@ catch
                 default :
                     showNotification("Server error","error");
                     setPopup({...popup,visible:false});
-
             }}
         catch(err){
             console.log("Blad sieci",err);
@@ -265,14 +263,13 @@ catch
                 <button
                     onClick={()=> {setYear(month===0 ? year-1 : year) ;setMonth(month === 0 ? 11 : month-1)  }}
                     style = {uniwersalStyles.menuButton}>{"<"}</button>
-
                 <button
                     onClick={()=>{setYear(month===11 ? year+1 : year) ; setMonth(month === 11 ? 0 : month+1)}}
                     style = {uniwersalStyles.menuButton}>{">"}</button>
             </div>
             <div style = {uniwersalStyles.gridContainer}>
                 {
-                    drawCalendar(month,year,classesLookup,setPopup,fetchTrainers,setClassForm,userID)
+                    drawCalendar(month,year,classesLookup,setPopup,fetchTrainers,setClassForm,currentUser)
                 }
                 {
                         classForm.visible && (<div style={{
@@ -351,9 +348,9 @@ catch
                                 }
                         </div>
                             {isEditing? <button onClick={handleSave}>Save</button>: null}
-                            { userRole < ROLES.EMPLOYEE ? (!isEditing? <button onClick={() => Register(popup.item)}>Register</button> : null) : null }
-                            {!isEditing? (userRole > ROLES.ADMIN ? <button onClick={()=>startEditing()}>Edit</button> : null) : null }
-                        {!isEditing? (userRole > ROLES.ADMIN  ? <button onClick={()=>handleDelete(popup.item)}>Delete</button>: null):null}
+                            { currentUser?.role < ROLES.EMPLOYEE ? (!isEditing? <button onClick={() => Register(popup.item)}>Register</button> : null) : null }
+                            {!isEditing? (currentUser?.role === ROLES.ADMIN ? <button onClick={()=>startEditing()}>Edit</button> : null) : null }
+                        {!isEditing? (currentUser?.role === ROLES.ADMIN  ? <button onClick={()=>handleDelete(popup.item)}>Delete</button>: null):null}
                         <button onClick={() => {setPopup({ ...popup, visible: false });setIsEditing(false);}}>Close</button>
                     </div>
                 )}

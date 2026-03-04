@@ -3,7 +3,7 @@ import {ROLES} from './App.jsx'
 import {uniwersalStyles} from "./styles"
 function Login({showNotification,setUserName,setCurrentUser,setWidok})
 {
-    const [formData,setFormData] = useState({Login:"",Password:""});
+    const [formData,setFormData] = useState({Login:"",user_secret_code:""});
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
     }
@@ -18,7 +18,7 @@ function Login({showNotification,setUserName,setCurrentUser,setWidok})
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({Login: formData.Login,Password: formData.Password})
+                body: JSON.stringify({Login: formData.Login,Password: formData.user_secret_code})
             })
             if ( response.ok) {
                 const data = await response.json();
@@ -71,16 +71,15 @@ function Login({showNotification,setUserName,setCurrentUser,setWidok})
             </div>
             <div style ={{padding:'5px'}}>
                 <header style = {styles.title}>Password</header>
-                <input type="password" name="Password" value={formData.Password} onChange={handleChange} alt = "Password" style = {styles.input}/>
+                <input type="password" name="user_secret_code" autoComplete="new-password" value={formData.user_secret_code} onChange={handleChange} alt = "user_secret_code" style = {styles.input}/>
             </div>
-            <button onClick={()=>handleSubmit()} style ={{width:'97.5%',alignSelf:'center'}}>SUBMIT</button>
+            <button type="submit" onClick={()=>handleSubmit()} style ={{width:'97.5%',alignSelf:'center'}}>SUBMIT</button>
             <button onClick={()=>handleLogOut()} style = {{width:'97.5%',alignSelf:'center'}}>LOG OUT</button>
         </div>
     );
 }
 const styles = {
     glassCard: {
-
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         backdropFilter: 'blur(10px)',
         padding: '20px',

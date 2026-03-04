@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import uniwersalStyles, {classStyles} from "./styles";
-export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassForm,userID) => {
+import {ROLES} from "./App"
+export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassForm,currentUser) => {
     const handleAddClass = (z)=> {
         fetchTrainers(z);
        setClassForm({visible:true,item:z})
@@ -73,7 +74,7 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
                                 <div style ={{alignSelf:'flex-end'}}>{z.time}</div>
                             </button>
                         ))}
-
+                    {currentUser?.role===ROLES.ADMIN && (today.getFullYear() < y || ( today.getFullYear() === y && today.getMonth() < m) ||(today.getMonth() === m && today.getDate() <= d)) ? (<button style={{alignSelf:'center',cursor:'pointer'}} onClick={(e)=>handleAddClass(`${year}-${monthString}-${dayString}`)}>+</button>) : null}
                 </div>
             </div>
         );
@@ -98,6 +99,7 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
                             </button>
                         ))
                     }
+
                 </div>
             </div>
         );
