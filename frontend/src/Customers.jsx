@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Customers.css';
 function Customers(){
+    const today = new Date().getTime();
     const [dane,setDane] = useState([]);
     useEffect(()=>{
         getData();
@@ -15,11 +16,21 @@ function Customers(){
             console.error("Blad polaczenia",error);
         }
     }
-    const today = new Date().getTime();
+    let activeMembers = 0;
+    for ( let i = 0;i<dane.length;i++)
+    {
+        if (dane[i].EndDate ){
+             if (new Date(dane[i].EndDate).getTime() >= today )
+             {
+                 activeMembers+=1;
+             }
+        }
+    }
     console.log(today)
     return (
-        <div style={styles.glassContainer} className="glass-container">
-        <table style = {styles.table}>
+        <div style = {{display:'flex'}}>
+            <div style={styles.glassContainer} className="glass-container">
+            <table style = {styles.table}>
             <thead>
             <tr>
                 <th style={styles.tableHeader}>ID</th>
@@ -58,16 +69,31 @@ function Customers(){
             </tbody>
         </table>
             </div>
+            <div style = {styles.statsBox}>
+                Total Users : {dane.length} <br/>
+                Active Members : {activeMembers}</div>
+        </div>
+
     );
 }
 const styles = {
+    statsBox:{
+        textAlign: 'center',
+        color:'#ffcc00',
+        //backgroundColor: 'rgba(122, 123, 5, 0.7)',
+        margin: '20px',
+        backdropFilter: 'blur(10px)',
+        borderRadius: '15px',
+        border: '1px solid #ffcc00',
+        padding: '20px'
+    },
     glassContainer: {
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
         backdropFilter: 'blur(10px)',
         borderRadius: '15px',
         border: '1px solid rgba(255, 255, 255, 0.1)',
         padding: '20px',
-
+        display:'flex',
         // KLUCZOWE ZMIANY:
         maxHeight: '600px',       // Ustawiasz sztywną wysokość okna
         overflowY: 'auto',        // Pojawi się suwak, gdy danych będzie za dużo
@@ -104,7 +130,6 @@ const styles = {
         width: '100%',
         borderCollapse: 'collapse',
         color: '#ffffff',
-
     }
 }
 export default Customers;

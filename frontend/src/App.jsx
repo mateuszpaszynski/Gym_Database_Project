@@ -24,7 +24,7 @@ function App() {
     });
     const [userName,setUserName]= useState("LOG IN");
     const [ currentUser,setCurrentUser] = useState(null);
-    const [widok,setWidok] = useState('Employees');
+    const [widok,setWidok] = useState('Customers');
     useEffect( () => {
         const savedUser = localStorage.getItem('gymUser');
         if (savedUser && savedUser!=="undefined") {
