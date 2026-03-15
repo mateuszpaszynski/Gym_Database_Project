@@ -3,13 +3,14 @@ const sql = require('mssql');
 const cors = require('cors');
 const app = express();
 app.use(express.json());
+require('dotenv').config();
 app.use(cors()); // To musi być, żeby React nie wywalał błędu
 const config = {
-    user: 'sa',
-    password: 'admin',
-    server: 'localhost',
-    database: 'Silownia',
-    options: { encrypt: false, trustServerCertificate: true }
+    user:process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,
+    database: process.env.DB_NAME,
+    options: { encrypt: true, trustServerCertificate: true }
 };
 app.get('/api/Customers',async(req,res)=>{
     try {
@@ -332,6 +333,7 @@ app.get('/api/Customers', async (req,res)=>{
        res.status(500).send(err.message);
    }
 });
-app.listen(5000, () => {
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
     console.log("✅ Serwer API wystartował na http://localhost:5000");
 });

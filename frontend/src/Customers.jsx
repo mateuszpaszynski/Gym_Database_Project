@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Customers.css';
-function Customers(){
+function
+Customers(){
     const today = new Date().getTime();
     const [dane,setDane] = useState([]);
     useEffect(()=>{
