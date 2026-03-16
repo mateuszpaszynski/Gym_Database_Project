@@ -1,339 +1,40 @@
+require('dotenv').config();
 const express = require('express');
-const sql = require('mssql');
+const {Pool} = require('pg');
 const cors = require('cors');
 const app = express();
+app.use(cors());
 app.use(express.json());
-require('dotenv').config();
-app.use(cors()); // To musi być, żeby React nie wywalał błędu
-const config = {
-    user:process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    server: process.env.DB_SERVER,
-    database: process.env.DB_NAME,
-    options: { encrypt: true, trustServerCertificate: true }
-};
-app.get('/api/Customers',async(req,res)=>{
-    try {
-        let pool = await sql.connect(config);
-        let result = await pool.request().query('SELECT P.ID,P.Name,P.Surname,P.Email,P.Login,M.PurchaseDate,M.StartDate,M.EndDate\n' +
-            'FROM Customers C LEFT JOIN Person P on P.ID = C.ID LEFT JOIN (\n' +
-            '    SELECT \n' +
-            '        *,\n' +
-            '        ROW_NUMBER() OVER (PARTITION BY CustomerID ORDER BY startDate DESC) as NumerZamowienia\n' +
-            '    FROM Memberships \n' +
-            ') as M on P.ID = M.CustomerID WHERE NumerZamowienia is null or NumerZamowienia = 1\n' +
-            'ORDER BY P.ID\n'
-        )
-        res.json(result.recordset);
-    }
-    catch(err)
-    {
-        res.status(500).json(err.message);
-    }
-});
-app.get('/api/Employees',async(req,res)=>
-{
-    try {
-        let pool = await sql.connect(config);
-        let result = await pool.request().query('SELECT P.ID,Name,Surname,Email,[Login],[Role],JobTitle,HireDate,HourlySalary FROM PERSON P RIGHT JOIN Employees E on E.ID = P.ID')
-        res.json(result.recordset);
-    }
-    catch(err)
-    {
-        res.status(500).json(err.message);
-    }
-});
-app.post('/api/Auth',async (req,res)=> {
-    try {
-
-        const {Login,Password} = req.body;
-        let pool = await sql.connect(config);
-        let result = await pool.request().
-                input('Login',sql.VarChar,Login)
-                .query('SELECT * FROM PERSON WHERE Login = @Login');
-           const user = result.recordset[0];
-
-            if (!user )
-            {
-                return res.status(404).json({success:false,message:'User not found'});
-            }
-            if (user.Password === Password)
-            {
-                res.json({success:true,role: user.Role,userID: user.ID,userName: user.Name});
-
-            }
-            else {
-                res.status(401).json({success: false,message:'Wrong password'});
-            }
-    }
-    catch(err)
-    {
-        res.status(500).send(err.message);
-    }
-
-
-});
-app.get('/api/PopularClasses', async (req, res) => {
-    try {
-        let pool = await sql.connect(config);
-        let result = await pool.request().query('SELECT * FROM PopularClasses')
-        res.json(result.recordset);
-    } catch (err) {
-        res.status(500).send(err.message);
-    }
-});
-app.post('/api/AddClass',async(req,res) => {
-    try {
-        const {ScheduleID,ClassID,ClassName,Max_slots,EmployeeID,Trainer,time,durationTime,StartTime} = req.body;
-        let pool = await sql.connect(config);
-    await pool.request()
-        .input('ClassID', sql.Int, ClassID)
-        .input('Max_slots', sql.Int, Max_slots)
-        .input('EmployeeID', sql.Int, EmployeeID)
-        .input('StartTime', sql.VarChar, StartTime)
-        .input('durationTime', sql.Int, durationTime)
-        .execute('dbo.AddClass')
-        res.json({message:'Class added'});
-}
-catch (err)
-{
-    console.log(err);
-    res.status(500).json({message:err.message});
-}
-});
-app.put('/api/RegisterForClass/:id', async(req,res)=> {
-        try {
-            const ScheduleID = req.params.id;
-            const {CustomerID} = req.body;
-
-            let pool = await sql.connect(config);
-            let result = await pool.request()
-                .input('ScheduleID',sql.Int,ScheduleID)
-                .input('CustomerID',sql.Int,CustomerID)
-                .execute('dbo.RegisterForClass')
-            res.status(201).json('Registered successfully')
-        } catch (err) {
-            console.log("Pelny obiekt bledu: ",err);
-            console.log('Nr: ',err.number);
-            if ( !err.message ) {
-
-                return res.status(409).json({ message: "Brak wolnych miejsc na te zajęcia!" });
-            }
-
-            if (err.message.includes('PRIMARY KEY') || err.message.includes('Violation of PRIMARY KEY')) {
-                return res.status(404).json({ message: "Już jesteś zapisany na te zajęcia." });
-            }
-            if (err.number === 547 ||err.message.includes('FOREIGN KEY') || err.message.includes('Violation of FOREIGN KEY'))
-            {
-                return res.status(422).json({message: "Pracownicy nie muszą zapisywać się na zajęcia"})
-            }
-
-            res.status(500).json({message: 'Błąd serwera: ' + err.message});
-        }
-
-    }
-);
-app.post('api/GetRegisterUsers',async(req,res)=>
-    {
-        try {
-            const {ScheduleID} = req.body;
-            const pool = await sql.connect(config);
-            const result = await pool.request()
-                .input('ScheduleID',sql.Int,ScheduleID)
-                .query('SELECT * FROM dbo.GetRegisteredUsers(@ScheduleID)');
-            res.json(result.recordset);
-        }
-        catch(err)
-        {
-            res.status(500).json({message: 'Bład serwera: '+ err.message});
-        }
-
-
-    });
-app.post('/api/GetAvailableTrainers',async(req,res)=> {
-    try {
-        const {date} = req.body;
-        const pool = await sql.connect(config);
-        const result = await pool.request()
-            .input('date',sql.DateTime,date)
-            .query('SELECT * FROM dbo.GetAvailableTrainers(@date)');
-        res.json(result.recordset);
-    }catch(err)
-    {
-        res.status(500).send(err.message);
-    }
-});
-app.get('/api/GetClassTypes',async(req,res) => {
-    try {
-        const pool = await sql.connect(config);
-        let result = await pool.request().query('SELECT * FROM ClassTypes')
-        res.json(result.recordset);
-    }
-    catch(err)
-    {
-        res.status(500).send(err.message);
-    }
-    });
-app.delete('/api/DeleteClass/:id',async(req,res)=>{
-    try {
-        const ScheduleID = req.params.id;
-        const pool = await sql.connect(config);
-        const result = await pool.request()
-            .input('ScheduleID',sql.Int,ScheduleID)
-            .execute('dbo.DeleteClass');
-        res.status(202).json({message: 'Class Deleted'});
-    }
-    catch(err)
-    {
-        res.status(500).send(err.message);
-    }
-});
-app.put('/api/UpdateClass',async(req,res) =>{
-    try {
-        const {ScheduleID,ClassID,ClassName,Max_slots,EmployeeID,Trainer,time,durationTime,StartTime} = req.body;
-        let pool = await sql.connect(config);
-        await pool.request()
-            .input('ScheduleID',sql.Int,ScheduleID)
-            .input('ClassID',sql.Int,ClassID)
-            .input('Max_slots',sql.Int,Max_slots)
-            .input('EmployeeID',sql.Int,EmployeeID)
-            .input('StartTime',sql.VarChar,StartTime)
-            .input('durationTime',sql.Int,durationTime)
-            .execute('dbo.UpdateClass');
-        res.status(200).json({message:"Class Updated"});
-
-    }catch(err)
-    {
-        console.log(err);
-        res.status(500).json({message: err.message});
-    }
-
-
-
-});
-app.get('/api/Classes',async(req,res) =>{
-    try{
-        let pool = await sql.connect(config);
-        let result = await pool.request().query('SELECT * FROM dbo.GetClassSchedule ORDER BY StartTime');
-        res.json(result.recordset);
-    }catch(err)
-    {
-        res.status(500).send(err.message);
-    }
-
-});
-app.get('/api/Services',async (req,res) =>{
-    try{
-    let pool = await sql.connect(config);
-    let result = await pool.request().query('Select * FROM [Services]')
-    res.json(result.recordset)
-    }
-    catch(err){
-        res.status(500).send(err.message);
-    }
-}
-);
-app.get('/api/Payouts', async (req,res) => {
-        try {
-            const month = req.body.month;
-            let pool = await sql.connect(config);
-            let result = await pool.request()
-                .input('MonthParam',sql.Int,month)
-                .query('SELECT * FROM dbo.GetMonthlyPayouts(@MonthParam)');
-                res.json(result.recordset);
-        }
-        catch (err) {
-            res.status(574).send(err.message);
-        }
-    }
-);
-app.delete('/api/DeleteShift/:id',async(req,res) =>{
-    try {
-        const ShiftID = req.params.id;
-        let pool = await sql.connect(config);
-        let result = await pool.request()
-            .input('ShiftID',sql.Int,ShiftID)
-            .execute('dbo.DeleteShift');
-        res.json({message :'Zmiana usunieta'});
-    }
-    catch(err){
-        res.status(500).send(err.message);
-    }
-});
-app.put('/api/UpdateShift',async(req,res) => {
-    try {
-        const {ShiftID,EmployeeID,RoomID,NewStartTime,NewDurationTime} = req.body;
-        let pool = await sql.connect(config);
-        let result = await pool.request()
-            .input('ShiftID',sql.Int,ShiftID)
-            .input('EmployeeID',sql.Int,EmployeeID)
-            .input('RoomID',sql.Int,RoomID)
-            .input('NewStartTime',sql.DateTime,NewStartTime)
-            .input('NewDurationTime',sql.Int,NewDurationTime)
-            .execute('dbo.UpdateShift');
-        res.json({message: "Shift updated successfully"});
-    }
-    catch(err)
-    {
-        res.status(500).send(err.message);
-    }
-});
-app.get('/api/WorkShifts',async(req,res)=>{
-    try {
-        let pool = await sql.connect(config);
-        let result = await pool.request().query('Select * FROM WorkShifts');
-        res.json(result.recordset);
-    }
-    catch(err){
-        res.status(500).send(err.message);
-    }
-} );
-app.post('/api/AddShift',async(req,res) => {
-    try {
-        const {EmployeeID,RoomID,StartTime,durationTime} = req.body;
-        let pool = await sql.connect(config);
-        let result = await pool.request()
-            .input('EmployeeID',sql.Int,EmployeeID)
-            .input('RoomID',sql.Int,RoomID)
-            .input('StartTime',sql.DateTime,StartTime)
-            .input('durationTime',sql.Int,durationTime)
-            .execute('dbo.AddShift');
-            res.status(201).json({message : 'ShiftAdded'});
-    }
-    catch(err){
-        res.status(500).send(err.message);
-    }
-});
-app.post('/api/AddCustomer', async (req,res) =>{
-    try {
-        const {name,surname,pesel,email} = req.body;
-
-        let pool = await sql.connect(config);
-        let result = await pool.request()
-            .input('name',sql.NvarChar,name)
-            .input('surname',sql.NvarChar,surname)
-            .input('pesel',sql.VarChar,pesel)
-            .input('email',sql.NvarChar,emial)
-            .execute('AddCustomer');
-        res.status(201).json({message : "Customer added successfully"});
-    }
-    catch(err)
-    {
-        res.status(500).send(err.message);
-    }
-});
-app.get('/api/Customers', async (req,res)=>{
-   try {
-       let pool = await sql.connect(config);
-       let result = await pool.request().query('SELECT * FROM CUSTOMERS');
-       res.json(result.recordset);
-   }
-   catch(err)
-   {
-       res.status(500).send(err.message);
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_URL_HOST,
+    database:process.env.DB_NAME,
+    password:process.env.DB_PASSWORD,
+    port: parseInt(process.env.DB_PORT),
+    ssl:{
+       rejectUnauthorized : false
    }
 });
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
-    console.log("✅ Serwer API wystartował na http://localhost:5000");
-});
+pool.connect((err)=>{
+    if (err) {
+        console.log('Connection failed',err.message);
+    }
+    else {
+        console.log('Connected');
+    }
+})
+const PORT = process.env.PORT || 5432;
+app.listen(PORT,()=>console.log(`Server slucha na porcie ${PORT}`));
+
+app.get('/api/Customers',async (req,res)=>{
+    try {
+            const sqlQuery = 'SELECT P."id",P."name",P."surname",P."email",P."login" FROM "customers" as C LEFT JOIN "person" as P on P."id" = C."id"'
+            const result = await pool.query(sqlQuery);
+            res.status(200).json(result.rows);
+    }
+    catch(err)
+    {
+        console.error("Blad pobierania",error.message);
+        res.status(500).json({error :'server error'});
+    }
+})

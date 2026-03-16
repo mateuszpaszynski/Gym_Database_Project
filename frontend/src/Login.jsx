@@ -14,7 +14,7 @@ function Login({showNotification,setUserName,setCurrentUser,setWidok})
                 showNotification("You are already logged in",'error');
                 return;
             }
-            const response = await fetch('http://localhost:5000/api/Auth',
+            const response = await fetch('http://localhost:5432/api/Auth',
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},

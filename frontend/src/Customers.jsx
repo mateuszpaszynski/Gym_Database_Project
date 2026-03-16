@@ -9,7 +9,7 @@ Customers(){
     },[]);
     const getData = async() =>{
         try {
-            const response = await fetch('http://localhost:5000/api/Customers');
+            const response = await fetch('http://localhost:5432/api/Customers');
             const data = await response.json();
             setDane(data);
         } catch(error)
@@ -50,11 +50,11 @@ Customers(){
                     (dane.map((person)=>(
 
                         <tr key ={person.ID} style ={{backgroundColor: new Date(person.EndDate).getTime() >= today ? 'rgba(39, 174, 96, 0.1)' : 'rgba(231, 76, 60, 0.1)'}}>
-                            <td style = {styles.td}>{person.ID}</td>
-                            <td style = {styles.td}>{person.Name}</td>
-                            <td style = {styles.td}>{person.Surname}</td>
-                            <td style = {styles.td}>{person.Email ? person.Email : '-'}</td>
-                            <td style = {styles.td}>{person.Login ? person.Login : '-'}</td>
+                            <td style = {styles.td}>{person.id}</td>
+                            <td style = {styles.td}>{person.name}</td>
+                            <td style = {styles.td}>{person.surname}</td>
+                            <td style = {styles.td}>{person.email ? person.email : '-'}</td>
+                            <td style = {styles.td}>{person.login ? person.login : '-'}</td>
                             <td style = {styles.td}>{ person.PurchaseDate ? person.PurchaseDate.split('T')[0] : '-'}</td>
                             <td style = {styles.td}>{person.EndDate ? person.EndDate.split('T')[0] : '-'}</td>
                             <td style={styles.td}>
