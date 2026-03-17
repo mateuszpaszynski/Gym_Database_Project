@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Customers.css';
 function
 Customers(){
+    const url = import.meta.env.VITE_API_URL
     const today = new Date().getTime();
     const [dane,setDane] = useState([]);
     useEffect(()=>{
@@ -9,7 +10,7 @@ Customers(){
     },[]);
     const getData = async() =>{
         try {
-            const response = await fetch('http://localhost:5432/api/Customers');
+            const response = await fetch(`${url}/Customers`);
             const data = await response.json();
             setDane(data);
         } catch(error)

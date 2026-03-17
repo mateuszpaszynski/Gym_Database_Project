@@ -3,6 +3,7 @@ import  {uniwersalStyles,classStyles} from './styles.jsx';
 import drawCalendar from './calendar.jsx'
 import {ROLES} from './App'
 function Classes({userRole,showNotification,currentUser}) {
+    const url = import.meta.env.VITE_API_URL
     const [classForm, setClassForm] = useState({visible: false});
     const [userID, setUserID] = useState(1);
 
@@ -10,18 +11,19 @@ function Classes({userRole,showNotification,currentUser}) {
     const [availableTrainers, setAvailableTrainers] = useState([]);
     const fetchTrainers = async (dateString) => {
         try {
-            const res = await fetch('http://localhost:5000/api/GetAvailableTrainers', {
+            const res = await fetch(`${url}/GetAvailableTrainers` /*, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({date: dateString})
-            });
+            }*/);
             const data = await res.json();
             setAvailableTrainers(data);
-            if (data && data.length > 0) {
+            console.log(data[0]);
+            if (data && data.rows.length > 0) {
                 setFormData(prev => ({
                     ...prev,
-                    Trainer: data[0].Trainer,
-                    EmployeeID: data[0].ID
+                    Trainer: data[0].name + data[0].surname,
+                    EmployeeID: data[0].id
                 }));
             }
         } catch (error) {
@@ -31,7 +33,7 @@ function Classes({userRole,showNotification,currentUser}) {
     const [availableClasses, setAvailableClasses] = useState([]);
     useEffect(() => {
         const fetchLookups = async () => {
-            const res = await fetch('http://localhost:5000/api/GetClassTypes')
+            const res = await fetch(`${url}/GetClassTypes`)
             const data = await res.json();
             setAvailableClasses(data);
         };
@@ -75,7 +77,7 @@ function Classes({userRole,showNotification,currentUser}) {
             return;
         }
         try {
-            const response = await fetch('http://localhost:5000/api/DeleteClass/' + item.ScheduleID, {
+            const response = await fetch(`${url}/DeleteClass/` + item.ScheduleID, {
                 method: 'DELETE',
             })
             if (response.ok) {
@@ -97,7 +99,7 @@ function Classes({userRole,showNotification,currentUser}) {
     };
     const handleSave = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/UpdateClass', {
+            const response = await fetch(`${url}/UpdateClass`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(formData)
@@ -118,7 +120,7 @@ function Classes({userRole,showNotification,currentUser}) {
     const [dane, setDane] = useState([]);
     const getData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/Classes')
+            const response = await fetch(`${url}/Classes`)
             const data = await response.json();
             console.log("tutaj sa dane: ", data);
             setDane(data);
@@ -154,7 +156,7 @@ function Classes({userRole,showNotification,currentUser}) {
     const AddClass = async () => {
         formData.StartTime = `${classForm.item}T${formData.time}:00`;
         try {
-            const response = await fetch('http://localhost:5000/api/AddClass',
+            const response = await fetch(`${url}/api/AddClass`,
                 {
                     method: 'POST',
                     headers: {
@@ -192,7 +194,7 @@ catch
             return;
         }
         const idZajec = item.ScheduleID;
-        const url =  'http://localhost:5000/api/RegisterForClass/' + idZajec;
+        const url =  `${url}/RegisterForClass/` + idZajec;
         try {
             const response = await fetch(url, {
                 method: 'PUT',
@@ -287,16 +289,16 @@ catch
                         position: 'fixed',
                         zIndex: 2000    }}>
                         <label>ClassID</label>
-                        <select name="ClassID" value={formData.ClassID} onChange={handleChange}>
+                        <select name="classid" value={formData.classid} onChange={handleChange}>
                             {
-                                availableClasses.map((c)=>(<option key={c.ClassID} value={c.ClassID}>{c.ClassName}</option>))
+                                availableClasses.map((c)=>(<option key={c.classid} value={c.classid}>{c.classname}</option>))
                             }
                         </select>
                         <label>EmployeeID</label>
-                        <select name="EmployeeID" value={formData.EmployeeID} onChange={handleChange}>
+                        <select name="employeeid" value={formData.EmployeeID} onChange={handleChange}>
                             {
-                                    availableTrainers.map((t) => (<option key={t.ID} value={t.ID}>
-                                    {t.Trainer}</option>))
+                                    availableTrainers.map((t) => (<option key={t.id} value={t.id}>
+                                    {t.name + ' '+ t.surname}</option>))
                             }
                         </select>
                         <label>durationTime</label>
@@ -331,7 +333,7 @@ catch
                                 {isEditing ? (
                                     <select name="EmployeeID" value={formData.EmployeeID} onChange={handleChange}>
                                             {
-                                                availableTrainers.map((t) => (<option key={t.ID} value={t.ID}>
+                                                availableTrainers.map((t) => (<option key={t.id} value={t.ID}>
                                                 {t.Trainer}</option>)) }
                                     </select>
                                     ) : (<span>with: {popup.item.Trainer}</span>)}

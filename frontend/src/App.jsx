@@ -30,7 +30,7 @@ function App() {
         if (savedUser && savedUser!=="undefined") {
             const user = JSON.parse(savedUser);
             setCurrentUser(user);
-            setUserName(user.userName);
+            setUserName(user.name);
         }
     },[]);
     const showNotification = (msg, type = 'success') => {

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 function Employees(){
+    const url = import.meta.env.VITE_API_URL
     const [dane,setDane] = useState([]);
     useEffect(()=>{
         getData();
     },[]);
     const getData = async() =>{
         try {
-            const response = await fetch('http://localhost:5000/api/Employees');
+            const response = await fetch(`${url}/Employees`);
             const data = await response.json();
             setDane(data);
         } catch(error)
@@ -35,16 +36,16 @@ function Employees(){
                 {
                      dane.length > 0 ?
                  (dane.map((person)=>(
-                     <tr key ={person.ID}>
-                         <td style = {styles.td}>{person.ID}</td>
-                         <td style = {styles.td}>{person.Name}</td>
-                         <td style = {styles.td}>{person.Surname}</td>
-                         <td style = {styles.td}>{person.Email ? person.Email : '-'}</td>
-                         <td style = {styles.td}>{person.Login ? person.Login : '-'}</td>
-                         <td style = {styles.td}>{person.Role ? person.Role : 0 }</td>
-                         <td style = {styles.td}>{person.JobTitle}</td>
-                         <td style = {styles.td}>{person.HireDate ? person.HireDate.split('T')[0] : ' - '}</td>
-                         <td style = {styles.td}>{person.HourlySalary ? person.HourlySalary+' zł/h' : null}</td>
+                     <tr key ={person.id}>
+                         <td style = {styles.td}>{person.id}</td>
+                         <td style = {styles.td}>{person.name}</td>
+                         <td style = {styles.td}>{person.surname}</td>
+                         <td style = {styles.td}>{person.email ? person.email : '-'}</td>
+                         <td style = {styles.td}>{person.login ? person.login : '-'}</td>
+                         <td style = {styles.td}>{person.role ? person.role : 0 }</td>
+                         <td style = {styles.td}>{person.jobtitle}</td>
+                         <td style = {styles.td}>{person.hiredate ? person.hiredate.split('T')[0] : ' - '}</td>
+                         <td style = {styles.td}>{person.hourlysalary ? person.hourlysalary+' zł/h' : null}</td>
                     </tr>
                  ))) : null
                 }

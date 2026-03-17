@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 function Offer(){
+    const url = import.meta.env.VITE_API_URL
     const [dane,setDane] = useState([]);
     const getData = async () =>{
         try {
-            const response = await fetch('http://localhost:5000/api/Services');
+            const response = await fetch(`${url}/Services`);
             const data = await response.json();
             setDane(data);
         } catch(error)
@@ -22,8 +23,8 @@ function Offer(){
                 {
                     dane.map((s)=><div style ={styles.offerItem} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.15)'}
                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)'}>
-                        <div style ={styles.itemTitle}> {s.ServiceName}</div>
-                        <div style = {styles.itemDesc}>{s.Price}.00 zł</div>
+                        <div style ={styles.itemTitle}> {s.servicename}</div>
+                        <div style = {styles.itemDesc}>{s.price} zł</div>
 
                     </div>)
                 }

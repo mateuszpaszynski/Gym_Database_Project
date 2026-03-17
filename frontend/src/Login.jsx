@@ -3,6 +3,7 @@ import {ROLES} from './App.jsx'
 import {uniwersalStyles} from "./styles"
 function Login({showNotification,setUserName,setCurrentUser,setWidok})
 {
+    const url = import.meta.env.VITE_API_URL
     const [formData,setFormData] = useState({Login:"",user_secret_code:""});
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
@@ -14,19 +15,21 @@ function Login({showNotification,setUserName,setCurrentUser,setWidok})
                 showNotification("You are already logged in",'error');
                 return;
             }
-            const response = await fetch('http://localhost:5432/api/Auth',
+            const response = await fetch(`${url}/Auth`,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({Login: formData.Login,Password: formData.user_secret_code})
             })
             if ( response.ok) {
+
                 const data = await response.json();
+                console.log(data)
                 localStorage.setItem('gymUser',JSON.stringify(data));
                 setCurrentUser(data);
                 setWidok('Home');
-                showNotification("Hello " + data.userName);
-                setUserName(data.userName);
+                showNotification("Hello " + data.name);
+                setUserName(data.name);
             }
             else {
                 switch(response.status)
