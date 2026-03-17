@@ -10,7 +10,7 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
         const rect = Class.target.getBoundingClientRect();
         let newx = rect.right+10;
         let newy = rect.top + 150 < window.innerHeight ? rect.top - 40 : rect.top - 100;
-        fetchTrainers(z.StartTime);
+        fetchTrainers();
         setPopup({
             visible:true,
             x:newx,
@@ -46,8 +46,8 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
                     {
                         zajeciategodnia.map(z => (
                             <button onClick={(e)=> handleClick(e,z)}
-                                    style ={classStyles[z.ClassID]}>
-                                <div>{z.ClassName === 'Full Body Workout' ? 'FB Workout' : z.ClassName} </div>
+                                    style ={classStyles[z.classid]}>
+                                <div>{z.classname === 'Full Body Workout' ? 'FB Workout' : z.classname} </div>
                                 <div style ={{alignSelf:'flex-end'}}>{z.time}</div>
                             </button>
                         ))
@@ -69,8 +69,8 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
                     {
                         zajeciategodnia.map(z => (
                             <button onClick={(e)=> handleClick(e,z)}
-                                    style ={classStyles[z.ClassID]}>
-                                <div>{z.ClassName === 'Full Body Workout' ? 'FB Workout' : z.ClassName} </div>
+                                    style ={classStyles[z.classid]}>
+                                <div>{z.classname === 'Full Body Workout' ? 'FB Workout' : z.classname} </div>
                                 <div style ={{alignSelf:'flex-end'}}>{z.time}</div>
                             </button>
                         ))}
@@ -93,8 +93,8 @@ export const drawCalendar = (m,y,classesLookup,setPopup,fetchTrainers,setClassFo
                     {
                         zajeciategodnia.map(z => (
                             <button onClick={(e)=> handleClick(e,z)}
-                                    style ={classStyles[z.ClassID]}>
-                                <div>{z.ClassName === 'Full Body Workout' ? 'FB Workout' : z.ClassName}</div>
+                                    style ={classStyles[z.classid]}>
+                                <div>{z.classname === 'Full Body Workout' ? 'FB Workout' : z.classname}</div>
                                 <div style ={{alignSelf:'flex-end'}}>{z.time}</div>
                             </button>
                         ))

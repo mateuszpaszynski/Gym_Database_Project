@@ -5,7 +5,6 @@ import {ROLES} from './App'
 function Classes({userRole,showNotification,currentUser}) {
     const url = import.meta.env.VITE_API_URL
     const [classForm, setClassForm] = useState({visible: false});
-    const [userID, setUserID] = useState(1);
 
     const [isEditing, setIsEditing] = useState(false);
     const [availableTrainers, setAvailableTrainers] = useState([]);
@@ -18,12 +17,11 @@ function Classes({userRole,showNotification,currentUser}) {
             }*/);
             const data = await res.json();
             setAvailableTrainers(data);
-            console.log(data[0]);
-            if (data && data.rows.length > 0) {
+            if (data && data.length > 0) {
                 setFormData(prev => ({
                     ...prev,
-                    Trainer: data[0].name + data[0].surname,
-                    EmployeeID: data[0].id
+                    trainer: data[0].name + data[0].surname,
+                    employeeid: data[0].id
                 }));
             }
         } catch (error) {
@@ -40,29 +38,29 @@ function Classes({userRole,showNotification,currentUser}) {
         fetchLookups();
     }, []);
     const [formData, setFormData] = useState({
-        ClassID:1,
-        Max_slots:'10',
-        durationTime:'60',
+        classid:1,
+        max_slots:'10',
+        durationtime:'60',
         time:'10:00',
 
     });
     const startEditing = () => {
-        if (popup.item.StartTime < today) {
+        if (popup.item.starttime < today) {
             showNotification("You can't edit classes that already happened", 'error');
             setPopup({...popup, visible: false});
             return;
         }
         showNotification('Editing');
         setFormData({
-            ScheduleID: popup.item.ScheduleID,
-            ClassID: popup.item.ClassID,        // Ważne: ID, nie nazwa
-            ClassName: popup.item.ClassName, // Do wyświetlania
-            Max_slots: popup.item.Max_slots,
-            EmployeeID: popup.item.EmployeeID,
-            Trainer: popup.item.Trainer,
+            scheduleid: popup.item.scheduleid,
+            classid: popup.item.classid,        // Ważne: ID, nie nazwa
+            classname: popup.item.classname, // Do wyświetlania
+            max_slots: popup.item.max_slots,
+            employeeid: popup.item.employeeid,
+            trainer: popup.item.trainer,
             time: popup.item.time,    // Format: YYYY-MM-DDTHH:mm:ss
-            durationTime: popup.item.durationTime,
-            StartTime: popup.item.StartTime
+            durationtime: popup.item.durationtime,
+            starttime: popup.item.starttime
         });
         setIsEditing(true);
     }
@@ -70,14 +68,14 @@ function Classes({userRole,showNotification,currentUser}) {
         setFormData({...formData, [e.target.name]: e.target.value});
     }
     const handleDelete = async (item) => {
-        const registered = item.Registered;
-        if (item.StartTime < today) {
+        const registered = item.registered;
+        if (item.starttime < today) {
             showNotification("You can't delete class from the past", 'error');
             setPopup({...popup, visible: false});
             return;
         }
         try {
-            const response = await fetch(`${url}/DeleteClass/` + item.ScheduleID, {
+            const response = await fetch(`${url}/DeleteClass/` + item.scheduleid, {
                 method: 'DELETE',
             })
             if (response.ok) {
@@ -99,10 +97,23 @@ function Classes({userRole,showNotification,currentUser}) {
     };
     const handleSave = async () => {
         try {
+            const dateObj = new Date(formData.starttime);
+            const year = dateObj.getFullYear();
+            const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const day = String(dateObj.getDate()).padStart(2, '0');
+            const hours = String(dateObj.getHours()).padStart(2, '0');
+            const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+
+            const manualString = `${year}-${month}-${day} ${hours}:${minutes}:00`;
+
+            const dataToUpdate = {
+                ...formData,
+                starttime: manualString // Wyśle np. "2026-03-17 15:00:00"
+            };
             const response = await fetch(`${url}/UpdateClass`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(formData)
+                body: JSON.stringify(dataToUpdate)
             });
             if (response.ok) {
                 showNotification("Zaktualizowano!", "success");
@@ -135,7 +146,7 @@ function Classes({userRole,showNotification,currentUser}) {
     const classesLookup = {};
     for (let i = 0; i < dane.length; i++) //ustawia slownik zajec potem wyszukiwanie O(1)
     {
-        const d = new Date(dane[i].StartTime);
+        const d = new Date(dane[i].starttime);
         const klucz = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 
         if (!classesLookup[klucz]) {
@@ -145,18 +156,18 @@ function Classes({userRole,showNotification,currentUser}) {
     }
     const handleTimeChange = (e) => {
         const newTime = e.target.value;
-        const dateOnly = formData.StartTime.split('T')[0];
+        const dateOnly = formData.starttime.split('T')[0];
         const newStartTime = `${dateOnly}T${newTime}:00`;
         setFormData({
             ...formData,
             time: newTime,
-            StartTime: newStartTime,
+            starttime: newStartTime,
         })
     }
     const AddClass = async () => {
-        formData.StartTime = `${classForm.item}T${formData.time}:00`;
+        formData.starttime = `${classForm.item}T${formData.time}:00`;
         try {
-            const response = await fetch(`${url}/api/AddClass`,
+            const response = await fetch(`${url}/AddClass`,
                 {
                     method: 'POST',
                     headers: {
@@ -187,23 +198,22 @@ catch
             setPopup({...popup, visible: false});
             return;
         }
-        if (item.StartTime < today)
+        if (item.starttime < today)
         {
             showNotification("You can't register for classes in the past",'error');
             setPopup({...popup,visible:false});
             return;
         }
-        const idZajec = item.ScheduleID;
-        const url =  `${url}/RegisterForClass/` + idZajec;
+        const idZajec = item.scheduleid;
+        const l =  `${url}/RegisterForClass/` + idZajec;
         try {
-            const response = await fetch(url, {
-                method: 'PUT',
-
+            const response = await fetch(l, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    CustomerID: currentUser?.userID
+                    id: currentUser?.id
                 })
             });
             if( response.ok)
@@ -295,14 +305,14 @@ catch
                             }
                         </select>
                         <label>EmployeeID</label>
-                        <select name="employeeid" value={formData.EmployeeID} onChange={handleChange}>
+                        <select name="employeeid" value={formData.employeeid} onChange={handleChange}>
                             {
                                     availableTrainers.map((t) => (<option key={t.id} value={t.id}>
-                                    {t.name + ' '+ t.surname}</option>))
+                                    {t.name +' '+ t.surname}</option>))
                             }
                         </select>
                         <label>durationTime</label>
-                        <input type="number"  name="durationTime" value={formData.durationTime} min="45" max="120" step="5" onChange={handleChange}></input>
+                        <input type="number"  name="durationtime" value={formData.durationtime} min="45" max="120" step="5" onChange={handleChange}></input>
                         <label>StartTime</label>
                         <select name="time" value={formData.time} onChange={handleChange}>
                         {
@@ -310,13 +320,13 @@ catch
                         }
                     </select>
                         <label>Max_slots</label>
-                        <input type="number" name="Max_slots" value = {formData.Max_slots} min="10" max="25" step="1" onChange={handleChange}></input>
+                        <input type="number" name="max_slots" value = {formData.max_slots} min="10" max="25" step="1" onChange={handleChange}></input>
                         <button style={{justifySelf:'flex-end'}} onClick={AddClass}>Add Class</button>
                         <button style={{justifySelf:'flex-end'}}  onClick={()=>{setClassForm({visible:false})}}>Close</button>
                     </div>)
                 }
                 {
-                    popup.visible && (<div style={{...popup ,...classStyles[popup.item.ClassID],justifyContent:'flex-start',flexDirection:'column',
+                    popup.visible && (<div style={{...popup ,...classStyles[popup.item.classid],justifyContent:'flex-start',flexDirection:'column',
                             left: popup.x,
                             top: popup.y,
                             position:'fixed',
@@ -324,29 +334,29 @@ catch
                             width:'auto'}}>
                             <div style = {{display:'flex',flexDirection:'column',marginLeft:'2px'}}>
                                 {isEditing ? (
-                                    <select name="ClassID" value={formData.ClassID} onChange={handleChange}>
+                                    <select name="classid" value={formData.classid} onChange={handleChange}>
                                         {
-                                            availableClasses.map((c)=>(<option key={c.ClassID} value={c.ClassID}>{c.ClassName}</option>))
+                                            availableClasses.map((c)=>(<option key={c.classid} value={c.classid}>{c.classname}</option>))
                                         }
                                     </select>
-                                    ) : <span>{popup.item.ClassName}</span>}
+                                    ) : <span>{popup.item.classname}</span>}
                                 {isEditing ? (
-                                    <select name="EmployeeID" value={formData.EmployeeID} onChange={handleChange}>
+                                    <select name="employeeid" value={formData.employeeid} onChange={handleChange}>
                                             {
-                                                availableTrainers.map((t) => (<option key={t.id} value={t.ID}>
-                                                {t.Trainer}</option>)) }
+                                                availableTrainers.map((t) => (<option key={t.id} value={t.id}>
+                                                {t.name + ' '+ t.surname}</option>)) }
                                     </select>
-                                    ) : (<span>with: {popup.item.Trainer}</span>)}
+                                    ) : (<span>with: {popup.item.trainer}</span>)}
                                 {isEditing? (
-                                    <input type="number" name="durationTime" value ={formData.durationTime} onChange={handleChange} min={"45"} max={"120"} step="5"/>)   :
-                                    (<span>duration: {popup.item.durationTime} minutes</span>)}
+                                    <input type="number" name="durationtime" value ={formData.durationtime} onChange={handleChange} min={"45"} max={"120"} step="5"/>)   :
+                                    (<span>duration: {Number(popup.item.durationtime)} minutes</span>)}
                                 {isEditing? (<select name="time" value={formData.time} onChange={handleTimeChange}>
                                         {
                                             timeOptions.map((t)=>(<option>{t}</option>))
                                         }
                                     </select>):(<span>at: {popup.item.time}</span>)}
-                                { isEditing? (<input type="number" name="Max_slots" value={formData.Max_slots} onChange={handleChange} min={"10"} max={"25"} step="1"/>)
-                                    :(<span>registered: {popup.item.Registered}/{popup.item.Max_slots}</span>)
+                                { isEditing? (<input type="number" name="max_slots" value={formData.max_slots} onChange={handleChange} min={"10"} max={"25"} step="1"/>)
+                                    :(<span>registered: {popup.item.registered}/{popup.item.max_slots}</span>)
                                 }
                         </div>
                             {isEditing? <button onClick={handleSave}>Save</button>: null}
