@@ -6,14 +6,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_URL_HOST,
-    database:process.env.DB_NAME,
-    password:process.env.DB_PASSWORD,
-    port: parseInt(process.env.DB_PORT),
-    ssl:{
-       rejectUnauthorized : false
-   }
+connectionString: process.env.DATABASE_URL,
+ssl:false,
+
 });
 const isDev = process.env.NODE_ENV === 'development';
 pool.connect((err)=>{
